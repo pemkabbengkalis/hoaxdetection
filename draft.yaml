@@ -1,0 +1,25 @@
+models:
+  Domain:
+    name: string
+    extension: string
+    description: string
+    type: enum(mediaonline, searchengine, medsos)
+    relationships:
+      hasMany: Result
+
+  Result:
+    type: enum(hoax, fact)
+    keyword: string
+    url: string
+    target_account: string nullable
+    capture: string nullable
+
+    domain_id: id foreign
+    validator_id: id foreign
+    team_id: id foreign
+
+    validated_at: timestamp nullable
+    published_at: timestamp nullable
+    status: enum(new, validated, unvalidated)
+
+

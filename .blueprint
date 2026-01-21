@@ -1,0 +1,11 @@
+created:
+    - database/factories/DomainFactory.php
+    - database/factories/ResultFactory.php
+    - database/migrations/2026_01_21_041135_create_domains_table.php
+    - database/migrations/2026_01_21_041136_create_results_table.php
+    - app/Models/Domain.php
+    - app/Models/Result.php
+models:
+    User: { name: string, email: string, email_verified_at: 'datetime nullable', password: string, remember_token: 'string nullable' }
+    Domain: { name: string, extension: string, description: string, type: 'enum(mediaonline, searchengine, medsos)', relationships: { hasMany: Result } }
+    Result: { type: 'enum(hoax, fact)', keyword: string, url: string, target_account: 'string nullable', capture: 'string nullable', domain_id: 'id foreign', validator_id: 'id foreign', team_id: 'id foreign', validated_at: 'timestamp nullable', published_at: 'timestamp nullable', status: 'enum(new, validated, unvalidated)' }
