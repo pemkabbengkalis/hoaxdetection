@@ -61,4 +61,8 @@ class Result extends Model
     {
         return $this->belongsTo(User::class,'team_id');
     }
+
+    function tracer(){
+        return $this->belongsTo(Tracer::class);
+    }
 }

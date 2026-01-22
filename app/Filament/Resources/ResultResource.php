@@ -2,16 +2,18 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\ResultResource\Pages;
-use App\Filament\Resources\ResultResource\RelationManagers;
-use App\Models\Result;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use App\Models\Result;
+use App\Models\Tracer;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Resources\Resource;
+use Filament\Forms\Components\Select;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\ResultResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\ResultResource\RelationManagers;
 
 class ResultResource extends Resource
 {
@@ -23,13 +25,20 @@ class ResultResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('type')
-                    ->required()
-                    ->maxLength(255),
+              Select::make('tracer_id')
+    ->label('Tracer')
+    ->options(
+        Tracer::query()
+            ->pluck('domain', 'id')
+            ->toArray()
+    )
+    ->searchable()
+    ->required(),
                 Forms\Components\TextInput::make('keyword')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('url')
+                ->url()
                     ->required()
                     ->maxLength(255),
                 Forms\Components\Textarea::make('description')
@@ -39,21 +48,10 @@ class ResultResource extends Resource
                     ->maxLength(255),
                 Forms\Components\TextInput::make('capture')
                     ->maxLength(255),
-        
-                Forms\Components\Select::make('validator_id')
-                    ->relationship('validator', 'name')
-                    ->required(),
-                Forms\Components\Select::make('team_id')
-                    ->relationship('team', 'name')
-                    ->required(),
-                Forms\Components\DateTimePicker::make('validated_at'),
                 Forms\Components\DateTimePicker::make('published_at'),
                 Forms\Components\TextInput::make('status')
                     ->required(),
-                Forms\Components\TextInput::make('hits')
-                    ->required()
-                    ->numeric()
-                    ->default(0),
+         
             ]);
     }
 
@@ -127,8 +125,7 @@ class ResultResource extends Resource
     {
         return [
             'index' => Pages\ListResults::route('/'),
-            'create' => Pages\CreateResult::route('/create'),
-            'edit' => Pages\EditResult::route('/{record}/edit'),
+            
         ];
     }
 }

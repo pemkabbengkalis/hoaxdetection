@@ -15,7 +15,6 @@ return new class extends Migration
 
         Schema::create('results', function (Blueprint $table) {
             $table->id();
-            $table->string('type')->nullable();
             $table->string('keyword')->nullable();
             $table->string('url')->nullable();
             $table->longText('description')->nullable();
@@ -28,6 +27,7 @@ return new class extends Migration
             $table->timestamp('published_at')->nullable();
             $table->enum('status',['new','validated','unvalidated'])->default('new');
             $table->integer('hits')->default(0);
+            $table->foreignId('tracer_id')->nullable()->constrained('tracers');
             $table->timestamps();
             $table->softDeletes();
         });

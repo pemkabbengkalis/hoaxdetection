@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('domains', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('extension');
-            $table->string('description');
-            $table->string('type');
+            $table->string('name')->nullable();
+            $table->string('extension')->nullable();
+            $table->string('description')->nullable();
+            $table->enum('type',['media_sosial','media_online'])->nullable();
             $table->timestamps();
         });
     }
