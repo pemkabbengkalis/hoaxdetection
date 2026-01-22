@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('tracers', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->enum( 'type_platform',['mediasosial,searchengine']);
+            $table->string('name')->nullable();
+            $table->string('domain')->nullable();
+            $table->enum( 'type_platform',['media_sosial','search_engine'])->nullable();
             $table->integer('hits')->default(0);
             $table->timestamps();
         });
