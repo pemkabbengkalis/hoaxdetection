@@ -33,6 +33,7 @@ class DomainResource extends Resource
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('extension')
+                    ->label('Ekstensi Domain, Ex (.com, .id)')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('description')
@@ -42,13 +43,8 @@ class DomainResource extends Resource
                 Forms\Components\Select::make('type')
                     ->label('Sumber Platform')
                     ->options([
-                        'google' => 'Google',
-                        'facebook' => 'Facebook',
-                        'tiktok' => 'TikTok',
-                        'twitter' => 'Twitter',
-                        'instagram' => 'Instagram',
-                        'youtube' => 'YouTube',
-                        'other' => 'Other',
+                        'search engine' => 'Search Engine',
+                        'media sosial' => 'Media Sosial',
                     ])
                     ->required()
 
