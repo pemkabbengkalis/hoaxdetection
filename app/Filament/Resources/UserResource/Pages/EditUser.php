@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Filament\Resources\TracerResource\Pages;
+namespace App\Filament\Resources\UserResource\Pages;
 
-use App\Filament\Resources\TracerResource;
+use App\Filament\Resources\UserResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 
-class EditTracer extends EditRecord
+class EditUser extends EditRecord
 {
-    protected static string $resource = TracerResource::class;
+    protected static string $resource = UserResource::class;
 
     protected function getHeaderActions(): array
     {
@@ -16,18 +16,14 @@ class EditTracer extends EditRecord
             Actions\DeleteAction::make(),
         ];
     }
-
     //redirect to list after create
     public function getHeading(): string
     {
         return '';
     }
-
     protected function getRedirectUrl(): string
     {
         return $this->getResource()::getUrl('index');
     }
-
     //end of redirect to list after create
-
 }

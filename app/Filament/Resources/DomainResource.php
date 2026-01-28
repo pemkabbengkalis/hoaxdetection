@@ -2,26 +2,37 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\DomainResource\Pages;
-use App\Filament\Resources\DomainResource\RelationManagers;
-use App\Models\Domain;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use App\Models\Domain;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Resources\Resource;
 use Illuminate\Database\Eloquent\Builder;
+use DomainResource\Widgets\DomainOverview;
+use App\Filament\Resources\DomainResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\DomainResource\RelationManagers;
+use App\Filament\Resources\DomainResource\Widgets\DomaiOverview;
+use Filament\Facades\Filament;
+use App\Models\User;
+
 
 class DomainResource extends Resource
 {
     protected static ?string $model = Domain::class;
-
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-group';
     protected static ?string $modelLabel = 'Domain';
     protected static ?string $pluralModelLabel = 'Domain';
-    protected static ?string $navigationGroup = 'Validator';
+    //protected static ?string $navigationGroup = 'Validator';
 
+    //--------------adrian--------------------//    
+    public static function getWidgets(): array
+    {
+        return [
+            DomaiOverview::class,
+        ];
+    }
 
 
     public static function form(Form $form): Form
@@ -30,23 +41,27 @@ class DomainResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('name')
                     ->label('Nama Domain')
-                    ->required()
+                    ->required(fn($operation) => $operation === 'create')
+                    //->unique(ignoreRecord: true)
                     ->maxLength(255),
                 Forms\Components\TextInput::make('extension')
                     ->label('Ekstensi Domain, Ex (.com, .id)')
-                    ->required()
+                    ->required(fn($operation) => $operation === 'create')
+                    //->unique(ignoreRecord: true)
                     ->maxLength(255),
                 Forms\Components\TextInput::make('description')
                     ->label('Deskripsi')
-                    ->required()
+                    ->required(fn($operation) => $operation === 'create')
+                    //->unique(ignoreRecord: true)
                     ->maxLength(255),
                 Forms\Components\Select::make('type')
                     ->label('Sumber Platform')
+                    ->required(fn($operation) => $operation === 'create')
+                    //->unique(ignoreRecord: true)
                     ->options([
-                        'search engine' => 'Search Engine',
-                        'media sosial' => 'Media Sosial',
-                    ])
-                    ->required()
+                        'media_online' => 'Media Online',
+                        'media_sosial' => 'Media Sosial',
+                    ]),
 
 
             ]);
@@ -63,6 +78,11 @@ class DomainResource extends Resource
                 Tables\Columns\TextColumn::make('description')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('type')
+                    ->formatStateUsing(fn($state) => match ($state) {
+                        'media_online' => 'Media Online',
+                        'media_sosial' => 'Media Sosial',
+                        default => '-',
+                    })
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()

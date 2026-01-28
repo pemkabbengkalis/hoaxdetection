@@ -27,6 +27,8 @@ class AdminPanelProvider extends PanelProvider
             //->spa()
             ->id('admin')
             ->path('admin')
+            ->brandLogo(asset('storage/bengkalis.png'))
+            ->brandLogoHeight('3rem') // 🔥 SIZE LOGO (rem)
             ->login()
             ->colors([
                 'primary' => Color::Amber,
@@ -37,9 +39,7 @@ class AdminPanelProvider extends PanelProvider
                 Pages\Dashboard::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
-            ->widgets([
-              
-            ])
+            ->widgets([])
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,

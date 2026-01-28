@@ -23,9 +23,9 @@ class EditResult extends EditRecord
 
         $domain = Domain::firstOrCreate([
             'name' => $domainName,
-            'description'=>'-',
-            'type'=>'media_online',
-            'extension'=>'id'
+            'description' => '-',
+            'type' => 'media_online',
+            'extension' => 'id'
         ]);
 
         $data['domain_id'] = $domain->id;

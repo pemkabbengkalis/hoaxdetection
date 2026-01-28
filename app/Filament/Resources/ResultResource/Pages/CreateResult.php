@@ -7,16 +7,19 @@ use App\Models\Domain;
 use App\Filament\Resources\ResultResource;
 use Filament\Resources\Pages\CreateRecord;
 
+
 class CreateResult extends CreateRecord
 {
     protected static string $resource = ResultResource::class;
+
 
     protected function mutateFormDataBeforeCreate(array $data): array
     {
         $domainName = $this->extractDomain($data['url']);
 
         $domain = Domain::firstOrCreate(
-        ['name' => $domainName,
+            [
+                'name' => $domainName,
                 'description' => '-',
                 'type' => 'media_online',
                 'extension' => $this->getDomainExtension($domainName)
@@ -29,10 +32,11 @@ class CreateResult extends CreateRecord
         return $data;
     }
 
-    protected function afterCreate(): string{
-        return redirect('tracers');
+    protected function afterCreate(): string
+    {
+        return redirect('tracers')->with('success', 'Data berhasil disimpan');
     }
-    
+
     private function getDomainExtension(string $url): string
     {
         $host = parse_url($url, PHP_URL_HOST);
@@ -59,5 +63,4 @@ class CreateResult extends CreateRecord
 
         return $host;
     }
-
 }
