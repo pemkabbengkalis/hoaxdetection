@@ -13,21 +13,51 @@ class ResultOverview extends BaseWidget
     {
         return [
             //Stat::make('Target Result', fn() => Result::count())
-            Stat::make('Result', cache()->remember('result_count', 60, fn() => Result::count()))
+            Stat::make(
+                'Result',
+                cache()->remember('result_count', 60, fn() => Result::count())
+            )
                 ->icon('heroicon-o-globe-alt')
-                ->description('Jumlah keseluruhan result yang tersimpan')
-                ->color('info'),
+                ->description('Jumlah keseluruhan result yang')
+                ->color('white')
+                ->extraAttributes([
+                    'style' => '
+            --fi-stats-card-color: #ffffff;       
+            background-color:rgba(66, 133, 244);
+            color:white;
+            box-shadow:0 8px 15px rgba(176,196,222);
+            border-radius:12px;',
+                    'class' => '[&_.fi-wi-stats-overview-stat-label]:text-white',
+                ]),
+
+
+
             //Stat::make(' Akun Suspect', Result::distinct()->count('target_account'))
             Stat::make('Akun Suspect', cache()->remember('result_count', 60, fn() => Result::count('target_account')))
                 ->icon('heroicon-o-square-3-stack-3d')
                 ->description('Jumlah keseluruhan Akun Suspect terdaftar ')
-                ->color('info'),
+                ->color('white')
+                ->extraAttributes([
+                    'style' => '
+            background-color:rgba(52, 168, 83);
+            color:white;
+            box-shadow:0 8px 15px rgba(176,196,222);
+            border-radius:12px;',
+                ]),
+
 
             //Stat::make(' Keyword', Result::distinct()->count('keyword'))
             Stat::make('Keyword', cache()->remember('resut_count', 60, fn() => Result::count('keyword')))
                 ->icon('heroicon-o-squares-plus')
                 ->description('Jumlah keseluruhan keyword terdaftar ')
-                ->color('info'),
+                ->color('white')
+                ->extraAttributes([
+                    'style' => '
+            background-color:rgba(234, 67, 53);
+            color:white;
+            box-shadow:0 8px 15px rgba(176,196,222);
+            border-radius:12px;',
+                ]),
 
         ];
     }

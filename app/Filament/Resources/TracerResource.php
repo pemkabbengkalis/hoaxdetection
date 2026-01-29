@@ -35,7 +35,7 @@ class TracerResource extends Resource
         ]) ?? false;
     }
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-s-globe-alt';
     protected static ?string $modelLabel = 'Room Tracer';
     protected static ?string $pluralModelLabel = 'Room Tracer';
     // protected static ?string $navigationGroup = 'Validator';

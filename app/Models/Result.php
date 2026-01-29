@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Result extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -54,15 +54,15 @@ class Result extends Model
 
     public function validator(): BelongsTo
     {
-                return $this->belongsTo(User::class,'validator_id');
-
+        return $this->belongsTo(User::class, 'validator_id');
     }
-   public function team(): BelongsTo
+    public function team(): BelongsTo
     {
-        return $this->belongsTo(User::class,'team_id');
+        return $this->belongsTo(User::class, 'team_id');
     }
 
-    function tracer(){
+    function tracer()
+    {
         return $this->belongsTo(Tracer::class);
     }
 }

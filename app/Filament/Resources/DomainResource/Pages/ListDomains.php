@@ -11,7 +11,7 @@ use Closure;
 class ListDomains extends ListRecords
 {
     protected static string $resource = DomainResource::class;
-    protected static bool $isLazy = true;
+    //protected static bool $isLazy = true;
 
     protected function getHeaderActions(): array
     {

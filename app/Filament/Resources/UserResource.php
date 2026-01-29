@@ -2,21 +2,29 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\UserResource\Pages;
-use App\Filament\Resources\UserResource\RelationManagers;
-use App\Models\User;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
+use App\Models\User;
 use Filament\Tables;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Facades\Filament;
+use Filament\Resources\Resource;
+use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\UserResource\Pages;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\UserResource\RelationManagers;
+use App\Filament\Resources\UserResource\Widgets\UserOverview;
 
 class UserResource extends Resource
 {
     protected static ?string $model = User::class;
+
+    public static function getWidgets(): array
+    {
+        return [
+            UserOverview::class,
+        ];
+    }
 
 
     public static function canViewAny(): bool
@@ -34,28 +42,38 @@ class UserResource extends Resource
 
 
 
-    protected static ?string $navigationIcon = 'heroicon-o-user-group';
+    protected static ?string $navigationIcon = 'heroicon-s-user-group';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
-                    ->required()
+                    // ->visible(fn($operation) => in_array($operation, ['edit']))
+                    ->required(fn($operation) => $operation === 'create')
                     ->maxLength(255),
                 Forms\Components\TextInput::make('email')
                     ->email()
-                    ->required()
+                    ->required(fn($operation) => $operation === 'create')
                     ->maxLength(255),
-                Forms\Components\DateTimePicker::make('email_verified_at'),
+                Forms\Components\DateTimePicker::make('email_verified_at')
+                    ->required(fn($operation) => $operation === 'create'),
+
+                // Forms\Components\TextInput::make('password')
+                //     ->password()
+                //     ->required(fn($operation) => $operation === 'create')
+                //     ->maxLength(255),
                 Forms\Components\TextInput::make('password')
+                    ->label('Password')
                     ->password()
-                    ->required()
-                    ->maxLength(255),
-                // Forms\Components\TextInput::make('role')
-                //     ->required(),
+                    ->required(fn($operation) => $operation === 'create') // wajib hanya create
+                    ->dehydrated(fn($state) => filled($state))             // simpan hanya kalau diisi
+                    ->dehydrateStateUsing(fn($state) => filled($state) ? bcrypt($state) : null)
+                    ->helperText('Kosongkan jika tidak ingin mengubah password'),
+
                 Forms\Components\Select::make('role')
-                    ->required()
+                    ->required(fn($operation) => $operation === 'create')
+
                     ->options([
                         User::ROLE_ADMIN     => 'Admin',
                         User::ROLE_KADIS     => 'Kadis',

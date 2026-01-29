@@ -1,20 +1,19 @@
 <?php
 
-namespace App\Filament\Resources\DomainResource\Widgets;
+namespace App\Filament\Resources\UserResource\Widgets;
 
-use App\Models\Domain;
+use App\Models\User;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
-// use Symfony\Component\HttpFoundation\File\Exception\ExtensionFileException;
 
-class DomaiOverview extends BaseWidget
+class UserOverview extends BaseWidget
 {
     protected function getStats(): array
     {
         return [
-            Stat::make(' Domains', Domain::count())
+            Stat::make(' User', User::count())
                 ->icon('heroicon-o-globe-alt')
-                ->description('Jumlah keseluruhan domain yang terdaftar')
+                ->description('Jumlah keseluruhan user')
                 ->color('white')
                 ->extraAttributes([
                     'style' => '
@@ -27,12 +26,12 @@ class DomaiOverview extends BaseWidget
                 ]),
 
             Stat::make(
-                ' Extensions',
-                Domain::distinct()->count('extension')
+                ' Email',
+                User::distinct()->count('email')
 
             )
                 ->icon('heroicon-o-square-3-stack-3d')
-                ->description('Jumlah ekstensi domain terdaftar ')
+                ->description('Jumlah email terdaftar ')
                 ->color('white')
                 ->extraAttributes([
                     'style' => '
@@ -45,12 +44,12 @@ class DomaiOverview extends BaseWidget
 
 
             Stat::make(
-                ' Extensions',
-                Domain::distinct()->count('type')
+                ' Role',
+                User::distinct()->count('role')
 
             )
                 ->icon('heroicon-o-square-3-stack-3d')
-                ->description('Jumlah ekstensi domain terdaftar ')
+                ->description('Jumlah role terdaftar ')
                 ->color('white')
                 ->extraAttributes([
                     'style' => '
@@ -59,8 +58,6 @@ class DomaiOverview extends BaseWidget
             box-shadow:0 8px 15px rgba(176,196,222);
             border-radius:12px;',
                 ]),
-
-
 
         ];
     }
