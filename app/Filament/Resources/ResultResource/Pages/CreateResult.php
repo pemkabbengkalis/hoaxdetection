@@ -32,7 +32,7 @@ class CreateResult extends CreateRecord
         return $data;
     }
 
-    protected function afterCreate(): string
+    protected function afterCreate()
     {
         return redirect('tracers')->with('success', 'Data berhasil disimpan');
     }

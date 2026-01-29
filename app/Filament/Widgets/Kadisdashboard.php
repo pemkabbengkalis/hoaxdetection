@@ -2,16 +2,17 @@
 
 namespace App\Filament\Widgets;
 
-use App\Models\Result;
 use Filament\Tables;
+use App\Models\Result;
 use Filament\Tables\Table;
-use Filament\Widgets\TableWidget as BaseWidget;
 use Illuminate\Support\Collection;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Widgets\TableWidget as BaseWidget;
 
 class Kadisdashboard extends BaseWidget
 {
     protected static ?string $heading = 'List Hoax Terbaru';
-    protected static ?int $sort = 1;
+    protected static ?int $sort = 4;
 
     protected int | string | array $columnSpan = 'full';
 
@@ -22,11 +23,27 @@ class Kadisdashboard extends BaseWidget
             Result::query()
             )
             ->columns([
-                Tables\Columns\TextColumn::make('url')
-                    ->label('NIP')
+                TextColumn::make('tracer.name')
+                    ->label('Penelusuran dari')
+                    ->description(fn($record)=>$record->tracer->domain)
                     ->searchable(),
+                TextColumn::make('keyword')
+                    ->label('Kata kunci')
+                    ->searchable(),
+                TextColumn::make('url')
+                    ->label('URL didapatkan')
+                    ->url(fn($record) => '#')
+                    ->extraAttributes(fn($record) => [
+                        'onclick' => "window.open(
+            '{$record->url}',
+            'popup',
+            'width=900,height=600,scrollbars=yes'
+        ); return false;"
+                    ])
+                    ->description(fn($record) => 'Publikasi pada : ' . $record->published_at->format('d F Y')),
 
-                
+
+
             ])
             ->paginated(false); // dashboard biasanya tanpa pagination
     }

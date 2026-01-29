@@ -43,7 +43,7 @@ class Result extends Model
             'validator_id' => 'integer',
             'team_id' => 'integer',
             'validated_at' => 'timestamp',
-            'published_at' => 'timestamp',
+            'published_at' => 'datetime',
         ];
     }
 
