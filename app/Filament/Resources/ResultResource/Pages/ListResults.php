@@ -11,8 +11,9 @@ use App\Filament\Resources\ResultResource\Widgets\ResultOverview;
 class ListResults extends ListRecords
 {
     protected static string $resource = ResultResource::class;
-    protected static bool $isLazy = true;
     //-----------------adrian----------------------------------//
+    // protected static bool $isLazy = true;
+
     protected function getHeaderActions(): array
     {
         return [

@@ -36,7 +36,7 @@ class ResultResource extends Resource
 
     public static string $resource = ResultResource::class;
     protected static ?string $model = Result::class;
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-s-rectangle-stack';
     protected static ?int $navigationSort = 3;
 
     //---------------adrian---------------------//

@@ -63,4 +63,19 @@ class CreateResult extends CreateRecord
 
         return $host;
     }
+
+    //---------------adrian---------------------//
+    //redirect to list after create
+    public function getHeading(): string
+    {
+        return '';
+    }
+
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
+
+    //end of redirect to list after create
+    //-------------end of adrian---------------//
 }

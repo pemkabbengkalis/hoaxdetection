@@ -26,4 +26,7 @@ class EditUser extends EditRecord
         return $this->getResource()::getUrl('index');
     }
     //end of redirect to list after create
+
+
+
 }

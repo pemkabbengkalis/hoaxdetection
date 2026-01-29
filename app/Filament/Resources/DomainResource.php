@@ -21,7 +21,7 @@ use App\Models\User;
 class DomainResource extends Resource
 {
     protected static ?string $model = Domain::class;
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-group';
+    protected static ?string $navigationIcon = 'heroicon-s-rectangle-group';
     protected static ?string $modelLabel = 'Domain';
     protected static ?string $pluralModelLabel = 'Domain';
     //protected static ?string $navigationGroup = 'Validator';
