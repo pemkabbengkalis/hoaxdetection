@@ -54,6 +54,19 @@ class DomainResource extends Resource
                     ->required(fn($operation) => $operation === 'create')
                     //->unique(ignoreRecord: true)
                     ->maxLength(255),
+                Forms\Components\TextInput::make('rss')
+                    ->label('RSS (untuk penelusuran otomatis )')
+                    ->placeholder('contoh : https://domain.com/rss')
+                     ->helperText(
+        new \Illuminate\Support\HtmlString(
+            '<span style="color:orange">
+                Diisi jika ada saja ya
+            </span>'
+        )
+    )
+                    ->required(fn($operation) => $operation === 'create')
+                    //->unique(ignoreRecord: true)
+                    ->maxLength(255),
                 Forms\Components\Select::make('type')
                     ->label('Sumber Platform')
                     ->required(fn($operation) => $operation === 'create')

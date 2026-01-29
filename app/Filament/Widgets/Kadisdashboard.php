@@ -6,12 +6,14 @@ use Filament\Tables;
 use App\Models\Result;
 use Filament\Tables\Table;
 use Illuminate\Support\Collection;
+use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ToggleColumn;
 use Filament\Widgets\TableWidget as BaseWidget;
 
 class Kadisdashboard extends BaseWidget
 {
-    protected static ?string $heading = 'List Hoax Terbaru';
+    protected static ?string $heading = 'List Butuh validasi';
     protected static ?int $sort = 4;
 
     protected int | string | array $columnSpan = 'full';
@@ -20,7 +22,7 @@ class Kadisdashboard extends BaseWidget
     {
         return $table
             ->query(
-            Result::query()
+            Result::query()->whereStatus('unvalidated')
             )
             ->columns([
                 TextColumn::make('tracer.name')
@@ -32,18 +34,28 @@ class Kadisdashboard extends BaseWidget
                     ->searchable(),
                 TextColumn::make('url')
                     ->label('URL didapatkan')
-                    ->url(fn($record) => '#')
-                    ->extraAttributes(fn($record) => [
-                        'onclick' => "window.open(
-            '{$record->url}',
-            'popup',
-            'width=900,height=600,scrollbars=yes'
-        ); return false;"
-                    ])
+                    
                     ->description(fn($record) => 'Publikasi pada : ' . $record->published_at->format('d F Y')),
+                ToggleColumn::make('status')
+                    ->label('Status Valid')
+                    ->onColor('success')
+                    ->visible(fn()=>in_array(auth()->user()->role,['kadis','validator']))
+                    ->offColor('danger')
 
+                    // DB string → toggle boolean
+                    ->getStateUsing(fn($record) => $record?->status === 'validated')
 
+                    // ⛔ STOP update default (boolean)
+                    ->updateStateUsing(function ($record, bool $state) {
+                        $record->update([
+                            'status' => $state ? 'validated' : 'unvalidated',
+                        ]);
+                    })
 
+            ])
+            ->actions([
+                Action::make('lihat_dulu')
+                    ->url(fn($record)=>$record->url)
             ])
             ->paginated(false); // dashboard biasanya tanpa pagination
     }

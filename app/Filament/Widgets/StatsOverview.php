@@ -2,18 +2,21 @@
 
 namespace App\Filament\Widgets;
 
-use Filament\Widgets\StatsOverviewWidget as BaseWidget;
+use App\Models\Result;
 use Filament\Widgets\StatsOverviewWidget\Stat;
+use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 
 class StatsOverview extends BaseWidget
 {
     protected static ?int $sort = 2;
     protected function getStats(): array
     {
+
+        $result = Result::query()->whereIn('status', ['validated', 'unvalidated'])->get();
               return [
-            Stat::make('Unique views', '192.1k'),
-            Stat::make('Bounce rate', '21%'),
-            Stat::make('Average time on page', '3:12'),
+            Stat::make('Total URL', $result->count()),
+            Stat::make('Valid', $result->where('status','validated')->count()),
+            Stat::make('Tidak Valid', $result->where('status','unvalidated')->count()),
         ];
     }
 }
