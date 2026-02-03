@@ -47,8 +47,8 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             //->spa()
             ->id('admin')
-            ->path('admin')
-            ->brandLogo(asset('storage/bengkalis.png'))
+            ->path('app')
+            ->brandLogo(logo: asset('storage/bengkalis.png'))
             ->brandLogoHeight('3rem') // 🔥 SIZE LOGO (rem)
             ->login()
             ->renderHook(
