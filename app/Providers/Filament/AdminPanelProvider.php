@@ -18,9 +18,26 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Filament\Navigation\NavigationItem;
+use App\Models\User;
+use Filament\Support\Facades\FilamentAsset;
+use Filament\Support\Assets\Css;
+
+
+
+
 
 class AdminPanelProvider extends PanelProvider
 {
+
+    //------------adrian-------------------------------------//
+
+    public function boot(): void
+    {
+        FilamentAsset::register([
+            Css::make('login-bg', asset('login.css')),
+        ]);
+    }
+    //------------end of adrian------------------------------//
     public function panel(Panel $panel): Panel
     {
         return $panel
@@ -31,6 +48,7 @@ class AdminPanelProvider extends PanelProvider
             ->brandLogo(asset('storage/bengkalis.png'))
             ->brandLogoHeight('3rem') // 🔥 SIZE LOGO (rem)
             ->login()
+
             //-------------------adrian------------------------------------//
             ->colors([
 
@@ -43,9 +61,12 @@ class AdminPanelProvider extends PanelProvider
                 NavigationItem::make('Dashboard')
                     ->icon('heroicon-s-home')
                     ->url(fn() => route('filament.admin.pages.dashboard'))
-                    ->isActiveWhen(fn() => request()->routeIs('filament.admin.pages.dashboard')),
+                    ->isActiveWhen(fn() => request()->routeIs('filament.admin.pages.dashboard'))
+
             ])
+
             //------------------------end of adrian-------------------------//
+
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([

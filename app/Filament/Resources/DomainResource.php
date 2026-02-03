@@ -34,6 +34,22 @@ class DomainResource extends Resource
         ];
     }
 
+    public static function canViewAny(): bool
+    {
+        $user = Filament::auth()->user();
+
+        // ⛔ Kalau belum login / bukan user valid
+        if (! $user instanceof User) {
+            return false;
+        }
+
+        // 🔐 Batasi berdasarkan role
+        return $user->hasAnyRole([
+            User::ROLE_ADMIN,
+            User::ROLE_VALIDATOR,
+            User::ROLE_TEAM,
+        ]);
+    }
 
     public static function form(Form $form): Form
     {
@@ -57,13 +73,13 @@ class DomainResource extends Resource
                 Forms\Components\TextInput::make('rss')
                     ->label('RSS (untuk penelusuran otomatis )')
                     ->placeholder('contoh : https://domain.com/rss')
-                     ->helperText(
-        new \Illuminate\Support\HtmlString(
-            '<span style="color:orange">
+                    ->helperText(
+                        new \Illuminate\Support\HtmlString(
+                            '<span style="color:orange">
                 Diisi jika ada saja ya
             </span>'
-        )
-    )
+                        )
+                    )
                     ->required(fn($operation) => $operation === 'create')
                     //->unique(ignoreRecord: true)
                     ->maxLength(255),

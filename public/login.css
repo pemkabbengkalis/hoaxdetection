@@ -1,0 +1,8 @@
+.fi-simple-main-ctn {
+    min-height: 100vh;
+    background-image: url("/storage/filament-bg.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    pointer-events: none;
+}

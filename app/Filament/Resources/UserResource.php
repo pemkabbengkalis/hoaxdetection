@@ -36,7 +36,7 @@ class UserResource extends Resource
             User::ROLE_ADMIN,
             // User::ROLE_TEAM,
             // User::ROLE_KADIS,
-            User::ROLE_VALIDATOR,
+            //User::ROLE_VALIDATOR,
         ]) ?? false;
     }
 

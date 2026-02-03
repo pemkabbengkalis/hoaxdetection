@@ -11,6 +11,7 @@ use Filament\Facades\Filament;
 
 
 
+
 // class User extends Authenticatable
 // {
 //     /** @use HasFactory<\Database\Factories\UserFactory> */
@@ -71,6 +72,8 @@ use Filament\Facades\Filament;
 //------------adrian-------------------------------------//
 class User extends Authenticatable
 {
+
+
     use HasFactory, Notifiable;
 
     public const ROLE_ADMIN     = 'admin';
@@ -111,5 +114,10 @@ class User extends Authenticatable
         return in_array($this->role, $roles, true);
     }
 
+
+    public function isKadis(): bool
+    {
+        return $this->hasRole('kadis');
+    }
     //-----------------end of adrian-------------------------------//
 }

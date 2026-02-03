@@ -27,6 +27,7 @@ use App\Filament\Resources\ResultResource\Widgets\ResultOverview;
 use Filament\Facades\Filament;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Schema\Blueprint;
 
 
 
@@ -53,7 +54,7 @@ class ResultResource extends Resource
         // 🔐 Batasi berdasarkan role
         return $user->hasAnyRole([
             User::ROLE_ADMIN,
-            User::ROLE_KADIS,
+            // User::ROLE_KADIS,
             User::ROLE_VALIDATOR,
             User::ROLE_TEAM,
         ]);
@@ -87,21 +88,47 @@ class ResultResource extends Resource
                             ->pluck('domain', 'id')
                             ->toArray()
                     )
-                    ->searchable(),
+                    ->searchable()
+                    ->validationMessages([
+                        'required' => 'Trace wajib dipilih',
+                    ]),
 
                 Forms\Components\TextInput::make('keyword')
                     ->required(fn($operation) => $operation === 'create')
-                    ->maxLength(255),
+                    ->maxLength(255)
+                    ->validationMessages([
+                        'required' => 'keyword wajib diisi',
+                    ]),
                 Forms\Components\TextInput::make('url')
                     ->url()
                     ->required(fn($operation) => $operation === 'create')
-                    ->maxLength(255),
+                    ->maxLength(255)
+                    ->validationMessages([
+                        'required' => 'Url wajib diisi',
+                    ]),
                 Forms\Components\Textarea::make('description')
                     ->required(fn($operation) => $operation === 'create')
-                    ->columnSpanFull(),
+                    ->columnSpanFull()
+                    ->validationMessages([
+                        'required' => 'Deskripsi wajib diisi',
+                    ]),
                 Forms\Components\TextInput::make('target_account')
                     ->required(fn($operation) => $operation === 'create')
-                    ->maxLength(255),
+                    ->maxLength(255)
+                    ->validationMessages([
+                        'required' => 'Target akun wajib diisi',
+                    ]),
+
+                Forms\Components\Select::make('category')
+                    ->label('Kategori Berita')
+                    ->required(fn($operation) => $operation === 'create')
+                    ->options([
+                        'hoax' => 'Hoax',
+                        'fakta' => 'Fakta',
+                    ])
+                    ->validationMessages([
+                        'required' => 'category wajib dipilih',
+                    ]),
 
                 FileUpload::make('capture')
                     ->label('📎 Upload gambar jpeg/png')
@@ -111,7 +138,10 @@ class ResultResource extends Resource
                     //->visibility('private')
                     ->acceptedFileTypes(['image/jpeg', 'image/png'])
                     ->maxSize(2048) // 2MB
-                    ->required(fn($operation) => $operation === 'create'),
+                    ->required(fn($operation) => $operation === 'create')
+                    ->validationMessages([
+                        'required' => 'gambar wajib diisi',
+                    ]),
 
                 Forms\Components\DateTimePicker::make('published_at'),
 
@@ -119,7 +149,6 @@ class ResultResource extends Resource
                     ->label('Status Berita')
                     ->required(fn($operation) => $operation === 'create')
                     ->options([
-
                         'new' => 'New',
                         'validated' => 'Validated',
                         'unvalidated' => 'Unvalidated',
@@ -143,24 +172,24 @@ class ResultResource extends Resource
                         'style' => 'cursor:pointer;'
                     ]),
 
-                Tables\Columns\TextColumn::make('type')
-                    ->disableClick()
-                    ->searchable(['type'])
-                    ->searchable(),
+                // Tables\Columns\TextColumn::make('type')
+                //     ->disableClick()
+                //     ->searchable(['type'])
+                //     ->searchable(),
                 Tables\Columns\TextColumn::make('keyword')
                     ->disableClick()
                     ->searchable(['keyword']),
 
                 TextColumn::make('url')
-                    ->label('URL') // Label kolom
+                    ->label('URL')
                     ->searchable()
                     ->disableClick()
-                    ->formatStateUsing(fn($state) => Str::limit($state, 40)) // tampil singkat
-                    ->tooltip(fn($state) => $state) // tampil full URL saat hover
+                    ->formatStateUsing(fn($state) => Str::limit($state, 40))
+                    ->tooltip(fn($state) => $state)
                     ->extraAttributes(fn($record) => [
                         'x-data' => '{}',
                         'x-on:click.stop' => "window.open('{$record->url}', '_blank', 'width=800,height=600')",
-                        'style' => 'cursor:pointer; color:blue; text-decoration:underline;',
+                        'style' => 'cursor:pointer;',
                     ]),
 
 
@@ -172,18 +201,22 @@ class ResultResource extends Resource
                     ->disableClick()
                     ->numeric()
                     ->sortable(['domain.name']),
+
                 Tables\Columns\TextColumn::make('validator.name')
-                    ->disableClick()
-                    ->numeric()
-                    ->sortable(),
+                    ->label('Validator'),
+
                 // Tables\Columns\TextColumn::make('team.name')
-                // ->disableClick()
+                //     ->disableClick()
                 //     ->numeric()
                 //     ->sortable(),
-                // Tables\Columns\TextColumn::make('validated_at')
-                //     //->disableClick()
-                //     ->dateTime()
-                //     ->sortable(),
+                Tables\Columns\TextColumn::make('category')
+                    ->disableClick()
+                    ->sortable(),
+
+                Tables\Columns\TextColumn::make('validated_at')
+                    //->disableClick()
+                    ->dateTime()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('published_at')
                     ->disableClick()
                     ->dateTime()
