@@ -21,6 +21,9 @@ use Filament\Navigation\NavigationItem;
 use App\Models\User;
 use Filament\Support\Facades\FilamentAsset;
 use Filament\Support\Assets\Css;
+use Filament\View\PanelsRenderHook;
+
+
 
 
 
@@ -48,6 +51,25 @@ class AdminPanelProvider extends PanelProvider
             ->brandLogo(asset('storage/bengkalis.png'))
             ->brandLogoHeight('3rem') // 🔥 SIZE LOGO (rem)
             ->login()
+            ->renderHook(
+                PanelsRenderHook::HEAD_END,
+                fn() => '
+        <link rel="manifest" href="/manifest.json">
+        <meta name="theme-color" content="#0f172a">
+    '
+            )
+
+            ->renderHook(
+                PanelsRenderHook::BODY_END,
+                fn() => '
+    <script>
+        if ("serviceWorker" in navigator) {
+            navigator.serviceWorker.register("/sw.js");
+        }
+    </script>
+    '
+            )
+
 
             //-------------------adrian------------------------------------//
             ->colors([
@@ -64,6 +86,7 @@ class AdminPanelProvider extends PanelProvider
                     ->isActiveWhen(fn() => request()->routeIs('filament.admin.pages.dashboard'))
 
             ])
+
 
             //------------------------end of adrian-------------------------//
 
