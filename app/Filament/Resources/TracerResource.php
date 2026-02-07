@@ -22,6 +22,8 @@ use App\Models\User;
 class TracerResource extends Resource
 {
     protected static ?string $model = Tracer::class;
+    protected static ?int $navigationSort = 0;
+
     public static function canViewAny(): bool
     {
         /** @var User|null $user */
@@ -82,7 +84,7 @@ class TracerResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-
+            ->poll('1s')
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->description(fn($record) => $record->domain)

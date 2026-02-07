@@ -18,6 +18,7 @@ use App\Filament\Resources\UserResource\Widgets\UserOverview;
 class UserResource extends Resource
 {
     protected static ?string $model = User::class;
+    protected static ?int $navigationSort = 4;
 
     public static function getWidgets(): array
     {
@@ -89,6 +90,7 @@ class UserResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->poll('1s')
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),

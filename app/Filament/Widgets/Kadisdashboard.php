@@ -5,14 +5,17 @@ namespace App\Filament\Widgets;
 use Filament\Tables;
 use App\Models\Result;
 use Filament\Tables\Table;
-use Illuminate\Support\Collection;
-use Filament\Tables\Actions\Action;
-use Filament\Tables\Columns\CheckboxColumn;
-use Filament\Tables\Columns\SelectColumn;
-use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Columns\ToggleColumn;
-use Filament\Widgets\TableWidget as BaseWidget;
 use Illuminate\Support\Str;
+use Illuminate\Support\Collection;
+use Illuminate\Support\HtmlString;
+use Filament\Tables\Actions\Action;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\SelectColumn;
+use Filament\Tables\Columns\ToggleColumn;
+use Filament\Tables\Columns\CheckboxColumn;
+use Filament\Widgets\TableWidget as BaseWidget;
+use Filament\Forms\Components\TextInput;
+use Filament\Tables\Columns\TextInputColumn;
 
 
 class Kadisdashboard extends BaseWidget
@@ -22,11 +25,16 @@ class Kadisdashboard extends BaseWidget
 
     protected int | string | array $columnSpan = 'full';
 
+    protected function getTablePollingInterval(): ?string
+    {
+        return '1s';
+    }
 
 
     public function table(Table $table): Table
     {
         return $table
+            ->poll('1s')
             ->query(
                 Result::query()->whereStatus('unvalidated')
             )
@@ -58,24 +66,67 @@ class Kadisdashboard extends BaseWidget
                     ])
                     ->hidden(fn() => in_array(auth()->user()->role, ['admin', 'team', 'validator'])),
 
+
+                TextInputColumn::make('keterangan')
+                    ->label('Keterangan')
+                    ->placeholder('Isi keterangan...')
+                    ->rules(['max:255'])
+                    ->hidden(fn() => in_array(auth()->user()->role, ['admin', 'team']))
+                    ->afterStateUpdated(function ($record, $state) {
+                        $record->update([
+                            'keterangan' => $state,
+                        ]);
+                    }),
+
+
+                // CheckboxColumn::make('status')
+                //     ->label('Status')
+                //     ->state('Silakan centang untuk pilihan entah')
+                //     ->tooltip('Pastikan pilihan sudah sesuai')
+                //     // ->visible(fn() => in_array(auth()->user()->role, ['kadis', 'validator']))
+                //     ->hidden(fn() => in_array(auth()->user()->role, ['admin', 'team']))
+
+
+                //     // DB string → toggle boolean
+                //     ->getStateUsing(fn($record) => $record?->status === 'validated')
+
+                //     // ⛔ STOP update default (boolean)
+                //     ->updateStateUsing(function ($record, bool $state) {
+                //         $record->update([
+                //             'status' => $state ? 'validated' : 'unvalidated',
+                //             'validator_id' => auth()->user()->id,
+                //             'validated_at' => now(),
+                //         ]);
+                //     }),
+
+
+                //--------------------adrian---------------------------------------
+
                 CheckboxColumn::make('status')
                     ->label('Status')
                     ->tooltip('Pastikan pilihan sudah sesuai')
-                    ->visible(fn() => in_array(auth()->user()->role, ['kadis', 'validator']))
-                    ->hidden(fn() => in_array(auth()->user()->role, ['admin', 'team', 'validator']))
-
-
-                    // DB string → toggle boolean
+                    ->hidden(fn() => in_array(auth()->user()->role, ['admin', 'team']))
                     ->getStateUsing(fn($record) => $record?->status === 'validated')
-
-                    // ⛔ STOP update default (boolean)
                     ->updateStateUsing(function ($record, bool $state) {
                         $record->update([
                             'status' => $state ? 'validated' : 'unvalidated',
-                            'validator_id' => auth()->user()->id,
+                            'validator_id' => auth()->id(),
                             'validated_at' => now(),
                         ]);
                     }),
+
+
+
+                TextColumn::make('status_hint')
+                    ->label('')
+                    ->state('Silakan centang untuk validasi')
+                    ->wrap()
+                    ->color('warning')
+                    ->size(TextColumn\TextColumnSize::Small)
+                    ->hidden(fn() => in_array(auth()->user()->role, ['admin', 'team'])),
+
+
+                //-------------------end of adrian----------------------------------------
 
             ])
             ->actions([

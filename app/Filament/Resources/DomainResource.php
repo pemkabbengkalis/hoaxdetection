@@ -24,6 +24,8 @@ class DomainResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-s-rectangle-group';
     protected static ?string $modelLabel = 'Domain';
     protected static ?string $pluralModelLabel = 'Domain';
+    protected static ?int $navigationSort = 3;
+
     //protected static ?string $navigationGroup = 'Validator';
 
     //--------------adrian--------------------//    
@@ -99,6 +101,7 @@ class DomainResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->poll('1s')
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
