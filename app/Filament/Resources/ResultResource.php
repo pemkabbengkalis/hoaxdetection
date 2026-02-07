@@ -32,13 +32,14 @@ use Illuminate\Database\Schema\Blueprint;
 
 
 
+
 class ResultResource extends Resource
 {
 
     public static string $resource = ResultResource::class;
     protected static ?string $model = Result::class;
     protected static ?string $navigationIcon = 'heroicon-s-rectangle-stack';
-    protected static ?int $navigationSort = 3;
+    protected static ?int $navigationSort = 2;
 
     //---------------adrian---------------------//
 
@@ -119,24 +120,32 @@ class ResultResource extends Resource
                         'required' => 'Target akun wajib diisi',
                     ]),
 
+                // Forms\Components\Select::make('category')
+                //     ->label('Kategori Berita')
+                //     ->required(fn($operation) => $operation === 'create')
+                //     ->options([
+                //         'hoax' => 'Hoax',
+
+                //     ])
+                //     ->validationMessages([
+                //         'required' => 'category wajib dipilih',
+                //     ]),
+
                 Forms\Components\Select::make('category')
                     ->label('Kategori Berita')
-                    ->required(fn($operation) => $operation === 'create')
                     ->options([
                         'hoax' => 'Hoax',
-                        'fakta' => 'Fakta',
                     ])
-                    ->validationMessages([
-                        'required' => 'category wajib dipilih',
-                    ]),
-
+                    ->default('hoax')
+                    ->disabled()
+                    ->dehydrated(),
                 FileUpload::make('capture')
                     ->label('📎 Upload gambar jpeg/png')
                     ->image() // validasi image
                     ->disk('public')
                     ->directory('capture')
                     //->visibility('private')
-                    ->acceptedFileTypes(['image/jpeg', 'image/png'])
+                    ->acceptedFileTypes(['image/jpg', 'image/jpeg', 'image/png'])
                     ->maxSize(2048) // 2MB
                     ->required(fn($operation) => $operation === 'create')
                     ->validationMessages([
@@ -160,17 +169,23 @@ class ResultResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->poll('1s')
             ->columns([
 
+                // ImageColumn::make('capture')
+                //     ->disk('public')
+                //     ->label('Gambar')
+                //     ->tooltip('Klik untuk memperbesar')
+                //     ->extraAttributes(fn($record) => [
+                //         'onclick' => "window.open(" . json_encode(Storage::url($record->capture)) . ", '_blank')",
+                //         'style' => 'cursor:pointer;',
+                //     ]),
                 ImageColumn::make('capture')
-                    ->disk('public') // storage/app/public
-                    ->label('Gambar')
-                    ->tooltip('Klik untuk memperbesar')
-                    ->disableClick()
-                    ->extraAttributes(fn($record) => [
-                        'onclick' => "window.open(" . json_encode(Storage::url('/' . $record->capture)) . ",'_blank','width=800,height=600')",
-                        'style' => 'cursor:pointer;'
-                    ]),
+                    ->disk('public')
+                    ->url(fn($record) => Storage::url($record->capture))
+                    ->openUrlInNewTab(),
+
+
 
                 // Tables\Columns\TextColumn::make('type')
                 //     ->disableClick()
@@ -210,6 +225,9 @@ class ResultResource extends Resource
                 //     ->numeric()
                 //     ->sortable(),
                 Tables\Columns\TextColumn::make('category')
+                    ->disableClick()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('keterangan')
                     ->disableClick()
                     ->sortable(),
 

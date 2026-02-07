@@ -11,6 +11,8 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
 use Filament\Widgets\TableWidget as BaseWidget;
 
+use function Symfony\Component\String\s;
+
 class KadisUnvalidated extends BaseWidget
 {
     protected static ?string $heading = 'Hoax';
@@ -21,6 +23,7 @@ class KadisUnvalidated extends BaseWidget
     public function table(Table $table): Table
     {
         return $table
+            ->poll('1s')
             ->query(
                 Result::query()->whereStatus('validated')->Where('category', 'hoax'),
             )
@@ -40,6 +43,9 @@ class KadisUnvalidated extends BaseWidget
                         fn($record) =>
                         'Publikasi pada : ' . $record->published_at->format('d F Y')
                     ),
+                TextColumn::make('keterangan')
+                    ->label('Keterangan')
+                    ->searchable(),
 
                 // ->description(fn($record) => 'Publikasi pada : ' . $record->published_at->format('d F Y')),
 
