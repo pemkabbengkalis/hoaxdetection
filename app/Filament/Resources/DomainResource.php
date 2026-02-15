@@ -16,6 +16,8 @@ use App\Filament\Resources\DomainResource\RelationManagers;
 use App\Filament\Resources\DomainResource\Widgets\DomaiOverview;
 use Filament\Facades\Filament;
 use App\Models\User;
+use Filament\Tables\Actions\Action;
+use Illuminate\Support\HtmlString;
 
 
 class DomainResource extends Resource
@@ -25,10 +27,13 @@ class DomainResource extends Resource
     protected static ?string $modelLabel = 'Domain';
     protected static ?string $pluralModelLabel = 'Domain';
     protected static ?int $navigationSort = 3;
-
     //protected static ?string $navigationGroup = 'Validator';
 
-    //--------------adrian--------------------//    
+    protected static function getTableQuery(): Builder
+    {
+        return parent::getTableQuery()->with('results.tracer');
+    }
+
     public static function getWidgets(): array
     {
         return [
@@ -48,76 +53,76 @@ class DomainResource extends Resource
         // 🔐 Batasi berdasarkan role
         return $user->hasAnyRole([
             User::ROLE_ADMIN,
-            User::ROLE_VALIDATOR,
+            // User::ROLE_VALIDATOR,
             User::ROLE_TEAM,
         ]);
     }
 
-    public static function form(Form $form): Form
-    {
-        return $form
-            ->schema([
-                Forms\Components\TextInput::make('name')
-                    ->label('Nama Domain')
-                    ->required(fn($operation) => $operation === 'create')
-                    //->unique(ignoreRecord: true)
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('extension')
-                    ->label('Ekstensi Domain, Ex (.com, .id)')
-                    ->required(fn($operation) => $operation === 'create')
-                    //->unique(ignoreRecord: true)
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('description')
-                    ->label('Deskripsi')
-                    ->required(fn($operation) => $operation === 'create')
-                    //->unique(ignoreRecord: true)
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('rss')
-                    ->label('RSS (untuk penelusuran otomatis )')
-                    ->placeholder('contoh : https://domain.com/rss')
-                    ->helperText(
-                        new \Illuminate\Support\HtmlString(
-                            '<span style="color:orange">
-                Diisi jika ada saja ya
-            </span>'
-                        )
-                    )
-                    ->required(fn($operation) => $operation === 'create')
-                    //->unique(ignoreRecord: true)
-                    ->maxLength(255),
-                Forms\Components\Select::make('type')
-                    ->label('Sumber Platform')
-                    ->required(fn($operation) => $operation === 'create')
-                    //->unique(ignoreRecord: true)
-                    ->options([
-                        'media_online' => 'Media Online',
-                        'media_sosial' => 'Media Sosial',
-                    ]),
-
-
-            ]);
-    }
 
     public static function table(Table $table): Table
     {
         return $table
             ->poll('1s')
             ->columns([
-                Tables\Columns\TextColumn::make('name')
+
+                Tables\Columns\TextColumn::make('tracer_domain')
+                    ->label('Domain')
+                    ->disableClick()
+                    ->getStateUsing(
+                        fn($record) =>
+                        $record->results
+                            ->first()?->tracer?->domain
+                    )
                     ->searchable(),
-                Tables\Columns\TextColumn::make('extension')
+
+                Tables\Columns\TextColumn::make('results.url')
+                    ->label('Url')
+                    ->disableClick()
+                    ->getStateUsing(
+                        fn($record) =>
+                        $record->results->first()?->url
+                    )
+                    ->tooltip(fn($state) => $state)
+                    ->extraAttributes(fn($record) => [
+                        'x-data' => '{}',
+                        'x-on:click.stop' => "window.open('{$record->url}', '_blank', 'width=800,height=600')",
+                        'style' => 'cursor:pointer;',
+                    ])
                     ->searchable(),
-                Tables\Columns\TextColumn::make('description')
+                Tables\Columns\TextColumn::make('results.keywords')
+                    ->label('Keyword')
+                    ->disableClick()
+                    //->getStateUsing(fn($record) => $record->results->pluck('keyword')->all()),
+                    ->getStateUsing(
+                        fn($record) =>
+                        $record->results->first()?->keyword
+                    )
                     ->searchable(),
-                Tables\Columns\TextColumn::make('type')
-                    ->formatStateUsing(fn($state) => match ($state) {
-                        'media_online' => 'Media Online',
-                        'media_sosial' => 'Media Sosial',
-                        default => '-',
-                    })
+
+                Tables\Columns\TextColumn::make('results.target_account')
+                    ->label('Target Akun')
+                    ->disableClick()
+                    ->getStateUsing(
+                        fn($record) =>
+                        $record->results->first()?->target_account
+                    )
                     ->searchable(),
+
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
+                    ->disableClick()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->dateTime()
+                    ->disableClick()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+
+                Tables\Columns\TextColumn::make('created_at')
+                    ->dateTime()
+                    ->disableClick()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
@@ -129,6 +134,49 @@ class DomainResource extends Resource
                 //
             ])
             ->actions([
+                Action::make('detail')
+                    ->label('Detail')
+                    ->icon('heroicon-s-eye')
+                    ->modalHeading('')
+                    ->modalSubmitAction(false)
+                    ->modalCancelActionLabel('')
+
+                    ->modalContent(function ($record) {
+
+                        if ($record->results->isEmpty()) {
+                            return new HtmlString('Tidak ada data result');
+                        }
+
+                        $rows = '';
+
+                        foreach ($record->results as $r) {
+
+                            $rows .= "
+                    <tr class='border-b'>
+                        <td class='p-2'>" . ($r->tracer?->domain ?? '-') . "</td>
+                        <td class='p-2 break-all'>{$r->url}</td>
+                        <td class='p-2'>{$r->keyword}</td>
+                        <td class='p-2'>{$r->target_account}</td>
+                    </tr>
+                ";
+                        }
+
+                        return new HtmlString("
+                <table class='w-full text-sm border rounded'>
+                    <thead class='bg-gray-100'>
+                        <tr>
+                            <th class='p-2 text-left'>Domain</th>
+                            <th class='p-2 text-left'>URL</th>
+                            <th class='p-2 text-left'>Keyword</th>
+                            <th class='p-2 text-left'>Target Akun</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {$rows}
+                    </tbody>
+                </table>
+            ");
+                    }),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ])

@@ -24,6 +24,8 @@ class TracerResource extends Resource
     protected static ?string $model = Tracer::class;
     protected static ?int $navigationSort = 0;
 
+
+
     public static function canViewAny(): bool
     {
         /** @var User|null $user */
@@ -92,7 +94,8 @@ class TracerResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('type_platform')->state(
                     fn($record) => str($record->type_platform)->headline()
-                ),
+                )
+                    ->label('Tipe Platform'),
                 Tables\Columns\TextColumn::make('traceds_count')->label('Jumlah'),
                 Tables\Columns\TextColumn::make('hits')
                     ->numeric()
@@ -107,6 +110,7 @@ class TracerResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
+
             ->filters([
                 //
             ])

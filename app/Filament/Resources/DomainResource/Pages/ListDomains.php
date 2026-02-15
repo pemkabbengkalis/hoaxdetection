@@ -13,15 +13,15 @@ class ListDomains extends ListRecords
     protected static string $resource = DomainResource::class;
     //protected static bool $isLazy = true;
 
-    protected function getHeaderActions(): array
-    {
-        return [
-            Actions\CreateAction::make()
-                ->label('Tambah Data'),
+    // protected function getHeaderActions(): array
+    // {
+    //     return [
+    //         Actions\CreateAction::make()
+    //             ->label('Tambah Data'),
 
 
-        ];
-    }
+    //     ];
+    // }
 
 
     protected function getHeaderWidgets(): array

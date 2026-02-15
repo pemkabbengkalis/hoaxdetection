@@ -28,7 +28,8 @@ use Filament\Facades\Filament;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Schema\Blueprint;
-
+use Illuminate\Support\HtmlString;
+use App\Models\Domain;
 
 
 
@@ -42,6 +43,13 @@ class ResultResource extends Resource
     protected static ?int $navigationSort = 2;
 
     //---------------adrian---------------------//
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->with(['tracer', 'domain', 'validator',]);
+    }
+
 
     public static function canViewAny(): bool
     {
@@ -103,16 +111,14 @@ class ResultResource extends Resource
                 Forms\Components\TextInput::make('url')
                     ->url()
                     ->required(fn($operation) => $operation === 'create')
-                    ->maxLength(255)
-                    ->validationMessages([
-                        'required' => 'Url wajib diisi',
-                    ]),
-                Forms\Components\Textarea::make('description')
-                    ->required(fn($operation) => $operation === 'create')
-                    ->columnSpanFull()
-                    ->validationMessages([
-                        'required' => 'Deskripsi wajib diisi',
-                    ]),
+                    ->live(),
+
+                // Forms\Components\Textarea::make('description')
+                //     ->label('Deskripsi')
+                //     ->required(fn($operation) => $operation === 'create')
+                //     ->validationMessages([
+                //         'required' => 'Deskripsi wajib diisi',
+                //     ]),
                 Forms\Components\TextInput::make('target_account')
                     ->required(fn($operation) => $operation === 'create')
                     ->maxLength(255)
@@ -152,7 +158,8 @@ class ResultResource extends Resource
                         'required' => 'gambar wajib diisi',
                     ]),
 
-                Forms\Components\DateTimePicker::make('published_at'),
+                Forms\Components\DateTimePicker::make('published_at')
+                    ->label('Tanggal publikasi berita'),
 
                 Forms\Components\Select::make('status')
                     ->label('Status Berita')
@@ -161,7 +168,17 @@ class ResultResource extends Resource
                         'new' => 'New',
                         'validated' => 'Validated',
                         'unvalidated' => 'Unvalidated',
-                    ])
+                    ]),
+
+                Forms\Components\Textarea::make('keterangan')
+                    ->required(fn($operation) => $operation === 'create')
+                    ->label('Keterangan')
+                    ->maxLength(255)
+                    ->columnSpanFull()
+                    ->validationMessages([
+                        'required' => 'keterangan wajib diisi',
+                    ]),
+
 
             ]);
     }
@@ -183,14 +200,14 @@ class ResultResource extends Resource
                 ImageColumn::make('capture')
                     ->disk('public')
                     ->url(fn($record) => Storage::url($record->capture))
-                    ->openUrlInNewTab(),
-
-
-
-                // Tables\Columns\TextColumn::make('type')
-                //     ->disableClick()
-                //     ->searchable(['type'])
-                //     ->searchable(),
+                    ->tooltip('Klik untuk memperbesar')
+                    ->extraAttributes(fn($record) => [
+                        'onclick' => "window.open("
+                            . json_encode(Storage::url($record->capture)) .
+                            ", 'popupWindow', 
+        'width=900,height=600,scrollbars=yes,resizable=yes'); return false;",
+                        'style' => 'cursor:pointer;',
+                    ]),
                 Tables\Columns\TextColumn::make('keyword')
                     ->disableClick()
                     ->searchable(['keyword']),
@@ -214,26 +231,23 @@ class ResultResource extends Resource
 
                 Tables\Columns\TextColumn::make('domain.name')
                     ->disableClick()
-                    ->numeric()
+                    // ->numeric()
+                    ->sortable()
                     ->sortable(['domain.name']),
 
                 Tables\Columns\TextColumn::make('validator.name')
-                    ->label('Validator'),
-
-                // Tables\Columns\TextColumn::make('team.name')
-                //     ->disableClick()
-                //     ->numeric()
-                //     ->sortable(),
+                    ->label('Validator')
+                    ->disableClick(),
                 Tables\Columns\TextColumn::make('category')
                     ->disableClick()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('keterangan')
                     ->disableClick()
                     ->sortable(),
-
                 Tables\Columns\TextColumn::make('validated_at')
                     //->disableClick()
                     ->dateTime()
+                    ->disableClick()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('published_at')
                     ->disableClick()
@@ -247,14 +261,17 @@ class ResultResource extends Resource
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
+                    ->disableClick()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime()
+                    ->disableClick()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('deleted_at')
                     ->dateTime()
+                    ->disableClick()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
 

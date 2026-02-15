@@ -22,6 +22,7 @@ use App\Models\User;
 use Filament\Support\Facades\FilamentAsset;
 use Filament\Support\Assets\Css;
 use Filament\View\PanelsRenderHook;
+use Filament\Support\Facades\FilamentColor;
 
 
 
@@ -34,8 +35,11 @@ class AdminPanelProvider extends PanelProvider
 
     //------------adrian-------------------------------------//
 
+
     public function boot(): void
+
     {
+
         FilamentAsset::register([
             Css::make('login-bg', asset('login.css')),
         ]);
@@ -49,7 +53,8 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->brandLogo(asset('storage/bengkalis.png'))
-            ->brandLogoHeight('3rem') // 🔥 SIZE LOGO (rem)
+            ->brandLogoHeight('3rem')
+            ->viteTheme('resources/css/filament/admin/theme.css')
             ->login()
             ->renderHook(
                 PanelsRenderHook::HEAD_END,

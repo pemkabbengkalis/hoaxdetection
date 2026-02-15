@@ -1,0 +1,23 @@
+@import "../../../../vendor/filament/filament/resources/css/theme.css";
+
+@config 'tailwind.config.js';
+
+/* Paksa teks nilai Stat jadi putih full, termasuk di light & dark mode */
+.fi-wi-stats-overview-stat-value {
+    color: white !important; /* prioritas tinggi pakai !important */
+}
+
+/* Opsional: kalau ingin paksa SELURUH teks di Stat card (label, description, icon juga putih) */
+.fi-wi-stats-overview-stat {
+    & .fi-wi-stats-overview-stat-value,
+    & .fi-wi-stats-overview-stat-label,
+    & .fi-wi-stats-overview-stat-description,
+    & .fi-wi-stats-overview-stat-icon svg {
+        color: white !important;
+    }
+}
+
+/* Kalau background inline kamu di-override, paksa background tetap */
+/* .fi-wi-stats-overview-stat[style*="rgba(52, 168, 83"] {
+    background-color: rgb(242, 43, 43) !important;
+} */

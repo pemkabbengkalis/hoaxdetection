@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    // return view('welcome');
+
+Route::middleware('throttle:3,1')->get('/', function () {
     return redirect('/admin');
 });

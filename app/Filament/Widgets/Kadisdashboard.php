@@ -16,6 +16,8 @@ use Filament\Tables\Columns\CheckboxColumn;
 use Filament\Widgets\TableWidget as BaseWidget;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\TextInputColumn;
+use Filament\Tables\Columns\IconColumn;
+
 
 
 class Kadisdashboard extends BaseWidget
@@ -24,11 +26,6 @@ class Kadisdashboard extends BaseWidget
     protected static ?int $sort = 4;
 
     protected int | string | array $columnSpan = 'full';
-
-    protected function getTablePollingInterval(): ?string
-    {
-        return '1s';
-    }
 
 
     public function table(Table $table): Table
@@ -52,7 +49,7 @@ class Kadisdashboard extends BaseWidget
 
                 TextColumn::make('url')
                     ->label('URL didapatkan')
-                    ->limit(40) // jumlah karakter
+                    // ->limit(25) // jumlah karakter
                     ->tooltip(fn($record) => $record->url) // biar full URL muncul saat hover
                     ->description(
                         fn($record) =>
@@ -64,14 +61,14 @@ class Kadisdashboard extends BaseWidget
                         'hoax' => 'Hoax',
                         'fakta' => 'Fakta'
                     ])
-                    ->hidden(fn() => in_array(auth()->user()->role, ['admin', 'team', 'validator'])),
+                    ->hidden(fn() => in_array(auth()->user()->role, ['admin', 'team',])),
 
 
                 TextInputColumn::make('keterangan')
                     ->label('Keterangan')
                     ->placeholder('Isi keterangan...')
                     ->rules(['max:255'])
-                    ->hidden(fn() => in_array(auth()->user()->role, ['admin', 'team']))
+                    ->hidden(fn() => in_array(auth()->user()->role, ['admin', 'team',]))
                     ->afterStateUpdated(function ($record, $state) {
                         $record->update([
                             'keterangan' => $state,
@@ -111,17 +108,20 @@ class Kadisdashboard extends BaseWidget
                         $record->update([
                             'status' => $state ? 'validated' : 'unvalidated',
                             'validator_id' => auth()->id(),
-                            'validated_at' => now(),
+                            'validated_at' => $state ? now() : null,
                         ]);
-                    }),
-
-
+                    })
+                    ->extraAttributes(fn($record) => [
+                        'class' => $record->status === 'validated'
+                            ? 'border-2 border-green-500 rounded p-1'
+                            : 'border border-primary-400 rounded p-1',
+                    ]),
 
                 TextColumn::make('status_hint')
                     ->label('')
                     ->state('Silakan centang untuk validasi')
                     ->wrap()
-                    ->color('warning')
+                    ->color('primary')
                     ->size(TextColumn\TextColumnSize::Small)
                     ->hidden(fn() => in_array(auth()->user()->role, ['admin', 'team'])),
 
@@ -130,7 +130,7 @@ class Kadisdashboard extends BaseWidget
 
             ])
             ->actions([
-                Action::make('lihat_dulu')
+                Action::make('lihat_berita')
                     ->icon('heroicon-o-eye')
                     ->url(fn($record) => $record->url)
                     ->hidden(fn() => in_array(auth()->user()->role, ['admin', 'team', 'validator'])),

@@ -19,5 +19,14 @@
         font-size: 16px;
     }
 
+    /* Semua icon Stat jadi putih */
+    .fi-wi-stats-overview-stat-icon {
+        color: white !important; /* mengubah currentColor */
+    }
+
+    .fi-wi-stats-overview-stat-icon svg {
+        stroke: white !important; /* paksa stroke jadi putih */
+    }
+
     /* ---------------end of adrian--------------- */
 }

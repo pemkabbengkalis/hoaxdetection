@@ -43,6 +43,19 @@ class ListTracers extends ListRecords
 
 
 
+            Actions\Action::make('grok AI')
+                ->label('Grok AI')
+                ->icon('heroicon-o-window')
+                ->color('primary')
+                ->url('https://grok.com')
+                ->openUrlInNewTab(),
+            Actions\Action::make('Chatgpt AI')
+                ->label('Chatgpt AI')
+                ->icon('heroicon-o-window')
+                ->color('danger')
+                ->url('https://chatgpt.com')
+                ->openUrlInNewTab(),
+
             Actions\Action::make('google')
                 ->label('Google')
                 ->icon('heroicon-o-globe-alt')

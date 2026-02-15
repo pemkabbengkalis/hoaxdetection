@@ -47,6 +47,7 @@ class CreateTracer extends CreateRecord
                             TextInput::make('name')
                                 ->label('Nama')
                                 ->required()
+                                ->placeholder('Isi nama platform ex : google')
                                 ->validationMessages([
                                     'required' => 'Nama wajib diisi',
                                 ]),
@@ -56,6 +57,7 @@ class CreateTracer extends CreateRecord
                         ->schema([
                             TextInput::make('domain')
                                 ->label('Domain')
+                                ->placeholder('Isi nama domain ex : www.google.com')
                                 ->required()
                                 ->validationMessages([
                                     'required' => 'Domain wajib diisi',
