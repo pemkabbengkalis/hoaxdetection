@@ -15,5 +15,5 @@ return Application::configure(basePath: dirname(__DIR__))
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
-    })->create();
-    //->usePublicPath(__DIR__ . '/../public_html');
+    })->create()
+    ->usePublicPath(is_dir(__DIR__ . '/../../public_html') ?  __DIR__ . '/../../public_html'  : null);
