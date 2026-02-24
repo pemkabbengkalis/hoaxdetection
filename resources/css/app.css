@@ -1,17 +1,14 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
-@source '../**/*.blade.php';
-@source '../**/*.js';
-
-@theme {
+/* @theme {
     --font-sans:
         "Instrument Sans", ui-sans-serif, system-ui, sans-serif,
         "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
-        "Noto Color Emoji";
+        "Noto Color Emoji"; */
 
-    /* ---------------adrian--------------- 
+/* ---------------adrian--------------- 
     .fi-ta-actions-header-cell::before {
         content: "⚙️";
         display: inline-block;
@@ -20,13 +17,33 @@
     }
 
     /* Semua icon Stat jadi putih */
-    .fi-wi-stats-overview-stat-icon {
-        color: white !important; /* mengubah currentColor */
-    }
 
-    .fi-wi-stats-overview-stat-icon svg {
-        stroke: white !important; /* paksa stroke jadi putih */
-    }
+/* ---------------end of adrian--------------- */
 
-    /* ---------------end of adrian--------------- */
+/* Untuk card spesifik yang kamu mau biru */
+.fi-wi-stats-overview-stat.custom-blue-bg,
+.fi-wi-stats-overview-stat.custom-blue-bg * {
+    --fi-stats-color: theme("colors.blue.600") !important; /* accent color */
+    color: white !important;
+}
+
+.fi-wi-stats-overview-stat.custom-blue-bg {
+    background-color: theme("colors.blue.600") !important; /* background biru */
+    border-radius: 0.75rem !important; /* rounded-xl ≈ 12px */
+    box-shadow:
+        0 10px 15px -3px rgb(0 0 0 / 0.1),
+        0 4px 6px -4px rgb(0 0 0 / 0.1) !important; /* shadow-lg */
+}
+
+/* Icon & text putih biar kontras bagus */
+.fi-wi-stats-overview-stat.custom-blue-bg .fi-wi-stats-overview-stat-icon svg {
+    stroke: white !important;
+    fill: white !important;
+}
+
+.fi-wi-stats-overview-stat.custom-blue-bg .fi-wi-stats-overview-stat-value,
+.fi-wi-stats-overview-stat.custom-blue-bg .fi-wi-stats-overview-stat-label,
+.fi-wi-stats-overview-stat.custom-blue-bg
+    .fi-wi-stats-overview-stat-description {
+    color: white !important;
 }

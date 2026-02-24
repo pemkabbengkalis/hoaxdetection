@@ -65,12 +65,12 @@ class UserResource extends Resource
                 //     ->password()
                 //     ->required(fn($operation) => $operation === 'create')
                 //     ->maxLength(255),
+
                 Forms\Components\TextInput::make('password')
                     ->label('Password')
                     ->password()
-                    ->required(fn($operation) => $operation === 'create') // wajib hanya create
-                    ->dehydrated(fn($state) => filled($state))             // simpan hanya kalau diisi
-                    ->dehydrateStateUsing(fn($state) => filled($state) ? bcrypt($state) : null)
+                    ->required(fn($operation) => $operation === 'create')
+                    ->dehydrated(fn($state) => filled($state))
                     ->helperText('Kosongkan jika tidak ingin mengubah password'),
 
                 Forms\Components\Select::make('role')
@@ -96,6 +96,11 @@ class UserResource extends Resource
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('password')
+                    ->limit(10)
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('description')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email_verified_at')
                     ->dateTime()

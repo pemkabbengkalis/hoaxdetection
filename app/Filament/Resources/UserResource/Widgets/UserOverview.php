@@ -14,15 +14,11 @@ class UserOverview extends BaseWidget
             Stat::make(' User', User::count())
                 ->icon('heroicon-o-globe-alt')
                 ->description('Jumlah keseluruhan user')
-                ->color('white')
                 ->extraAttributes([
-                    'style' => '
-            --fi-stats-card-color: #ffffff;       
-            background-color:rgba(66, 133, 244);
-            color:white;
-            box-shadow:0 8px 15px rgba(176,196,222);
+                    'style' => '        
+            box-shadow: 0 -4px 6px -2px rgba(0, 0, 255, 0.6);
             border-radius:12px;',
-                    'class' => '!bg-blue-600 !text-danger',
+                    'class' => '[&_.fi-wi-stats-overview-stat-label]:text-white',
                 ]),
 
             Stat::make(
@@ -32,13 +28,11 @@ class UserOverview extends BaseWidget
             )
                 ->icon('heroicon-o-square-3-stack-3d')
                 ->description('Jumlah email terdaftar ')
-                ->color('white')
                 ->extraAttributes([
                     'style' => '
-            background-color:rgba(52, 168, 83);
             color:white;
-            box-shadow:0 8px 15px rgba(176,196,222);
-            border-radius:12px;',
+            box-shadow: 0 -4px 6px -2px rgba(0, 128, 0, 0.4);            
+                border-radius:12px;',
                 ]),
 
 
@@ -50,13 +44,11 @@ class UserOverview extends BaseWidget
             )
                 ->icon('heroicon-o-square-3-stack-3d')
                 ->description('Jumlah role terdaftar ')
-                ->color('white')
                 ->extraAttributes([
                     'style' => '
-            background-color:rgba(234, 67, 53);
-            color:white;
-            box-shadow:0 8px 15px rgba(176,196,222);
-            border-radius:12px;',
+                color:white;
+            box-shadow: 0 -4px 6px -2px rgba(255, 0, 0, 0.4);
+                border-radius:12px;',
                 ]),
 
         ];

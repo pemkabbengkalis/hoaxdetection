@@ -54,7 +54,7 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->brandLogo(asset('storage/bengkalis.png'))
             ->brandLogoHeight('3rem')
-            ->viteTheme('resources/css/filament/admin/theme.css')
+            //->viteTheme('resources/css/filament/admin/theme.css')
             ->login()
             ->renderHook(
                 PanelsRenderHook::HEAD_END,

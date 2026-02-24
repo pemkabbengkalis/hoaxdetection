@@ -18,33 +18,28 @@ class StatsOverview extends BaseWidget
         return [
             Stat::make('Total URL', $result->count())
                 ->description('Jumlah url terdaftar')
-                ->color(Color::hex('#ffffff'))  // atau Color::rgb(52, 168, 83)
                 ->extraAttributes([
-                    'style' => '
-            background-color:rgba(66, 133, 244);
-            box-shadow: 0 3px 8px rgba(176,196,222);
-            border-radius: 12px;
-        ',  // background sudah di-handle ->color(), jadi hapus background-color di sini
+                    'style' => '        
+            box-shadow: 0 -4px 6px -2px rgba(0, 0, 255, 0.6);
+            border-radius:12px;',
+                    'class' => '[&_.fi-wi-stats-overview-stat-label]:text-white',
                 ]),
+
             Stat::make('Valid', $result->where('status', 'validated')->count())
                 ->description('Jumlah berita hoaxs terverifikasi')
-                ->color('white')
                 ->extraAttributes([
                     'style' => '
-            background-color:rgba(52, 168, 83);
-            box-shadow: 0 3px 8px rgba(176,196,222);
-            border-radius: 12px;
-        ',  // background sudah di-handle ->color(), jadi hapus background-color di sini
+            color:white;
+            box-shadow: 0 -4px 6px -2px rgba(0, 128, 0, 0.4);            
+                border-radius:12px;',
                 ]),
             Stat::make('Tidak Valid', $result->where('status', 'unvalidated')->count())
                 ->description('Jumlah tidak valid ')
-                ->color('white')
                 ->extraAttributes([
                     'style' => '
-            background-color:rgba(234, 67, 53);
-            box-shadow: 0 3px 8px rgba(176,196,222);
-            border-radius: 12px;
-        ',  // background sudah di-handle ->color(), jadi hapus background-color di sini
+                color:white;
+            box-shadow: 0 -4px 6px -2px rgba(255, 0, 0, 0.4);
+                border-radius:12px;',
                 ]),
         ];
     }
