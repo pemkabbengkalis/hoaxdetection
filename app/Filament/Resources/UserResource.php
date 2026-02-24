@@ -53,6 +53,7 @@ class UserResource extends Resource
                     // ->visible(fn($operation) => in_array($operation, ['edit']))
                     ->required(fn($operation) => $operation === 'create')
                     ->maxLength(255),
+
                 Forms\Components\TextInput::make('email')
                     ->email()
                     ->required(fn($operation) => $operation === 'create')

@@ -11,6 +11,7 @@ use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Wizard\Step;
 use Filament\Resources\Pages\CreateRecord;
+use Illuminate\Support\Facades\Hash;
 use Filament\Forms\Components\Wizard;
 use Filament\Forms\Form;
 
@@ -69,6 +70,22 @@ class CreateUser extends CreateRecord
                                 ->validationMessages([
                                     'required' => 'Email verified wajib diisi',
                                     'email'    => 'Email verified harus benar',
+                                ]),
+                        ]),
+
+
+                    Step::make('Password')
+                        ->schema([
+                            TextInput::make('password')
+                                ->label('Password')
+                                ->password()
+                                ->required()
+                                //->minLength(8)
+                                ->dehydrateStateUsing(fn($state) => Hash::make($state))
+                                ->dehydrated(fn($state) => filled($state))
+                                ->validationMessages([
+                                    'required' => 'Password wajib diisi',
+                                    'minLength' => 'Password minimal 8 karakter',
                                 ]),
                         ]),
 

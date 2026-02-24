@@ -57,10 +57,31 @@ class DomainResource extends Resource
             User::ROLE_TEAM,
         ]);
     }
+    public static function form(Form $form): Form
+    {
+        return $form
+            ->schema([
+
+                Forms\Components\TextInput::make('rss')
+                    ->label('RSS (untuk penelusuran otomatis )')
+                    ->placeholder('contoh : https://domain.com/rss')
+                    ->helperText(
+                        new \Illuminate\Support\HtmlString(
+                            '<span style="color:orange">
+                            Diisi jika ada saja ya
+                        </span>'
+                        )
+                    )
+                    ->required(fn($operation) => $operation === 'create')
+                    ->maxLength(255)
+            ]);
+    }
+
 
 
     public static function table(Table $table): Table
     {
+
         return $table
             ->poll('1s')
             ->columns([
@@ -106,6 +127,11 @@ class DomainResource extends Resource
                         fn($record) =>
                         $record->results->first()?->target_account
                     )
+                    ->searchable(),
+
+                Tables\Columns\TextColumn::make('rss')
+                    ->label('Rss')
+                    ->disableClick()
                     ->searchable(),
 
                 Tables\Columns\TextColumn::make('created_at')
