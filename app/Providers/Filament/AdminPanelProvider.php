@@ -52,6 +52,7 @@ class AdminPanelProvider extends PanelProvider
             //->spa()
             ->id('admin')
             ->path('admin')
+            ->brandName('Hoaxs Tracer')
             ->brandLogo(asset('storage/bengkalis.png'))
             ->brandLogoHeight('3rem')
             //->viteTheme('resources/css/filament/admin/theme.css')

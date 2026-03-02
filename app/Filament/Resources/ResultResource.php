@@ -158,7 +158,7 @@ class ResultResource extends Resource
                         'required' => 'gambar wajib diisi',
                     ]),
 
-                Forms\Components\DateTimePicker::make('published_at')
+                Forms\Components\DatePicker::make('published_at')
                     ->label('Tanggal publikasi berita'),
 
                 Forms\Components\Select::make('status')

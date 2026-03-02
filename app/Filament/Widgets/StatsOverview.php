@@ -25,7 +25,7 @@ class StatsOverview extends BaseWidget
                     'class' => '[&_.fi-wi-stats-overview-stat-label]:text-white',
                 ]),
 
-            Stat::make('Valid', $result->where('status', 'validated')->count())
+            Stat::make('Hoax', $result->where('status', 'validated')->where('category', 'hoax')->count())
                 ->description('Jumlah berita hoaxs terverifikasi')
                 ->extraAttributes([
                     'style' => '
@@ -33,8 +33,18 @@ class StatsOverview extends BaseWidget
             box-shadow: 0 -4px 6px -2px rgba(0, 128, 0, 0.4);            
                 border-radius:12px;',
                 ]),
-            Stat::make('Tidak Valid', $result->where('status', 'unvalidated')->count())
-                ->description('Jumlah tidak valid ')
+
+            Stat::make('Fakta', $result->where('status', 'validated')->where('category', 'fakta')->count())
+                ->description('Jumlah berita fakta terverifikasi')
+                ->extraAttributes([
+                    'style' => '
+            color:white;
+            box-shadow: 0 -4px 6px -2px rgba(245, 158, 11, 0.4);
+                border-radius:12px;',
+                ]),
+
+            Stat::make('Data Butuh Verifikasi', $result->where('status', 'unvalidated')->count())
+                ->description('Jumlah Data Butuh Verifikasi ')
                 ->extraAttributes([
                     'style' => '
                 color:white;

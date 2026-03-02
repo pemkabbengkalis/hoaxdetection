@@ -2,21 +2,16 @@
 
 namespace App\Filament\Widgets;
 
-use Filament\Tables;
 use App\Models\Result;
 use Filament\Tables\Table;
-use Illuminate\Support\Collection;
-use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Columns\ToggleColumn;
 use Filament\Widgets\TableWidget as BaseWidget;
+use Filament\Tables\Actions\Action;
 
-use function Symfony\Component\String\s;
-
-class KadisUnvalidated extends BaseWidget
+class KadisFakta extends BaseWidget
 {
-    protected static ?string $heading = 'Hoax';
-    protected static ?int $sort = 5;
+    protected static ?string $heading = 'Fakta';
+    protected static ?int $sort = 6;
 
     protected int|string|array $columnSpan = 'full';
 
@@ -25,43 +20,32 @@ class KadisUnvalidated extends BaseWidget
         return $table
             ->poll('1s')
             ->query(
-                // Result::query()->whereStatus('validated')->Where('category', 'hoax'),
-
-                $results = Result::query()
-                    ->where(function ($query) {
-                        $query->where('status', 'validated')
-                            ->where('category', 'hoax')
-                            ->orWhere(function ($q) {
-                                $q->where('status', 'fakta')
-                                    ->where('category', 'fakta');
-                            });
-                    })
-
-
+                Result::query()
+                    // ->where('status', 'fakta')
+                    ->where('category', 'fakta')
             )
             ->columns([
                 TextColumn::make('tracer.name')
                     ->label('Penelusuran dari')
                     ->description(fn($record) => $record->tracer->domain)
                     ->searchable(),
+
                 TextColumn::make('keyword')
                     ->label('Kata kunci')
                     ->searchable(),
+
                 TextColumn::make('url')
                     ->label('URL didapatkan')
-                    ->limit(40) // jumlah karakter
-                    ->tooltip(fn($record) => $record->url) // biar full URL muncul saat hover
+                    ->limit(40)
+                    ->tooltip(fn($record) => $record->url)
                     ->description(
                         fn($record) =>
                         'Publikasi pada : ' . $record->published_at->format('d F Y')
                     ),
+
                 TextColumn::make('keterangan')
                     ->label('Keterangan')
                     ->searchable(),
-
-                // ->description(fn($record) => 'Publikasi pada : ' . $record->published_at->format('d F Y')),
-
-
             ])
             ->actions([
                 Action::make('lihat_berita')
@@ -73,6 +57,6 @@ class KadisUnvalidated extends BaseWidget
                     ->outlined()        // style outline
                     ->color('primary')
             ])
-            ->paginated(false); // dashboard biasanya tanpa pagination
+            ->paginated(false);
     }
 }
