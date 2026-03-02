@@ -55,7 +55,6 @@ class AdminPanelProvider extends PanelProvider
             ->brandName('Hoaxs Tracer')
             ->brandLogo(asset('storage/bengkalis.png'))
             ->brandLogoHeight('3rem')
-            //->viteTheme('resources/css/filament/admin/theme.css')
             ->login()
             ->renderHook(
                 PanelsRenderHook::HEAD_END,
@@ -98,9 +97,9 @@ class AdminPanelProvider extends PanelProvider
 
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
-            ->pages([
-                Pages\Dashboard::class,
-            ])
+            // ->pages([
+            //     Pages\Dashboard::class,
+            // ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([])
             ->middleware([
