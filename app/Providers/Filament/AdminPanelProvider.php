@@ -90,16 +90,7 @@ class AdminPanelProvider extends PanelProvider
             //         ->url(fn() => route('filament.admin.pages.dashboard'))
             //         ->isActiveWhen(fn() => request()->routeIs('filament.admin.pages.dashboard'))
 
-            // ])
-
-            ->navigationItems([
-                NavigationItem::make(fn() => app()->getLocale() === 'id' ? 'Dashboard' : 'Dasbor')
-                    ->icon('heroicon-s-home')
-                    ->url(fn() => route('filament.admin.pages.dashboard'))
-                    ->isActiveWhen(fn() => request()->routeIs('filament.admin.pages.dashboard'))
-            ])
-
-
+            // ])    
             //------------------------end of adrian-------------------------//
 
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
