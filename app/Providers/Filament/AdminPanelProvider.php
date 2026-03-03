@@ -93,7 +93,7 @@ class AdminPanelProvider extends PanelProvider
             // ])
 
             ->navigationItems([
-                NavigationItem::make(fn() => app()->getLocale() === 'id' ? 'Dasbor' : 'Dashboard')
+                NavigationItem::make(fn() => app()->getLocale() === 'id' ? 'Dashboard' : 'Dashboard')
                     ->icon('heroicon-s-home')
                     ->url(fn() => route('filament.admin.pages.dashboard'))
                     ->isActiveWhen(fn() => request()->routeIs('filament.admin.pages.dashboard'))
