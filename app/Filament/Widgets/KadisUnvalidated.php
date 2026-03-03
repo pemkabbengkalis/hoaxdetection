@@ -10,6 +10,7 @@ use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
 use Filament\Widgets\TableWidget as BaseWidget;
+use Filament\Tables\Actions\BulkAction;
 
 use function Symfony\Component\String\s;
 

@@ -17,6 +17,7 @@ use Filament\Widgets\TableWidget as BaseWidget;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\TextInputColumn;
 use Filament\Tables\Columns\IconColumn;
+use Filament\Notifications\Notification;
 
 
 
@@ -75,47 +76,51 @@ class Kadisdashboard extends BaseWidget
                         ]);
                     }),
 
-
                 // CheckboxColumn::make('status')
                 //     ->label('Status')
-                //     ->state('Silakan centang untuk pilihan entah')
                 //     ->tooltip('Pastikan pilihan sudah sesuai')
-                //     // ->visible(fn() => in_array(auth()->user()->role, ['kadis', 'validator']))
                 //     ->hidden(fn() => in_array(auth()->user()->role, ['admin', 'team']))
-
-
-                //     // DB string → toggle boolean
                 //     ->getStateUsing(fn($record) => $record?->status === 'validated')
-
-                //     // ⛔ STOP update default (boolean)
                 //     ->updateStateUsing(function ($record, bool $state) {
                 //         $record->update([
                 //             'status' => $state ? 'validated' : 'unvalidated',
-                //             'validator_id' => auth()->user()->id,
-                //             'validated_at' => now(),
+                //             'validator_id' => auth()->id(),
+                //             'validated_at' => $state ? now() : null,
                 //         ]);
-                //     }),
-
-
-                //--------------------adrian---------------------------------------
-
+                //     })
+                //     ->extraAttributes(fn($record) => [
+                //         'class' => $record->status === 'validated'
+                //             ? 'border-2 border-green-500 rounded p-1'
+                //             : 'border border-primary-400 rounded p-1',
+                //     ]),
                 CheckboxColumn::make('status')
                     ->label('Status')
                     ->tooltip('Pastikan pilihan sudah sesuai')
                     ->hidden(fn() => in_array(auth()->user()->role, ['admin', 'team']))
                     ->getStateUsing(fn($record) => $record?->status === 'validated')
                     ->updateStateUsing(function ($record, bool $state) {
+
                         $record->update([
                             'status' => $state ? 'validated' : 'unvalidated',
                             'validator_id' => auth()->id(),
                             'validated_at' => $state ? now() : null,
                         ]);
+
+                        Notification::make()
+                            ->title('Sukses')
+                            ->body('Data berhasil disimpan.')
+                            ->success()
+                            ->icon('heroicon-o-check-circle')
+                            ->duration(3000)
+                            ->send();
                     })
                     ->extraAttributes(fn($record) => [
                         'class' => $record->status === 'validated'
                             ? 'border-2 border-green-500 rounded p-1'
                             : 'border border-primary-400 rounded p-1',
                     ]),
+
+
 
                 TextColumn::make('status_hint')
                     ->label('')
