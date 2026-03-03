@@ -84,12 +84,19 @@ class AdminPanelProvider extends PanelProvider
                 'warning' => Color::Yellow,
                 'danger'  => Color::Red,
             ])
+            // ->navigationItems([
+            //     NavigationItem::make('Dashboard')
+            //         ->icon('heroicon-s-home')
+            //         ->url(fn() => route('filament.admin.pages.dashboard'))
+            //         ->isActiveWhen(fn() => request()->routeIs('filament.admin.pages.dashboard'))
+
+            // ])
+
             ->navigationItems([
-                NavigationItem::make('Dashboard')
+                NavigationItem::make(fn() => app()->getLocale() === 'id' ? 'Dasbor' : 'Dashboard')
                     ->icon('heroicon-s-home')
                     ->url(fn() => route('filament.admin.pages.dashboard'))
                     ->isActiveWhen(fn() => request()->routeIs('filament.admin.pages.dashboard'))
-
             ])
 
 
