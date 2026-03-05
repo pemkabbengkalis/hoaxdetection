@@ -115,7 +115,20 @@ class TracerResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\ViewAction::make()->label('Lihat Data')->url('results?tracer_id=1'),
+
+                Tables\Actions\ViewAction::make()->label('Cari')->url(function ($record) {
+                    $domain = $record->domain;
+                    if (! str_starts_with($domain, 'http')) {
+                        $domain = 'https://' . $domain;
+                    }
+
+                    return rtrim($domain, '/');
+                })
+                    ->icon('heroicon-s-magnifying-glass-circle')
+                    ->color('primary')
+                    ->openUrlInNewTab(),
+                Tables\Actions\ViewAction::make()->label('Lihat Data')->url('results?tracer_id=1')
+                ->color('primary'),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ])
