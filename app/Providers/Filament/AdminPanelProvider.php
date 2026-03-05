@@ -64,6 +64,16 @@ class AdminPanelProvider extends PanelProvider
     '
             )
 
+            ->navigationItems([
+                NavigationItem::make('Contoh Keyword')
+                    ->icon('heroicon-s-book-open')
+                    ->url("javascript:window.open(
+            'https://docs.google.com/spreadsheets/d/10affbAEggTnIyGU4LSvNU-Dygaoq6-o9/edit?usp=sharing',
+            'popupWindow',
+            'width=1000,height=700,scrollbars=yes,resizable=yes'
+        )")
+                    ->sort(999),
+            ])
             ->renderHook(
                 PanelsRenderHook::BODY_END,
                 fn() => '
