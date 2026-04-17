@@ -44,7 +44,7 @@ class KontenResource extends Resource
                         'url' => 'Format URL tidak valid',
                     ]), //
 
-                Forms\Components\Textarea::make('keterangan    ')
+                Forms\Components\Textarea::make('keterangan')
                     ->label('Keterangan')
                     //->required(fn($operation) => $operation === 'create')
                     ->required()
@@ -61,12 +61,18 @@ class KontenResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('url')
+                    ->disableClick()
+                    ->searchable(['url']),
+                Tables\Columns\TextColumn::make('keterangan')
+                    ->disableClick()
+                    ->searchable(['keterangan']),
             ])
             ->filters([
                 //
             ])
             ->actions([
+                Tables\Actions\EditAction::make(),
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([

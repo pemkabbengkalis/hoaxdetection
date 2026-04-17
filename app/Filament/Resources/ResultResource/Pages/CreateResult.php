@@ -9,6 +9,7 @@ use App\Filament\Resources\ResultResource;
 use Filament\Resources\Pages\CreateRecord;
 use App\Models\User;
 use Illuminate\Support\Facades\Http;
+use Carbon\Carbon;
 
 
 class CreateResult extends CreateRecord
@@ -48,23 +49,25 @@ class CreateResult extends CreateRecord
         //     "session"  => $token,
         //     "to" => (new WhatsAppService)->normalizePhone($nokadis), // fonnte support multiple: "628xx,628yy"
         //     "text" => 'hallo berhasil ya',
-        // ]);
+        // ]);                
 
-            $nokadis = User::whereRole('kadis')->first()?->no_hp;
-            $message = "🔔 *Informasi Ada Berita Hoax!*\n\n"
-                . "📌 *Keyword:* {$record->keyword}\n"
-                . "🌐 *URL:* {$record->url}\n"
-                . "👤 *Target Akun:* {$record->target_account}\n"
-                . "📂 *Kategori:* {$record->category}\n"
-                . "📊 *Status:* {$record->status}\n"
-                . "📝 *Keterangan:* {$record->keterangan}\n"
-                . "🕐 *Waktu:* " . now()->format('d-m-Y H:i:s');
-            Http::post($url . '/message/send-text', [
-                "session"  => $token,
-                "to" => (new WhatsAppService)->normalizePhone($nokadis), // fonnte support multiple: "628xx,628yy"
-                "text" => $message,
-            ]);
-       // })->afterResponse();
+
+        $nokadis = User::whereRole('kadis')->first()?->no_hp;
+        $message = "🔔 *Informasi Ada Berita Hoax!*\n\n"
+            . "📌 *Keyword:* {$record->keyword}\n"
+            . "🌐 *URL:* {$record->url}\n"
+            . "👤 *Target Akun:* {$record->target_account}\n"
+            . "📂 *Kategori:* {$record->category}\n"
+            . "📊 *Status:* {$record->status}\n"
+            . "📝 *Keterangan:* {$record->keterangan}\n"
+            //. "🕐 *Waktu:* " . now()->format('d-m-Y H:i:s');
+            . "🕐 *Waktu:* " . Carbon::now('Asia/Jakarta')->format('d-m-Y H:i:s');
+        Http::post($url . '/message/send-text', [
+            "session"  => $token,
+            "to" => (new WhatsAppService)->normalizePhone($nokadis), // fonnte support multiple: "628xx,628yy"
+            "text" => $message,
+        ]);
+        // })->afterResponse();
 
 
         // WhatsAppService::send($message, $nokadis);

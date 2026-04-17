@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('kontens', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->string('url');
             $table->text('keterangan');
             $table->timestamps();

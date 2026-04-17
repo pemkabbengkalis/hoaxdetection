@@ -73,14 +73,16 @@ class CreateUser extends CreateRecord
                                 ]),
                         ]),
 
-                    Step::make('No Hp')
+                    Step::make('no_hp')
                         ->schema([
-                            DateTimePicker::make('email_verified_at')
-                                ->label('Email Verified')
+                            TextInput::make('no_hp')
+                                ->label('No Hp')
+                                ->tel()
+                                ->placeholder('6281234567890')
                                 ->required()
                                 ->validationMessages([
-                                    'required' => 'Email verified wajib diisi',
-                                    'email'    => 'Email verified harus benar',
+                                    'required' => 'No Hp wajib diisi',
+                                    'tel'    => 'No Hp harus benar',
                                 ]),
                         ]),
 
@@ -99,16 +101,16 @@ class CreateUser extends CreateRecord
                                 ]),
                         ]),
 
-                    Step::make('Deskripsi')
-                        ->schema([
-                            Textarea::make('description')
-                                ->label('Deskripsi')
-                                ->required()
-                                ->validationMessages([
-                                    'required' => 'Deskripsi wajib diisi',
+                    // Step::make('Deskripsi')
+                    //     ->schema([
+                    //         Textarea::make('description')
+                    //             ->label('Deskripsi')
+                    //             ->required()
+                    //             ->validationMessages([
+                    //                 'required' => 'Deskripsi wajib diisi',
 
-                                ]),
-                        ]),
+                    //             ]),
+                    //     ]),
 
                     Step::make('Pilih Role')
                         ->schema([
