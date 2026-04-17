@@ -73,6 +73,16 @@ class CreateUser extends CreateRecord
                                 ]),
                         ]),
 
+                    Step::make('No Hp')
+                        ->schema([
+                            DateTimePicker::make('email_verified_at')
+                                ->label('Email Verified')
+                                ->required()
+                                ->validationMessages([
+                                    'required' => 'Email verified wajib diisi',
+                                    'email'    => 'Email verified harus benar',
+                                ]),
+                        ]),
 
                     Step::make('Password')
                         ->schema([

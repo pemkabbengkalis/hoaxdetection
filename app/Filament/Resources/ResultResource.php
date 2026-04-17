@@ -31,26 +31,40 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\HtmlString;
 use App\Models\Domain;
 
-
-
-
 class ResultResource extends Resource
 {
-
     public static string $resource = ResultResource::class;
     protected static ?string $model = Result::class;
     protected static ?string $navigationIcon = 'heroicon-s-rectangle-stack';
     protected static ?int $navigationSort = 2;
 
-    //---------------adrian---------------------//
+    public static function canDelete($record): bool
+    {
+        $user = Filament::auth()->user();
+
+        return $user->hasAnyRole([
+            User::ROLE_ADMIN,
+            User::ROLE_VALIDATOR,
+            User::ROLE_TEAM,
+        ]);
+    }
+
+    public static function canDeleteAny(): bool
+    {
+        $user = Filament::auth()->user();
+
+        return $user->hasAnyRole([
+            User::ROLE_ADMIN,
+            User::ROLE_VALIDATOR,
+            User::ROLE_TEAM,
+        ]);
+    }
 
     public static function getEloquentQuery(): Builder
     {
         return parent::getEloquentQuery()
             ->with(['tracer', 'domain', 'validator',]);
     }
-
-
     public static function canViewAny(): bool
     {
         $user = Filament::auth()->user();

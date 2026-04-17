@@ -58,8 +58,14 @@ class UserResource extends Resource
                     ->email()
                     ->required(fn($operation) => $operation === 'create')
                     ->maxLength(255),
+
                 Forms\Components\DateTimePicker::make('email_verified_at')
                     ->required(fn($operation) => $operation === 'create'),
+
+                Forms\Components\TextInput::make('no_hp')
+                    ->label('No Hp')
+                    ->required(fn($operation) => $operation === 'create')
+                    ->maxLength(255),
 
                 // Forms\Components\TextInput::make('password')
                 //     ->password()

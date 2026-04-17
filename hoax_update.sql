@@ -1,0 +1,1041 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: localhost:3306
+-- Generation Time: Apr 16, 2026 at 09:57 AM
+-- Server version: 5.7.44
+-- PHP Version: 8.1.34
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `hoax_hoax`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cache`
+--
+
+CREATE TABLE `cache` (
+  `key` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `value` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `expiration` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `cache`
+--
+
+INSERT INTO `cache` (`key`, `value`, `expiration`) VALUES
+('laravel-cache-007cbdd7178d9fd017e417be098bda4c564580e7', 'i:1;', 1774391072),
+('laravel-cache-007cbdd7178d9fd017e417be098bda4c564580e7:timer', 'i:1774391072;', 1774391072),
+('laravel-cache-00f91fbb47f1d79633d2b0aaed1e02cb7cc31fe8', 'i:1;', 1774081788),
+('laravel-cache-00f91fbb47f1d79633d2b0aaed1e02cb7cc31fe8:timer', 'i:1774081788;', 1774081788),
+('laravel-cache-016bf6683d90d1f79a8aa635a434cf923dd2ba60', 'i:1;', 1776222061),
+('laravel-cache-016bf6683d90d1f79a8aa635a434cf923dd2ba60:timer', 'i:1776222061;', 1776222061),
+('laravel-cache-035033fc9cba515eae6ddd4594a92484fb68261f', 'i:1;', 1776222107),
+('laravel-cache-035033fc9cba515eae6ddd4594a92484fb68261f:timer', 'i:1776222106;', 1776222107),
+('laravel-cache-039405949f9b36d0393142c943e13b1ed80bdf24', 'i:1;', 1774402102),
+('laravel-cache-039405949f9b36d0393142c943e13b1ed80bdf24:timer', 'i:1774402102;', 1774402102),
+('laravel-cache-048732be21989af99e31144a0b702ddc9cd9ea00', 'i:1;', 1773736394),
+('laravel-cache-048732be21989af99e31144a0b702ddc9cd9ea00:timer', 'i:1773736394;', 1773736394),
+('laravel-cache-0501d2f6df7591575ac02a6ab0416f93cb7f982f', 'i:1;', 1776222063),
+('laravel-cache-0501d2f6df7591575ac02a6ab0416f93cb7f982f:timer', 'i:1776222062;', 1776222063),
+('laravel-cache-05153f8b2eeb9989080b208c0304ab58f304008b', 'i:1;', 1776222065),
+('laravel-cache-05153f8b2eeb9989080b208c0304ab58f304008b:timer', 'i:1776222065;', 1776222065),
+('laravel-cache-0552a1c6128561e279450c56ecbf7293adf0ddf0', 'i:1;', 1773594711),
+('laravel-cache-0552a1c6128561e279450c56ecbf7293adf0ddf0:timer', 'i:1773594711;', 1773594711),
+('laravel-cache-05d2bd2c6e627b8385a94050d12150276c20087b', 'i:1;', 1776222103),
+('laravel-cache-05d2bd2c6e627b8385a94050d12150276c20087b:timer', 'i:1776222103;', 1776222103),
+('laravel-cache-073d300cbf6434dbce9c67d64d4dea4c5e125eed', 'i:1;', 1775835317),
+('laravel-cache-073d300cbf6434dbce9c67d64d4dea4c5e125eed:timer', 'i:1775835316;', 1775835316),
+('laravel-cache-096ab6f1fec94a9921357d2e5ca6737593e8f9e3', 'i:1;', 1775436090),
+('laravel-cache-096ab6f1fec94a9921357d2e5ca6737593e8f9e3:timer', 'i:1775436090;', 1775436090),
+('laravel-cache-09708edccb6b5ee26cd45419c659e08b56d51128', 'i:1;', 1773752325),
+('laravel-cache-09708edccb6b5ee26cd45419c659e08b56d51128:timer', 'i:1773752325;', 1773752325),
+('laravel-cache-0b1662ed590253763f261e9ea0717a82215b1bc8', 'i:1;', 1772571695),
+('laravel-cache-0b1662ed590253763f261e9ea0717a82215b1bc8:timer', 'i:1772571695;', 1772571695),
+('laravel-cache-0d113b5fdc9303f4279dccce779d0f27bc99393d', 'i:2;', 1773055117),
+('laravel-cache-0d113b5fdc9303f4279dccce779d0f27bc99393d:timer', 'i:1773055117;', 1773055117),
+('laravel-cache-0d5cb31983199c60b261b251e075a6b8b2f4115d', 'i:1;', 1776222064),
+('laravel-cache-0d5cb31983199c60b261b251e075a6b8b2f4115d:timer', 'i:1776222063;', 1776222063),
+('laravel-cache-0dc8471713bbfff8a6afbf1463117be0cc0742ca', 'i:1;', 1773136957),
+('laravel-cache-0dc8471713bbfff8a6afbf1463117be0cc0742ca:timer', 'i:1773136957;', 1773136957),
+('laravel-cache-105c733360d1648f5ad3b1da4501c75cf13b4237', 'i:3;', 1772972159),
+('laravel-cache-105c733360d1648f5ad3b1da4501c75cf13b4237:timer', 'i:1772972159;', 1772972159),
+('laravel-cache-10b1796723081b2831db727111197a13c85a3f80', 'i:1;', 1773585887),
+('laravel-cache-10b1796723081b2831db727111197a13c85a3f80:timer', 'i:1773585887;', 1773585887),
+('laravel-cache-131696021b1d6cb840577753da122456def68be6:timer', 'i:1776222112;', 1776222112),
+('laravel-cache-133d55de235cccd0b062ecb20113b1134499e7f7', 'i:3;', 1776221116),
+('laravel-cache-133d55de235cccd0b062ecb20113b1134499e7f7:timer', 'i:1776221116;', 1776221116),
+('laravel-cache-14091a7ab4ba6f8460c0ae4a5c4a7440a1dc96f2', 'i:1;', 1775989366),
+('laravel-cache-14091a7ab4ba6f8460c0ae4a5c4a7440a1dc96f2:timer', 'i:1775989366;', 1775989366),
+('laravel-cache-144ebdc28b12d897a7454bde365e5143fcab46fc', 'i:1;', 1775877816),
+('laravel-cache-144ebdc28b12d897a7454bde365e5143fcab46fc:timer', 'i:1775877816;', 1775877816),
+('laravel-cache-16b7404a1dec478fa5e8d2ba3c8c2badd75a96f8', 'i:1;', 1776213657),
+('laravel-cache-16b7404a1dec478fa5e8d2ba3c8c2badd75a96f8:timer', 'i:1776213657;', 1776213657),
+('laravel-cache-172176e6cc574fc58a3345abd56c00d89a9b54da', 'i:1;', 1775918293),
+('laravel-cache-172176e6cc574fc58a3345abd56c00d89a9b54da:timer', 'i:1775918293;', 1775918293),
+('laravel-cache-186716ac299f2940ce2d610c167b3b3869e1fde9', 'i:1;', 1776222103),
+('laravel-cache-186716ac299f2940ce2d610c167b3b3869e1fde9:timer', 'i:1776222102;', 1776222102),
+('laravel-cache-18854a55a4246883cb9e49858d85ad6b5accb393', 'i:2;', 1773490053),
+('laravel-cache-18854a55a4246883cb9e49858d85ad6b5accb393:timer', 'i:1773490053;', 1773490053),
+('laravel-cache-19f5199aea751d4962fd88a65977b44401da5e68', 'i:1;', 1773650134),
+('laravel-cache-19f5199aea751d4962fd88a65977b44401da5e68:timer', 'i:1773650133;', 1773650133),
+('laravel-cache-1a289f75f348e9a6bb8cbeb498401b9ec94c31cf', 'i:1;', 1776307403),
+('laravel-cache-1a289f75f348e9a6bb8cbeb498401b9ec94c31cf:timer', 'i:1776307403;', 1776307403),
+('laravel-cache-1a3efb39ac277d83ef4688630cbaff54269b69d4', 'i:1;', 1773728792),
+('laravel-cache-1a3efb39ac277d83ef4688630cbaff54269b69d4:timer', 'i:1773728792;', 1773728792),
+('laravel-cache-1b2623076215b9de7593ccadb97100ae47c5b512', 'i:1;', 1772774998),
+('laravel-cache-1b2623076215b9de7593ccadb97100ae47c5b512:timer', 'i:1772774998;', 1772774998),
+('laravel-cache-1b4ea76b9e5e9fded136e7b51b297bce844512e0', 'i:1;', 1774628927),
+('laravel-cache-1b4ea76b9e5e9fded136e7b51b297bce844512e0:timer', 'i:1774628927;', 1774628927),
+('laravel-cache-1b6453892473a467d07372d45eb05abc2031647a', 'i:3;', 1773279884),
+('laravel-cache-1b6453892473a467d07372d45eb05abc2031647a:timer', 'i:1773279884;', 1773279884),
+('laravel-cache-1d750e9ece0b17ef17894a5887693c78689214ff', 'i:1;', 1775811872),
+('laravel-cache-1d750e9ece0b17ef17894a5887693c78689214ff:timer', 'i:1775811872;', 1775811872),
+('laravel-cache-1e1f18ae764cd8315023f083d3b377cfe7833347', 'i:1;', 1774418166),
+('laravel-cache-1e1f18ae764cd8315023f083d3b377cfe7833347:timer', 'i:1774418166;', 1774418166),
+('laravel-cache-1f9e0a6542303c28d04c29b00382f1b5fb411378', 'i:1;', 1772479926),
+('laravel-cache-1f9e0a6542303c28d04c29b00382f1b5fb411378:timer', 'i:1772479926;', 1772479926),
+('laravel-cache-22c13291e788f74d0552f45c12f34a43ec6fae28', 'i:1;', 1776222065),
+('laravel-cache-22c13291e788f74d0552f45c12f34a43ec6fae28:timer', 'i:1776222065;', 1776222065),
+('laravel-cache-235b24f5fc36faa03531d1e8e142062992f8d27f', 'i:1;', 1772761817),
+('laravel-cache-235b24f5fc36faa03531d1e8e142062992f8d27f:timer', 'i:1772761817;', 1772761817),
+('laravel-cache-2397e8da45572a78bea6a61eda3fa1dd9f9716f0', 'i:1;', 1774399160),
+('laravel-cache-2397e8da45572a78bea6a61eda3fa1dd9f9716f0:timer', 'i:1774399160;', 1774399160),
+('laravel-cache-23e1ebb54514d2166f341c42ad95e4ef5aeaaf07', 'i:1;', 1775740543),
+('laravel-cache-23e1ebb54514d2166f341c42ad95e4ef5aeaaf07:timer', 'i:1775740543;', 1775740543),
+('laravel-cache-2438479367a9325e6e27bb60f4f5cb430fbee4c7', 'i:1;', 1776075543),
+('laravel-cache-2438479367a9325e6e27bb60f4f5cb430fbee4c7:timer', 'i:1776075543;', 1776075543),
+('laravel-cache-2588e3a2dea720ee80b18bd1b861bc93dbb6ac98', 'i:1;', 1773455633),
+('laravel-cache-2588e3a2dea720ee80b18bd1b861bc93dbb6ac98:timer', 'i:1773455633;', 1773455633),
+('laravel-cache-26612488f2f0bf0dea682192f917c8526ff6d685', 'i:1;', 1774009524),
+('laravel-cache-26612488f2f0bf0dea682192f917c8526ff6d685:timer', 'i:1774009524;', 1774009524),
+('laravel-cache-278063c78813c0bfea29628ef5e4a0f6f0e465b1', 'i:1;', 1775426853),
+('laravel-cache-278063c78813c0bfea29628ef5e4a0f6f0e465b1:timer', 'i:1775426853;', 1775426853),
+('laravel-cache-299f35cc78cca424547c379e34303e055ac4d842', 'i:1;', 1772897595),
+('laravel-cache-299f35cc78cca424547c379e34303e055ac4d842:timer', 'i:1772897595;', 1772897595),
+('laravel-cache-2a35147b3adddbdd5a3fefcfce0befa1c3f34af5', 'i:1;', 1775922272),
+('laravel-cache-2a35147b3adddbdd5a3fefcfce0befa1c3f34af5:timer', 'i:1775922272;', 1775922272),
+('laravel-cache-2a3987e36853f8c96bde89b59fef19aab7853399', 'i:1;', 1772586512),
+('laravel-cache-2a3987e36853f8c96bde89b59fef19aab7853399:timer', 'i:1772586512;', 1772586512),
+('laravel-cache-2b41d83a2fe8bc5edb7a79303320db196ea783dc', 'i:1;', 1775583712),
+('laravel-cache-2b41d83a2fe8bc5edb7a79303320db196ea783dc:timer', 'i:1775583712;', 1775583712),
+('laravel-cache-2c91d2d4951c956e3714efe261ccc6390400f0f1', 'i:1;', 1773119286),
+('laravel-cache-2c91d2d4951c956e3714efe261ccc6390400f0f1:timer', 'i:1773119286;', 1773119286),
+('laravel-cache-2ccc6a31c2a21730475f42df14b98000a9ca60df', 'i:1;', 1772514686),
+('laravel-cache-2ccc6a31c2a21730475f42df14b98000a9ca60df:timer', 'i:1772514686;', 1772514686),
+('laravel-cache-2d7214c4b9ea1cac0d6a79a98c2bd6d7a8babdc3', 'i:1;', 1775754942),
+('laravel-cache-2d7214c4b9ea1cac0d6a79a98c2bd6d7a8babdc3:timer', 'i:1775754942;', 1775754942),
+('laravel-cache-3057ffe419125eb196e2994bbc90296461c2163a', 'i:1;', 1774691103),
+('laravel-cache-3057ffe419125eb196e2994bbc90296461c2163a:timer', 'i:1774691103;', 1774691103),
+('laravel-cache-30e1972aa8003085e28ba3f4f6b6830564cf8012', 'i:1;', 1775771570),
+('laravel-cache-30e1972aa8003085e28ba3f4f6b6830564cf8012:timer', 'i:1775771570;', 1775771570),
+('laravel-cache-324da92617f9c718ecc9a29580ac0fa4c7855aa2', 'i:1;', 1776222064),
+('laravel-cache-324da92617f9c718ecc9a29580ac0fa4c7855aa2:timer', 'i:1776222064;', 1776222064),
+('laravel-cache-33f935454ebf212717371707a839a86d9576158b', 'i:1;', 1773680657),
+('laravel-cache-33f935454ebf212717371707a839a86d9576158b:timer', 'i:1773680657;', 1773680657),
+('laravel-cache-356a192b7913b04c54574d18c28d46e6395428ab', 'i:1;', 1776220993),
+('laravel-cache-356a192b7913b04c54574d18c28d46e6395428ab:timer', 'i:1776220992;', 1776220992),
+('laravel-cache-36a2381a241fd95161ebc8861e824f7bc1c42ca6', 'i:1;', 1775406977),
+('laravel-cache-36a2381a241fd95161ebc8861e824f7bc1c42ca6:timer', 'i:1775406977;', 1775406977),
+('laravel-cache-36f5738590461628ae3f6a009e9813c60f999ffa', 'i:2;', 1774884029),
+('laravel-cache-36f5738590461628ae3f6a009e9813c60f999ffa:timer', 'i:1774884029;', 1774884029),
+('laravel-cache-371cc0008c685648056b62dafd11bbfdd6736350', 'i:1;', 1776262817),
+('laravel-cache-371cc0008c685648056b62dafd11bbfdd6736350:timer', 'i:1776262816;', 1776262816),
+('laravel-cache-38fd60453d032949dfbcf8094cee97b345acd3cb', 'i:1;', 1773039432),
+('laravel-cache-38fd60453d032949dfbcf8094cee97b345acd3cb:timer', 'i:1773039432;', 1773039432),
+('laravel-cache-3b24835f8d2d31555ab1c045461e388eac4e98a0', 'i:1;', 1775893596),
+('laravel-cache-3b24835f8d2d31555ab1c045461e388eac4e98a0:timer', 'i:1775893596;', 1775893596),
+('laravel-cache-3b445d35d9e4aae87fd01e81cc33c8eef2f1d489', 'i:1;', 1775818937),
+('laravel-cache-3b445d35d9e4aae87fd01e81cc33c8eef2f1d489:timer', 'i:1775818937;', 1775818937),
+('laravel-cache-3ccce4c5fb393f9f420c5866714149d3d9f13c9e', 'i:1;', 1775910739),
+('laravel-cache-3ccce4c5fb393f9f420c5866714149d3d9f13c9e:timer', 'i:1775910739;', 1775910739),
+('laravel-cache-3cfb6d2d0fda8e5c2e42508cb15e284e1adfa49e', 'i:1;', 1776222105),
+('laravel-cache-3cfb6d2d0fda8e5c2e42508cb15e284e1adfa49e:timer', 'i:1776222104;', 1776222105),
+('laravel-cache-3d0d765717704a79a85eedb057faafe2aacd6e67', 'i:1;', 1775860195),
+('laravel-cache-3d0d765717704a79a85eedb057faafe2aacd6e67:timer', 'i:1775860195;', 1775860195),
+('laravel-cache-3dd5c579fdf042e0045bde491019d11aee8900da', 'i:1;', 1774126394),
+('laravel-cache-3dd5c579fdf042e0045bde491019d11aee8900da:timer', 'i:1774126394;', 1774126394),
+('laravel-cache-3e3779274f086743955d7eabd1aed4202a529075', 'i:1;', 1773511636),
+('laravel-cache-3e3779274f086743955d7eabd1aed4202a529075:timer', 'i:1773511636;', 1773511636),
+('laravel-cache-3e88e0f80bece68c6723f2b10f6238f0d0a53a6c', 'i:1;', 1773041772),
+('laravel-cache-3e88e0f80bece68c6723f2b10f6238f0d0a53a6c:timer', 'i:1773041772;', 1773041772),
+('laravel-cache-3eb974e5f3593c695ceaad9a59962b4053402c40', 'i:1;', 1776222088),
+('laravel-cache-3eb974e5f3593c695ceaad9a59962b4053402c40:timer', 'i:1776222066;', 1776222068),
+('laravel-cache-4037a48913669e215ee0ebff1f2f772d9db564fc', 'i:1;', 1773482498),
+('laravel-cache-4037a48913669e215ee0ebff1f2f772d9db564fc:timer', 'i:1773482498;', 1773482498),
+('laravel-cache-40517a9b6a63c1e956a1792000c193cacabe21cc', 'i:1;', 1776008810),
+('laravel-cache-40517a9b6a63c1e956a1792000c193cacabe21cc:timer', 'i:1776008810;', 1776008810),
+('laravel-cache-40dccc97f31faef529749c3448dbea46f0cdf6f3', 'i:1;', 1776222109),
+('laravel-cache-40dccc97f31faef529749c3448dbea46f0cdf6f3:timer', 'i:1776222108;', 1776222108),
+('laravel-cache-436b89af2abc454a261d4c918418bc21888ea121', 'i:1;', 1776222066),
+('laravel-cache-436b89af2abc454a261d4c918418bc21888ea121:timer', 'i:1776222065;', 1776222066),
+('laravel-cache-43f44a66622ae10af48ecc92873a4414006659af', 'i:1;', 1776222054),
+('laravel-cache-43f44a66622ae10af48ecc92873a4414006659af:timer', 'i:1776222053;', 1776222053),
+('laravel-cache-464796a582368b1145b865dfc8aac46ab1eaa5ed', 'i:1;', 1772931237),
+('laravel-cache-464796a582368b1145b865dfc8aac46ab1eaa5ed:timer', 'i:1772931236;', 1772931236),
+('laravel-cache-47169679c7300dffbf1593708baef766d8d6d631', 'i:1;', 1773426751),
+('laravel-cache-47169679c7300dffbf1593708baef766d8d6d631:timer', 'i:1773426751;', 1773426751),
+('laravel-cache-47bfee06900db7f9e2cda6ec0399aa5658ca1216', 'i:1;', 1776067748),
+('laravel-cache-47bfee06900db7f9e2cda6ec0399aa5658ca1216:timer', 'i:1776067748;', 1776067748),
+('laravel-cache-484ac5e3ff282583512c43df1554b9f334a3b06a', 'i:1;', 1775408937),
+('laravel-cache-484ac5e3ff282583512c43df1554b9f334a3b06a:timer', 'i:1775408937;', 1775408937),
+('laravel-cache-48544ced1220a1275e1e8852f8158ff55edce8d0', 'i:1;', 1773040169),
+('laravel-cache-48544ced1220a1275e1e8852f8158ff55edce8d0:timer', 'i:1773040169;', 1773040169),
+('laravel-cache-48974d96a9d832a925d81b1b0fd1dc0b2d197f4f', 'i:1;', 1776222061),
+('laravel-cache-48974d96a9d832a925d81b1b0fd1dc0b2d197f4f:timer', 'i:1776222061;', 1776222061),
+('laravel-cache-4a221039b74199cf99c37652dac3238f82f78bc1', 'i:1;', 1776222110),
+('laravel-cache-4a221039b74199cf99c37652dac3238f82f78bc1:timer', 'i:1776222110;', 1776222110),
+('laravel-cache-4b538872ea6300f67c3833b643d6580087d3af22', 'i:1;', 1774007554),
+('laravel-cache-4b538872ea6300f67c3833b643d6580087d3af22:timer', 'i:1774007554;', 1774007554),
+('laravel-cache-4c42edab232a849874d9bb93713bda6d119786bd', 'i:1;', 1773693627),
+('laravel-cache-4c42edab232a849874d9bb93713bda6d119786bd:timer', 'i:1773693627;', 1773693627),
+('laravel-cache-4fc6578a5daf25f7839f85f7265071b5cc8ea84d', 'i:1;', 1774300381),
+('laravel-cache-4fc6578a5daf25f7839f85f7265071b5cc8ea84d:timer', 'i:1774300381;', 1774300381),
+('laravel-cache-4ffd8a136fa996b964e8802924b6770de5321d93', 'i:1;', 1776099160),
+('laravel-cache-4ffd8a136fa996b964e8802924b6770de5321d93:timer', 'i:1776099160;', 1776099160),
+('laravel-cache-50ba70ba3d1124c781e55afdafb062aa4d7f6edd', 'i:1;', 1775433825),
+('laravel-cache-50ba70ba3d1124c781e55afdafb062aa4d7f6edd:timer', 'i:1775433825;', 1775433825),
+('laravel-cache-567f76a0324df81017dbed92f3d3a8e74383599c', 'i:2;', 1773997885),
+('laravel-cache-567f76a0324df81017dbed92f3d3a8e74383599c:timer', 'i:1773997884;', 1773997884),
+('laravel-cache-56b6b92224d2450f42d8db975b0a0a86d6c05525', 'i:1;', 1772657202),
+('laravel-cache-56b6b92224d2450f42d8db975b0a0a86d6c05525:timer', 'i:1772657202;', 1772657202),
+('laravel-cache-5a36595383f8cca446f57b78e5039ecd84568c3f', 'i:1;', 1776222103),
+('laravel-cache-5a36595383f8cca446f57b78e5039ecd84568c3f:timer', 'i:1776222102;', 1776222103),
+('laravel-cache-5a36855acb6adcad7f12b955f04bfdf39c4a496f', 'i:1;', 1776222107),
+('laravel-cache-5a36855acb6adcad7f12b955f04bfdf39c4a496f:timer', 'i:1776222107;', 1776222107),
+('laravel-cache-5b65194ee0a3fa04d473f4825795dd2ee64a685c', 'i:1;', 1773231639),
+('laravel-cache-5b65194ee0a3fa04d473f4825795dd2ee64a685c:timer', 'i:1773231639;', 1773231639),
+('laravel-cache-5c549eebc25eed42ba6e08f5046f4de065e572af', 'i:1;', 1773188845),
+('laravel-cache-5c549eebc25eed42ba6e08f5046f4de065e572af:timer', 'i:1773188844;', 1773188844),
+('laravel-cache-5eefeb9dd84b8ec1bf13f51113ce9491af2bc1ef', 'i:1;', 1776222109),
+('laravel-cache-5eefeb9dd84b8ec1bf13f51113ce9491af2bc1ef:timer', 'i:1776222108;', 1776222108),
+('laravel-cache-5f13b679b08cb4549a1e61b85562e831f8f4980b', 'i:1;', 1776222107),
+('laravel-cache-5f13b679b08cb4549a1e61b85562e831f8f4980b:timer', 'i:1776222107;', 1776222107),
+('laravel-cache-5f2544c61b2af3084cc0611237ced8f010a3c843', 'i:1;', 1774987637),
+('laravel-cache-5f2544c61b2af3084cc0611237ced8f010a3c843:timer', 'i:1774987637;', 1774987637),
+('laravel-cache-5fa2a75918ab813f3191ca723fafa52d0536e00b', 'i:1;', 1775618680),
+('laravel-cache-5fa2a75918ab813f3191ca723fafa52d0536e00b:timer', 'i:1775618680;', 1775618680),
+('laravel-cache-6083074e89e838db722f1086779a12124aff2eff', 'i:1;', 1774450892),
+('laravel-cache-6083074e89e838db722f1086779a12124aff2eff:timer', 'i:1774450892;', 1774450892),
+('laravel-cache-60c00898ab4b369e2470bd2585dfe62e6986dba4', 'i:1;', 1775334150),
+('laravel-cache-60c00898ab4b369e2470bd2585dfe62e6986dba4:timer', 'i:1775334149;', 1775334149),
+('laravel-cache-6187f4d5f60b3904d9605e562f12b8d0bbe11a88', 'i:1;', 1775454062),
+('laravel-cache-6187f4d5f60b3904d9605e562f12b8d0bbe11a88:timer', 'i:1775454062;', 1775454062),
+('laravel-cache-61ff279b1f1c58daf161e3b0a075f44e90d6dfd0', 'i:1;', 1775984935),
+('laravel-cache-61ff279b1f1c58daf161e3b0a075f44e90d6dfd0:timer', 'i:1775984934;', 1775984934),
+('laravel-cache-62e55fc78064522db94083d2dc6809ae92d206db', 'i:1;', 1773821654),
+('laravel-cache-62e55fc78064522db94083d2dc6809ae92d206db:timer', 'i:1773821654;', 1773821654),
+('laravel-cache-63281abaccff3cb5cc565741fd6f5e46c60ca372', 'i:1;', 1774214380),
+('laravel-cache-63281abaccff3cb5cc565741fd6f5e46c60ca372:timer', 'i:1774214380;', 1774214380),
+('laravel-cache-64c1e47c293c34b37ec8f66025b49a08d5e8e04d', 'i:1;', 1776222088),
+('laravel-cache-64c1e47c293c34b37ec8f66025b49a08d5e8e04d:timer', 'i:1776222066;', 1776222068),
+('laravel-cache-6522dd4b85c50ac541c42609f9a2743017f4691d', 'i:3;', 1774193799),
+('laravel-cache-6522dd4b85c50ac541c42609f9a2743017f4691d:timer', 'i:1774193799;', 1774193799),
+('laravel-cache-65a54dd1bff6a6d5713dd1f6855bdc1d78823bdb', 'i:1;', 1774744002),
+('laravel-cache-65a54dd1bff6a6d5713dd1f6855bdc1d78823bdb:timer', 'i:1774744002;', 1774744002),
+('laravel-cache-67e426d1d04fd76c1bcd9ce47bbe928c87768742', 'i:1;', 1775911368),
+('laravel-cache-67e426d1d04fd76c1bcd9ce47bbe928c87768742:timer', 'i:1775911368;', 1775911368),
+('laravel-cache-6b055e2707fe9c43a7c0e0318a78532cc610f767', 'i:1;', 1776222061),
+('laravel-cache-6b055e2707fe9c43a7c0e0318a78532cc610f767:timer', 'i:1776222061;', 1776222061),
+('laravel-cache-6b3576a4ab6b1d6996d261bdf5d00b616d32f882', 'i:1;', 1772934291),
+('laravel-cache-6b3576a4ab6b1d6996d261bdf5d00b616d32f882:timer', 'i:1772934291;', 1772934291),
+('laravel-cache-6b7c0cf348ec8c5d7e72f0bc47e43822282c79ea', 'i:1;', 1774353977),
+('laravel-cache-6b7c0cf348ec8c5d7e72f0bc47e43822282c79ea:timer', 'i:1774353977;', 1774353977),
+('laravel-cache-6c354cbcecec5a5fdc2348d3404fc906a678ddf4', 'i:1;', 1773465956),
+('laravel-cache-6c354cbcecec5a5fdc2348d3404fc906a678ddf4:timer', 'i:1773465956;', 1773465956),
+('laravel-cache-6dbe5ca846b5a1947d4a5a9937f64bb1e659daa1', 'i:1;', 1775426566),
+('laravel-cache-6dbe5ca846b5a1947d4a5a9937f64bb1e659daa1:timer', 'i:1775426566;', 1775426566),
+('laravel-cache-708cc01b20111197ee08e02f19024b95c18f069e', 'i:1;', 1772702570),
+('laravel-cache-708cc01b20111197ee08e02f19024b95c18f069e:timer', 'i:1772702570;', 1772702570),
+('laravel-cache-70db34a6f732665b85c8249342804ece2fbb0479', 'i:1;', 1774476802),
+('laravel-cache-70db34a6f732665b85c8249342804ece2fbb0479:timer', 'i:1774476802;', 1774476802),
+('laravel-cache-71e457344422f94c10b58f0e04885de32b66d704', 'i:1;', 1773279806),
+('laravel-cache-71e457344422f94c10b58f0e04885de32b66d704:timer', 'i:1773279806;', 1773279806),
+('laravel-cache-72b9e3f51dd6f6610ed9605845e24de7ca954d19', 'i:1;', 1773683076),
+('laravel-cache-72b9e3f51dd6f6610ed9605845e24de7ca954d19:timer', 'i:1773683076;', 1773683076),
+('laravel-cache-72e3700925d0c306f8e436692e39b48be3c2fa6a', 'i:1;', 1774709868),
+('laravel-cache-72e3700925d0c306f8e436692e39b48be3c2fa6a:timer', 'i:1774709868;', 1774709868),
+('laravel-cache-7365ccc39ec8dc987021502084efdd68ea9142fe', 'i:1;', 1775830922),
+('laravel-cache-7365ccc39ec8dc987021502084efdd68ea9142fe:timer', 'i:1775830922;', 1775830922),
+('laravel-cache-738053f52106cceae1314e4df969fb2d92ee9a8b', 'i:1;', 1773243465),
+('laravel-cache-738053f52106cceae1314e4df969fb2d92ee9a8b:timer', 'i:1773243465;', 1773243465),
+('laravel-cache-748d3ef3f36895d107c68b87d4acdfe528ef6d01', 'i:1;', 1776222074),
+('laravel-cache-748d3ef3f36895d107c68b87d4acdfe528ef6d01:timer', 'i:1776222066;', 1776222067),
+('laravel-cache-74ba905fb0ab9a65be761ea23dcd65dad450ae58', 'i:1;', 1776222064),
+('laravel-cache-74ba905fb0ab9a65be761ea23dcd65dad450ae58:timer', 'i:1776222064;', 1776222064),
+('laravel-cache-74dd7dcf83033ef9c621d3db34a6b3e2b14f0477', 'i:1;', 1772445264),
+('laravel-cache-74dd7dcf83033ef9c621d3db34a6b3e2b14f0477:timer', 'i:1772445264;', 1772445264),
+('laravel-cache-7579df11f6580ab2017448a6e8bde814f2a64dbd', 'i:1;', 1772531129),
+('laravel-cache-7579df11f6580ab2017448a6e8bde814f2a64dbd:timer', 'i:1772531129;', 1772531129),
+('laravel-cache-76ac52a3617eb40852ce88cd62265eff04010674', 'i:1;', 1776222105),
+('laravel-cache-76ac52a3617eb40852ce88cd62265eff04010674:timer', 'i:1776222105;', 1776222105),
+('laravel-cache-76d30cccc8841925f2e2b72590efb44bdb2e5805', 'i:1;', 1772793164),
+('laravel-cache-76d30cccc8841925f2e2b72590efb44bdb2e5805:timer', 'i:1772793164;', 1772793164),
+('laravel-cache-77de68daecd823babbb58edb1c8e14d7106e83bb', 'i:2;', 1776263150),
+('laravel-cache-77de68daecd823babbb58edb1c8e14d7106e83bb:timer', 'i:1776263150;', 1776263150),
+('laravel-cache-7a0ce0dffdbe107e3b82d2467d47bd782091673f', 'i:1;', 1772831330),
+('laravel-cache-7a0ce0dffdbe107e3b82d2467d47bd782091673f:timer', 'i:1772831330;', 1772831330),
+('laravel-cache-7a0f3e0253b6e59498197bf5f374e2ccab571a02', 'i:1;', 1774328799),
+('laravel-cache-7a0f3e0253b6e59498197bf5f374e2ccab571a02:timer', 'i:1774328799;', 1774328799),
+('laravel-cache-7b990a49b7de9b67caf5ab3c42b205e5f8fd679f', 'i:1;', 1773159469),
+('laravel-cache-7b990a49b7de9b67caf5ab3c42b205e5f8fd679f:timer', 'i:1773159469;', 1773159469),
+('laravel-cache-7ba794c556d904ce1c2ec6e3db047b1cf23a6ad9', 'i:1;', 1776245181),
+('laravel-cache-7ba794c556d904ce1c2ec6e3db047b1cf23a6ad9:timer', 'i:1776245181;', 1776245181),
+('laravel-cache-7c03c2f8ac1dd5dad87bddaa9049dfe8f0149474', 'i:1;', 1775968826),
+('laravel-cache-7c03c2f8ac1dd5dad87bddaa9049dfe8f0149474:timer', 'i:1775968826;', 1775968826),
+('laravel-cache-7c62a290cf2e8b7c04c8ff41ba6af411f069b760', 'i:1;', 1773173542),
+('laravel-cache-7c62a290cf2e8b7c04c8ff41ba6af411f069b760:timer', 'i:1773173542;', 1773173542),
+('laravel-cache-7d2028293f5d9f51009f3a53f97155259a9ce4b6', 'i:1;', 1773919927),
+('laravel-cache-7d2028293f5d9f51009f3a53f97155259a9ce4b6:timer', 'i:1773919926;', 1773919927),
+('laravel-cache-7d416c62e37a4a734bd8bb942356634dc0902a4a', 'i:1;', 1775831928),
+('laravel-cache-7d416c62e37a4a734bd8bb942356634dc0902a4a:timer', 'i:1775831927;', 1775831927),
+('laravel-cache-7e7b81ce2d8863ba941ffc57a53dcfafa7231fef', 'i:1;', 1776222063),
+('laravel-cache-7e7b81ce2d8863ba941ffc57a53dcfafa7231fef:timer', 'i:1776222062;', 1776222063),
+('laravel-cache-7f50641df1adf942f5d0ca07842ff8dc5474f31c', 'i:1;', 1774822736),
+('laravel-cache-7f50641df1adf942f5d0ca07842ff8dc5474f31c:timer', 'i:1774822736;', 1774822736),
+('laravel-cache-7fc6f5069275dfbb7253aa51a9093e778bf4136d', 'i:1;', 1773138762),
+('laravel-cache-7fc6f5069275dfbb7253aa51a9093e778bf4136d:timer', 'i:1773138762;', 1773138762),
+('laravel-cache-7fda08b314c76c3015c680552ee9fd6ca64929c8', 'i:1;', 1775070847),
+('laravel-cache-7fda08b314c76c3015c680552ee9fd6ca64929c8:timer', 'i:1775070847;', 1775070847),
+('laravel-cache-8042b9f134d47b156d7a8cf25d1707fce3df429d', 'i:1;', 1773116329),
+('laravel-cache-8042b9f134d47b156d7a8cf25d1707fce3df429d:timer', 'i:1773116329;', 1773116329),
+('laravel-cache-813e8e28d029643bbe12dcc5ca5f8d7158980b1d', 'i:1;', 1776222063),
+('laravel-cache-813e8e28d029643bbe12dcc5ca5f8d7158980b1d:timer', 'i:1776222063;', 1776222063),
+('laravel-cache-82076e493627ed894dc589bb4e9f1465b0dd47de', 'i:1;', 1776222105),
+('laravel-cache-82076e493627ed894dc589bb4e9f1465b0dd47de:timer', 'i:1776222104;', 1776222104),
+('laravel-cache-82330c813d787c833044f863e12870b3fe2e31f7', 'i:1;', 1772545760),
+('laravel-cache-82330c813d787c833044f863e12870b3fe2e31f7:timer', 'i:1772545759;', 1772545759),
+('laravel-cache-83afdf59bb40cc4f77a28805c5de6d3c76f969b3', 'i:1;', 1773923405),
+('laravel-cache-83afdf59bb40cc4f77a28805c5de6d3c76f969b3:timer', 'i:1773923405;', 1773923405),
+('laravel-cache-84e1616d6d35dfbd639520f7a74c4bbc6c65426b', 'i:1;', 1776222065),
+('laravel-cache-84e1616d6d35dfbd639520f7a74c4bbc6c65426b:timer', 'i:1776222065;', 1776222065),
+('laravel-cache-852de68b0d19b08c0ad132efc2d5e313f8e44ea6', 'i:1;', 1772964336),
+('laravel-cache-852de68b0d19b08c0ad132efc2d5e313f8e44ea6:timer', 'i:1772964336;', 1772964336),
+('laravel-cache-86a468f57e3e5f1745d951b9bc35a82c83115b66', 'i:1;', 1772467247),
+('laravel-cache-86a468f57e3e5f1745d951b9bc35a82c83115b66:timer', 'i:1772467247;', 1772467247),
+('laravel-cache-87361a2a0e71658d876a95220bbdc43cc1c8754d', 'i:1;', 1776222064),
+('laravel-cache-87361a2a0e71658d876a95220bbdc43cc1c8754d:timer', 'i:1776222064;', 1776222064),
+('laravel-cache-87551091e3b759d173abcb86209f2a1c64cd7d54', 'i:1;', 1772514714),
+('laravel-cache-87551091e3b759d173abcb86209f2a1c64cd7d54:timer', 'i:1772514714;', 1772514714),
+('laravel-cache-8789bebc0ce8af289f9d750eed1e234daf437571', 'i:1;', 1774876826),
+('laravel-cache-8789bebc0ce8af289f9d750eed1e234daf437571:timer', 'i:1774876826;', 1774876826),
+('laravel-cache-88509082162d2ff9a7c3c7add1c2625e5efc3ea0', 'i:1;', 1773409247),
+('laravel-cache-88509082162d2ff9a7c3c7add1c2625e5efc3ea0:timer', 'i:1773409247;', 1773409247),
+('laravel-cache-889053b2c0d7050baec1dd95a9c29ab024e83d72', 'i:1;', 1772618302),
+('laravel-cache-889053b2c0d7050baec1dd95a9c29ab024e83d72:timer', 'i:1772618302;', 1772618302),
+('laravel-cache-88a4149c97c31d1b509af8fc9682e3f3b856664e', 'i:1;', 1774585582),
+('laravel-cache-88a4149c97c31d1b509af8fc9682e3f3b856664e:timer', 'i:1774585581;', 1774585581),
+('laravel-cache-8969728008dcd1ee0365d9b28bebdb4581aa8837', 'i:1;', 1773116945),
+('laravel-cache-8969728008dcd1ee0365d9b28bebdb4581aa8837:timer', 'i:1773116941;', 1773116941),
+('laravel-cache-8aab0d36651684595ebba4f08346dc9655e285b0', 'i:1;', 1775233253),
+('laravel-cache-8aab0d36651684595ebba4f08346dc9655e285b0:timer', 'i:1775233253;', 1775233253),
+('laravel-cache-8ca2cd9b423a8072600942f1662a218803012787', 'i:2;', 1772444051),
+('laravel-cache-8ca2cd9b423a8072600942f1662a218803012787:timer', 'i:1772444051;', 1772444051),
+('laravel-cache-8d743194eed97130f903cae8d49885d30a8d9ad6', 'i:1;', 1775835351),
+('laravel-cache-8d743194eed97130f903cae8d49885d30a8d9ad6:timer', 'i:1775835351;', 1775835351),
+('laravel-cache-8e4af69f4e2ebee0bae1cd8b20e6ec4383544edf', 'i:1;', 1776222065),
+('laravel-cache-8e4af69f4e2ebee0bae1cd8b20e6ec4383544edf:timer', 'i:1776222064;', 1776222065),
+('laravel-cache-9092801e9ada613bad8cd15a276ff74e85046d0a', 'i:1;', 1773351596),
+('laravel-cache-9092801e9ada613bad8cd15a276ff74e85046d0a:timer', 'i:1773351596;', 1773351596),
+('laravel-cache-92c2fce267472447a2262d5d637e7110ff74b9f3', 'i:1;', 1773526889),
+('laravel-cache-92c2fce267472447a2262d5d637e7110ff74b9f3:timer', 'i:1773526882;', 1773526882),
+('laravel-cache-93dfb7a2fcd427fa0993ebddfb57845351df23ea', 'i:1;', 1775911534),
+('laravel-cache-93dfb7a2fcd427fa0993ebddfb57845351df23ea:timer', 'i:1775911534;', 1775911534),
+('laravel-cache-9440313f9f35d28bbadb91e5cc07030f48fd4089', 'i:1;', 1776253688),
+('laravel-cache-9440313f9f35d28bbadb91e5cc07030f48fd4089:timer', 'i:1776253688;', 1776253688),
+('laravel-cache-944689cc0f5a3d69aefd4d1e6c295e2fdecefa17', 'i:1;', 1772548957),
+('laravel-cache-944689cc0f5a3d69aefd4d1e6c295e2fdecefa17:timer', 'i:1772548956;', 1772548956),
+('laravel-cache-9643e1d801fc315d9fc9e16a01ccf9f9de769ba6', 'i:1;', 1775300707),
+('laravel-cache-9643e1d801fc315d9fc9e16a01ccf9f9de769ba6:timer', 'i:1775300707;', 1775300707),
+('laravel-cache-966a16929627f1f9d283baf809c7c0b8fe51d6a9', 'i:1;', 1775132282),
+('laravel-cache-966a16929627f1f9d283baf809c7c0b8fe51d6a9:timer', 'i:1775132282;', 1775132282),
+('laravel-cache-970a3f59f65d0853cf12160272a79e40ea0516fd', 'i:1;', 1776222108),
+('laravel-cache-970a3f59f65d0853cf12160272a79e40ea0516fd:timer', 'i:1776222108;', 1776222108),
+('laravel-cache-9acccbb27ae33a77a835bf9914ca0acfeaa24d00', 'i:1;', 1776227274),
+('laravel-cache-9acccbb27ae33a77a835bf9914ca0acfeaa24d00:timer', 'i:1776227273;', 1776227273),
+('laravel-cache-9b0c221698ec1bc5cd570b32a1445b8f0f693868', 'i:1;', 1773002638),
+('laravel-cache-9b0c221698ec1bc5cd570b32a1445b8f0f693868:timer', 'i:1773002638;', 1773002638),
+('laravel-cache-9d4633b4885e006d82111820bca1173247cf5961', 'i:1;', 1775880865),
+('laravel-cache-9d4633b4885e006d82111820bca1173247cf5961:timer', 'i:1775880865;', 1775880865),
+('laravel-cache-9d774eb666584dddab0f299998d3ccb810ea0eae', 'i:1;', 1775977675),
+('laravel-cache-9d774eb666584dddab0f299998d3ccb810ea0eae:timer', 'i:1775977675;', 1775977675),
+('laravel-cache-a00b75463a8986533b746d8de00099efc944ee54', 'i:1;', 1775190444),
+('laravel-cache-a00b75463a8986533b746d8de00099efc944ee54:timer', 'i:1775190444;', 1775190444),
+('laravel-cache-a0677564b7221ae4fa612225bcb0b5dd33edf820', 'i:1;', 1773533612),
+('laravel-cache-a0677564b7221ae4fa612225bcb0b5dd33edf820:timer', 'i:1773533605;', 1773533605),
+('laravel-cache-a0f6c1a515fc3bd96f66340504b7acec65249dc9', 'i:1;', 1774328869),
+('laravel-cache-a0f6c1a515fc3bd96f66340504b7acec65249dc9:timer', 'i:1774328869;', 1774328869),
+('laravel-cache-a251e553b0d1c55b0c0c74bad9e0af9627c11fdb', 'i:1;', 1774106437),
+('laravel-cache-a251e553b0d1c55b0c0c74bad9e0af9627c11fdb:timer', 'i:1774106437;', 1774106437),
+('laravel-cache-a299d1b5d7b7fc5a3bd5da5fdbbab7acca31fadf', 'i:1;', 1774443544),
+('laravel-cache-a299d1b5d7b7fc5a3bd5da5fdbbab7acca31fadf:timer', 'i:1774443544;', 1774443544),
+('laravel-cache-a33bec04b816058dd30f720b215fd963e90b51c6', 'i:1;', 1776215076),
+('laravel-cache-a33bec04b816058dd30f720b215fd963e90b51c6:timer', 'i:1776215075;', 1776215075),
+('laravel-cache-a3e9e760408354989410d918f46abcd5d1e3f99d', 'i:1;', 1774933182),
+('laravel-cache-a3e9e760408354989410d918f46abcd5d1e3f99d:timer', 'i:1774933182;', 1774933182),
+('laravel-cache-a40cf013af5eff2a7ac93292c73db49293898e85', 'i:1;', 1772824560),
+('laravel-cache-a40cf013af5eff2a7ac93292c73db49293898e85:timer', 'i:1772824560;', 1772824560),
+('laravel-cache-a4d49f70761435f293948b38874284c99bd0f3a7', 'i:1;', 1772741193),
+('laravel-cache-a4d49f70761435f293948b38874284c99bd0f3a7:timer', 'i:1772741193;', 1772741193),
+('laravel-cache-a4e2dbfebed5f167764a2450a14fb501d16eb107', 'i:1;', 1772633654),
+('laravel-cache-a4e2dbfebed5f167764a2450a14fb501d16eb107:timer', 'i:1772633654;', 1772633654),
+('laravel-cache-a5ad58c1348aa1230f0038fbcefc2f0e915d2dd5', 'i:1;', 1773821655),
+('laravel-cache-a5ad58c1348aa1230f0038fbcefc2f0e915d2dd5:timer', 'i:1773821654;', 1773821654),
+('laravel-cache-a6195e9c9996a9a3df05ad853f5154890735e180', 'i:1;', 1772975672),
+('laravel-cache-a6195e9c9996a9a3df05ad853f5154890735e180:timer', 'i:1772975671;', 1772975671),
+('laravel-cache-a61bdb7208a54d106d73ed90c2be8dcb3140bd2c', 'i:1;', 1773061922),
+('laravel-cache-a61bdb7208a54d106d73ed90c2be8dcb3140bd2c:timer', 'i:1773061922;', 1773061922),
+('laravel-cache-a70523252b9c0416c3d5f26d62da8b6ce0e7103b', 'i:1;', 1776222061),
+('laravel-cache-a70523252b9c0416c3d5f26d62da8b6ce0e7103b:timer', 'i:1776222061;', 1776222061),
+('laravel-cache-a7f3c1b0c01ef2c2436f229393c46acd1ba6e771', 'i:1;', 1775768342),
+('laravel-cache-a7f3c1b0c01ef2c2436f229393c46acd1ba6e771:timer', 'i:1775768342;', 1775768342),
+('laravel-cache-a855d2a074f78e3c80a9d58b4b26fd5bf83c8422', 'i:1;', 1773385126),
+('laravel-cache-a855d2a074f78e3c80a9d58b4b26fd5bf83c8422:timer', 'i:1773385126;', 1773385126),
+('laravel-cache-a8b6c4abe752d1391c18b36462882dfb5bfb72eb', 'i:1;', 1776222107),
+('laravel-cache-a8b6c4abe752d1391c18b36462882dfb5bfb72eb:timer', 'i:1776222107;', 1776222107),
+('laravel-cache-a904d277445ec3e9aba15371c055fa2b3e2becf9', 'i:1;', 1776120666),
+('laravel-cache-a904d277445ec3e9aba15371c055fa2b3e2becf9:timer', 'i:1776120665;', 1776120666),
+('laravel-cache-a9b571e0c0d03074b56b13bbb17986c9f171a052', 'i:1;', 1776222102),
+('laravel-cache-a9b571e0c0d03074b56b13bbb17986c9f171a052:timer', 'i:1776222098;', 1776222101),
+('laravel-cache-a9ee2a6173b15f84d1e40e4da0520c6acc7c2542', 'i:1;', 1775466678),
+('laravel-cache-a9ee2a6173b15f84d1e40e4da0520c6acc7c2542:timer', 'i:1775466678;', 1775466678),
+('laravel-cache-a9f239d0fae8c0c4fd323b7fc8593355618c945a', 'i:2;', 1776221916),
+('laravel-cache-a9f239d0fae8c0c4fd323b7fc8593355618c945a:timer', 'i:1776221916;', 1776221916),
+('laravel-cache-aa834e51f1e1a358e299a9257397dbbf25ad5628', 'i:1;', 1776222108),
+('laravel-cache-aa834e51f1e1a358e299a9257397dbbf25ad5628:timer', 'i:1776222108;', 1776222108),
+('laravel-cache-aac734fd83b7df139a4a6050bd4c31da140c04e6', 'i:1;', 1773525358),
+('laravel-cache-aac734fd83b7df139a4a6050bd4c31da140c04e6:timer', 'i:1773525358;', 1773525358),
+('laravel-cache-ab1516d9eaa39ffe793d82798617afbeb469dab0', 'i:1;', 1774346620),
+('laravel-cache-ab1516d9eaa39ffe793d82798617afbeb469dab0:timer', 'i:1774346620;', 1774346620),
+('laravel-cache-aca81d2723077c3203c5fa9327036b9a8aee22d7', 'i:1;', 1772552661),
+('laravel-cache-aca81d2723077c3203c5fa9327036b9a8aee22d7:timer', 'i:1772552661;', 1772552661),
+('laravel-cache-acb47aafeddcfcc570d927cd5772d52747fbbaca', 'i:1;', 1772474783),
+('laravel-cache-acb47aafeddcfcc570d927cd5772d52747fbbaca:timer', 'i:1772474783;', 1772474783),
+('laravel-cache-ad1b2dbef2c5653c58767153cabd4c1167a00799', 'i:1;', 1776029122),
+('laravel-cache-ad1b2dbef2c5653c58767153cabd4c1167a00799:timer', 'i:1776029122;', 1776029122),
+('laravel-cache-ad8b56442c300dd50c87214e2da9eb5d072e5eb4', 'i:1;', 1775836456),
+('laravel-cache-ad8b56442c300dd50c87214e2da9eb5d072e5eb4:timer', 'i:1775836455;', 1775836455),
+('laravel-cache-af3f99002ede89c4f888532ae352f75a3ed50730', 'i:1;', 1776222103),
+('laravel-cache-af3f99002ede89c4f888532ae352f75a3ed50730:timer', 'i:1776222102;', 1776222103),
+('laravel-cache-af62282af90631994e44ac8d953f4f4f20b25839', 'i:1;', 1776222064),
+('laravel-cache-af62282af90631994e44ac8d953f4f4f20b25839:timer', 'i:1776222064;', 1776222064),
+('laravel-cache-af7621064127a335b1a374dd31afe7cabad8cdab', 'i:1;', 1773689221),
+('laravel-cache-af7621064127a335b1a374dd31afe7cabad8cdab:timer', 'i:1773689221;', 1773689221),
+('laravel-cache-b023ce42b83174dab20f76f7e756ca4c1df9afde', 'i:1;', 1776222063),
+('laravel-cache-b023ce42b83174dab20f76f7e756ca4c1df9afde:timer', 'i:1776222062;', 1776222063),
+('laravel-cache-b0e48d34fce65d0cbecc303cdf78ed527660d089', 'i:1;', 1772916227),
+('laravel-cache-b0e48d34fce65d0cbecc303cdf78ed527660d089:timer', 'i:1772916225;', 1772916225),
+('laravel-cache-b16105a2f10ebf71a77bb937fe7b1b002fe4e170', 'i:3;', 1773022945),
+('laravel-cache-b16105a2f10ebf71a77bb937fe7b1b002fe4e170:timer', 'i:1773022945;', 1773022945),
+('laravel-cache-b35a9238f5af4fc8930fbc62594dd51f7b967a1c', 'i:1;', 1773156602),
+('laravel-cache-b35a9238f5af4fc8930fbc62594dd51f7b967a1c:timer', 'i:1773156602;', 1773156602),
+('laravel-cache-b3712ea08f3877bf21dd60e3c968114bffe4b34f', 'i:1;', 1774745743),
+('laravel-cache-b3712ea08f3877bf21dd60e3c968114bffe4b34f:timer', 'i:1774745726;', 1774745726),
+('laravel-cache-b39b7e80512ed494f1eef2cfdf41b66e0bf52ad4', 'i:2;', 1776162691),
+('laravel-cache-b39b7e80512ed494f1eef2cfdf41b66e0bf52ad4:timer', 'i:1776162691;', 1776162691),
+('laravel-cache-b3d419f65a02a9767deedea9f4c8bc08dc4cace6', 'i:1;', 1773814949),
+('laravel-cache-b3d419f65a02a9767deedea9f4c8bc08dc4cace6:timer', 'i:1773814949;', 1773814949),
+('laravel-cache-b3f58d149b004d07dbd7bee0208214cb44a2bbcb', 'i:1;', 1776222066),
+('laravel-cache-b3f58d149b004d07dbd7bee0208214cb44a2bbcb:timer', 'i:1776222066;', 1776222066),
+('laravel-cache-b5738bc724e3c575e2577827c7080cf53de77552', 'i:1;', 1775358956),
+('laravel-cache-b5738bc724e3c575e2577827c7080cf53de77552:timer', 'i:1775358956;', 1775358956),
+('laravel-cache-b69a8d5e11dacfbcdf7365cbc18126c98424c223', 'i:1;', 1773344127),
+('laravel-cache-b69a8d5e11dacfbcdf7365cbc18126c98424c223:timer', 'i:1773344127;', 1773344127),
+('laravel-cache-b6f58b57857614b27ea0dea76eacec749251aba2', 'i:1;', 1772915436),
+('laravel-cache-b6f58b57857614b27ea0dea76eacec749251aba2:timer', 'i:1772915436;', 1772915436),
+('laravel-cache-b777239e21214cc3488e5cfabbb8d69d62265f07', 'i:1;', 1775859746),
+('laravel-cache-b777239e21214cc3488e5cfabbb8d69d62265f07:timer', 'i:1775859746;', 1775859746),
+('laravel-cache-b8b9afa1731f5629531f5a50ceede4ec4327402b', 'i:1;', 1776222110),
+('laravel-cache-b8b9afa1731f5629531f5a50ceede4ec4327402b:timer', 'i:1776222109;', 1776222110),
+('laravel-cache-b936e52b9d845aa66f5f7acb4bbe16ad6cb45140', 'i:1;', 1775405208),
+('laravel-cache-b936e52b9d845aa66f5f7acb4bbe16ad6cb45140:timer', 'i:1775405208;', 1775405208),
+('laravel-cache-bb8def77595edb406ec2f296b9335eee17831100', 'i:1;', 1775251100),
+('laravel-cache-bb8def77595edb406ec2f296b9335eee17831100:timer', 'i:1775251100;', 1775251100),
+('laravel-cache-bcfaa054de92957a17b3bd6d230251f44fb67ce9', 'i:1;', 1774709206),
+('laravel-cache-bcfaa054de92957a17b3bd6d230251f44fb67ce9:timer', 'i:1774709206;', 1774709206),
+('laravel-cache-bd01e175a9c4debc9acfc622baa9135289071601', 'i:1;', 1775026103),
+('laravel-cache-bd01e175a9c4debc9acfc622baa9135289071601:timer', 'i:1775026102;', 1775026102),
+('laravel-cache-bdc0ca42715f51942da57f60efebf4b1d5585942', 'i:1;', 1774318567),
+('laravel-cache-bdc0ca42715f51942da57f60efebf4b1d5585942:timer', 'i:1774318567;', 1774318567),
+('laravel-cache-bfacde49f3b9c0652747abecb3cf1e923e0d6b73', 'i:1;', 1773608926),
+('laravel-cache-bfacde49f3b9c0652747abecb3cf1e923e0d6b73:timer', 'i:1773608926;', 1773608926),
+('laravel-cache-bfd6d67a8e368ac9a2a0a537b415554d4d853c7a', 'i:1;', 1772496170),
+('laravel-cache-bfd6d67a8e368ac9a2a0a537b415554d4d853c7a:timer', 'i:1772496170;', 1772496170),
+('laravel-cache-c13d3ee193f6eda1582ccd793a80334b8ffce820', 'i:1;', 1775814359),
+('laravel-cache-c13d3ee193f6eda1582ccd793a80334b8ffce820:timer', 'i:1775814359;', 1775814359),
+('laravel-cache-c2e972ef8002979c9f3a7a2d12b059c8fa9ada81', 'i:1;', 1776263233),
+('laravel-cache-c2e972ef8002979c9f3a7a2d12b059c8fa9ada81:timer', 'i:1776263233;', 1776263233),
+('laravel-cache-c364d999df98f8f13b4a2f4783b01cd729ee6e55', 'i:1;', 1775411910),
+('laravel-cache-c364d999df98f8f13b4a2f4783b01cd729ee6e55:timer', 'i:1775411909;', 1775411909),
+('laravel-cache-c3a0c4242d1f3ffa6de2a6a015b734d9b11a1988', 'i:1;', 1775936460),
+('laravel-cache-c3a0c4242d1f3ffa6de2a6a015b734d9b11a1988:timer', 'i:1775936460;', 1775936460),
+('laravel-cache-c53735b9382b682e185bf5649d7cff5f72b4dab1', 'i:1;', 1776222066),
+('laravel-cache-c53735b9382b682e185bf5649d7cff5f72b4dab1:timer', 'i:1776222066;', 1776222066),
+('laravel-cache-c68cbf325e696ee4e52ed5eb7a9b7d209f8b3c5f', 'i:1;', 1773742844),
+('laravel-cache-c68cbf325e696ee4e52ed5eb7a9b7d209f8b3c5f:timer', 'i:1773742841;', 1773742841),
+('laravel-cache-c6d016704c1655e4b4ea203109540fe66a070c64', 'i:1;', 1776222110),
+('laravel-cache-c6d016704c1655e4b4ea203109540fe66a070c64:timer', 'i:1776222109;', 1776222110),
+('laravel-cache-c7dfbd3713105b7f33b7627df9c8ae17f6303a8b', 'i:1;', 1773216764),
+('laravel-cache-c7dfbd3713105b7f33b7627df9c8ae17f6303a8b:timer', 'i:1773216764;', 1773216764),
+('laravel-cache-ca2f56d8de9b608ae1767255e1667a557360c4e2', 'i:1;', 1776222111),
+('laravel-cache-ca2f56d8de9b608ae1767255e1667a557360c4e2:timer', 'i:1776222110;', 1776222111),
+('laravel-cache-ca98ded4122037ffa2680f79c57fb10dffca6b2f', 'i:1;', 1775378032),
+('laravel-cache-ca98ded4122037ffa2680f79c57fb10dffca6b2f:timer', 'i:1775378032;', 1775378032),
+('laravel-cache-caff0fa6ea9edfb7245faa51cefe07fb889c68ef', 'i:1;', 1772997377),
+('laravel-cache-caff0fa6ea9edfb7245faa51cefe07fb889c68ef:timer', 'i:1772997377;', 1772997377),
+('laravel-cache-ce6fbfc30dc9a330235bac8f6cd5ae962ef7b0d9', 'i:1;', 1775237162),
+('laravel-cache-ce6fbfc30dc9a330235bac8f6cd5ae962ef7b0d9:timer', 'i:1775237161;', 1775237161),
+('laravel-cache-cea38ab4144ba092880bc919521cc5ca0bef378d', 'i:1;', 1776222105),
+('laravel-cache-cea38ab4144ba092880bc919521cc5ca0bef378d:timer', 'i:1776222105;', 1776222105),
+('laravel-cache-d2be4415297a0134b699ace732179dff5b65586f', 'i:1;', 1773506045),
+('laravel-cache-d2be4415297a0134b699ace732179dff5b65586f:timer', 'i:1773506045;', 1773506045),
+('laravel-cache-d313d1490fbe70092c9bbfcfd1dd6c0d56023625', 'i:1;', 1773197737),
+('laravel-cache-d313d1490fbe70092c9bbfcfd1dd6c0d56023625:timer', 'i:1773197737;', 1773197737),
+('laravel-cache-d3d387070f9a8de0e42e21387774f5810f77110f', 'i:1;', 1775499695),
+('laravel-cache-d3d387070f9a8de0e42e21387774f5810f77110f:timer', 'i:1775499695;', 1775499695),
+('laravel-cache-d46342ca0e12e8d5e5b2d3b4bf3ff9920338d814', 'i:1;', 1772915608),
+('laravel-cache-d46342ca0e12e8d5e5b2d3b4bf3ff9920338d814:timer', 'i:1772915608;', 1772915608),
+('laravel-cache-d510419d3e9a810c15d536886590c04b3099b913', 'i:1;', 1772849766),
+('laravel-cache-d510419d3e9a810c15d536886590c04b3099b913:timer', 'i:1772849766;', 1772849766),
+('laravel-cache-d56123746131b924c3dbc5f0beb4a97f17fa1fa3', 'i:1;', 1775400938),
+('laravel-cache-d56123746131b924c3dbc5f0beb4a97f17fa1fa3:timer', 'i:1775400938;', 1775400938),
+('laravel-cache-d5a09c0a76dd905ade11fe8da1a47e721abdc202', 'i:1;', 1775693708),
+('laravel-cache-d5a09c0a76dd905ade11fe8da1a47e721abdc202:timer', 'i:1775693708;', 1775693708),
+('laravel-cache-d66f55ea2a5d58d040d4af626b2e866a871dac2c', 'i:1;', 1775437512),
+('laravel-cache-d66f55ea2a5d58d040d4af626b2e866a871dac2c:timer', 'i:1775437512;', 1775437512),
+('laravel-cache-d7a29e08b714af834a636402133d240aa2f3e303', 'i:1;', 1776222103),
+('laravel-cache-d7a29e08b714af834a636402133d240aa2f3e303:timer', 'i:1776222103;', 1776222103),
+('laravel-cache-d86ce70429dfda8951ee605b27d5f26bb7b97d1d', 'i:1;', 1772969739),
+('laravel-cache-d86ce70429dfda8951ee605b27d5f26bb7b97d1d:timer', 'i:1772969739;', 1772969739),
+('laravel-cache-d875a18522ed01a849fc69f68472d8caab7fca67', 'i:1;', 1776222111),
+('laravel-cache-d875a18522ed01a849fc69f68472d8caab7fca67:timer', 'i:1776222110;', 1776222111),
+('laravel-cache-d87fe177876a05f5af75cffc16c62c73179c47a9', 'i:1;', 1773821655),
+('laravel-cache-d87fe177876a05f5af75cffc16c62c73179c47a9:timer', 'i:1773821654;', 1773821654),
+('laravel-cache-d8a3d54a7981c611a4b81792695f46a81b200ad5', 'i:1;', 1772637766),
+('laravel-cache-d8a3d54a7981c611a4b81792695f46a81b200ad5:timer', 'i:1772637766;', 1772637766),
+('laravel-cache-d8a85d2b930f4b8fb3fe6229498273389c9137d2', 'i:1;', 1776222109),
+('laravel-cache-d8a85d2b930f4b8fb3fe6229498273389c9137d2:timer', 'i:1776222109;', 1776222109),
+('laravel-cache-d95555fa6e39eae2cc34b0cde0e17e27e17f1a3a', 'i:1;', 1776208836),
+('laravel-cache-d95555fa6e39eae2cc34b0cde0e17e27e17f1a3a:timer', 'i:1776208836;', 1776208836),
+('laravel-cache-da4b9237bacccdf19c0760cab7aec4a8359010b0', 'i:1;', 1776222185),
+('laravel-cache-da4b9237bacccdf19c0760cab7aec4a8359010b0:timer', 'i:1776222182;', 1776222183),
+('laravel-cache-dba3eb904dda383e0534ff7428a2851248d90be4', 'i:1;', 1776222101),
+('laravel-cache-dba3eb904dda383e0534ff7428a2851248d90be4:timer', 'i:1776222098;', 1776222101),
+('laravel-cache-dba9eb2a5605d669773a7b370eac74b6fef97d12', 'i:1;', 1773438719),
+('laravel-cache-dba9eb2a5605d669773a7b370eac74b6fef97d12:timer', 'i:1773438719;', 1773438719),
+('laravel-cache-dde614d3872ae410c46bc35f4f12ecab5dd00315', 'i:1;', 1774157807),
+('laravel-cache-dde614d3872ae410c46bc35f4f12ecab5dd00315:timer', 'i:1774157807;', 1774157807),
+('laravel-cache-de31b149338451f8ec4342f2177a8e4d22987e25', 'i:1;', 1776170299),
+('laravel-cache-de31b149338451f8ec4342f2177a8e4d22987e25:timer', 'i:1776170299;', 1776170299),
+('laravel-cache-dec5d5593acae4b1ee8f4b41959ddd127b714ee0', 'i:1;', 1776222112),
+('laravel-cache-dec5d5593acae4b1ee8f4b41959ddd127b714ee0:timer', 'i:1776222111;', 1776222111),
+('laravel-cache-def3d253f88288af18c730b07a7c3848fd434c47', 'i:1;', 1772594649),
+('laravel-cache-def3d253f88288af18c730b07a7c3848fd434c47:timer', 'i:1772594648;', 1772594648),
+('laravel-cache-e1c04b9dcb732853b7759e7b2ec80d9402d43c93', 'i:1;', 1774254083),
+('laravel-cache-e1c04b9dcb732853b7759e7b2ec80d9402d43c93:timer', 'i:1774254083;', 1774254083),
+('laravel-cache-e2020227b3a28c634ff6a9129e17cbc01965b190', 'i:1;', 1774532960),
+('laravel-cache-e2020227b3a28c634ff6a9129e17cbc01965b190:timer', 'i:1774532960;', 1774532960),
+('laravel-cache-e3498d9fe8cb822bd21f13ba6504f5f4662f7430', 'i:1;', 1772532606),
+('laravel-cache-e3498d9fe8cb822bd21f13ba6504f5f4662f7430:timer', 'i:1772532606;', 1772532606),
+('laravel-cache-e35be0fc9462856a0842de9d38dfc945d1996666', 'i:1;', 1772475793),
+('laravel-cache-e35be0fc9462856a0842de9d38dfc945d1996666:timer', 'i:1772475793;', 1772475793),
+('laravel-cache-e44826228ab615b5897148f5bf018c5ccae34eea', 'i:1;', 1775833629),
+('laravel-cache-e44826228ab615b5897148f5bf018c5ccae34eea:timer', 'i:1775833629;', 1775833629),
+('laravel-cache-e50e45fdacf453bd19917c87b36c415972409d9e', 'i:1;', 1773381479),
+('laravel-cache-e50e45fdacf453bd19917c87b36c415972409d9e:timer', 'i:1773381479;', 1773381479),
+('laravel-cache-e575bd14fa643e1ddb63c9bb7065dcf93c5b70f8', 'i:1;', 1775973217),
+('laravel-cache-e575bd14fa643e1ddb63c9bb7065dcf93c5b70f8:timer', 'i:1775973216;', 1775973216),
+('laravel-cache-e60925b3e91e6d1f9b1e9fe8069a291bc56ca9de', 'i:1;', 1775224011),
+('laravel-cache-e60925b3e91e6d1f9b1e9fe8069a291bc56ca9de:timer', 'i:1775224011;', 1775224011),
+('laravel-cache-e72ce960ab1fbae48e65c254a5c985d0421423fa', 'i:1;', 1774492791),
+('laravel-cache-e72ce960ab1fbae48e65c254a5c985d0421423fa:timer', 'i:1774492791;', 1774492791),
+('laravel-cache-e92e2e99c5a9a173ee5e0ecbda43e9c1b2c82982', 'i:1;', 1774682124),
+('laravel-cache-e92e2e99c5a9a173ee5e0ecbda43e9c1b2c82982:timer', 'i:1774682124;', 1774682124),
+('laravel-cache-ea9b576ceef1a6dc433659013cf1ae042f85fcf1', 'i:1;', 1776224503),
+('laravel-cache-ea9b576ceef1a6dc433659013cf1ae042f85fcf1:timer', 'i:1776224502;', 1776224502),
+('laravel-cache-ec59feb8adb70728dd83bf8b65688b704040d90e', 'i:1;', 1775996527),
+('laravel-cache-ec59feb8adb70728dd83bf8b65688b704040d90e:timer', 'i:1775996527;', 1775996527),
+('laravel-cache-ecf0d49a440315e39a401491316ded32bdacd12d', 'i:1;', 1775359205),
+('laravel-cache-ecf0d49a440315e39a401491316ded32bdacd12d:timer', 'i:1775359199;', 1775359199),
+('laravel-cache-ed0f57606120acb32abc848ac57a0fb74293e6ff', 'i:1;', 1773313416),
+('laravel-cache-ed0f57606120acb32abc848ac57a0fb74293e6ff:timer', 'i:1773313416;', 1773313416),
+('laravel-cache-ed31259700356b554ab627b1ad85284c86a83362', 'i:1;', 1775379061),
+('laravel-cache-ed31259700356b554ab627b1ad85284c86a83362:timer', 'i:1775379061;', 1775379061),
+('laravel-cache-ede2023d86c2466c026943fabad8d351ac0da0d3', 'i:1;', 1772876053),
+('laravel-cache-ede2023d86c2466c026943fabad8d351ac0da0d3:timer', 'i:1772876053;', 1772876053),
+('laravel-cache-eeb90f41f65ad09b684f4c9a817c3012eaff5409', 'i:1;', 1774000752),
+('laravel-cache-eeb90f41f65ad09b684f4c9a817c3012eaff5409:timer', 'i:1774000752;', 1774000752),
+('laravel-cache-efa399634c6563a9108ab6f1adcc9e205f73243a', 'i:1;', 1774010502),
+('laravel-cache-efa399634c6563a9108ab6f1adcc9e205f73243a:timer', 'i:1774010502;', 1774010502),
+('laravel-cache-f0848977e58bb76c98ad2a8546d32423596f8106', 'i:1;', 1773822129),
+('laravel-cache-f0848977e58bb76c98ad2a8546d32423596f8106:timer', 'i:1773822129;', 1773822129),
+('laravel-cache-f0a1702f2441614963de683a2e8d8fa5a16a7d87', 'i:1;', 1774440785),
+('laravel-cache-f0a1702f2441614963de683a2e8d8fa5a16a7d87:timer', 'i:1774440784;', 1774440784),
+('laravel-cache-f138f063856f396329ee0db9013796ff0e8f3c7d', 'i:1;', 1776222109),
+('laravel-cache-f138f063856f396329ee0db9013796ff0e8f3c7d:timer', 'i:1776222108;', 1776222108),
+('laravel-cache-f3977c09effbd9eff95c36fea338f95938c056c1', 'i:1;', 1772460900),
+('laravel-cache-f3977c09effbd9eff95c36fea338f95938c056c1:timer', 'i:1772460900;', 1772460900),
+('laravel-cache-f3b9179f3254de29740da2ff6e8516e8fac366ac', 'i:1;', 1772517283),
+('laravel-cache-f3b9179f3254de29740da2ff6e8516e8fac366ac:timer', 'i:1772517283;', 1772517283),
+('laravel-cache-f4c08fcd2b75444b030147377df3a2546552c7d7', 'i:1;', 1773439981),
+('laravel-cache-f4c08fcd2b75444b030147377df3a2546552c7d7:timer', 'i:1773439981;', 1773439981),
+('laravel-cache-f57c2d77a842a8361211a59f0d3caa638ca2eaeb', 'i:1;', 1773198617),
+('laravel-cache-f57c2d77a842a8361211a59f0d3caa638ca2eaeb:timer', 'i:1773198617;', 1773198617),
+('laravel-cache-f5f2f8c09a49ddb859f13854e1337d2eb04f49ab', 'i:1;', 1772586031),
+('laravel-cache-f5f2f8c09a49ddb859f13854e1337d2eb04f49ab:timer', 'i:1772586031;', 1772586031),
+('laravel-cache-f628af26d4a0cfc549f2917ff85867e0a80f8b36', 'i:1;', 1774967735),
+('laravel-cache-f628af26d4a0cfc549f2917ff85867e0a80f8b36:timer', 'i:1774967735;', 1774967735),
+('laravel-cache-f7ccf524dc6f25beefe7cc3a734d106399a2e081', 'i:1;', 1773492032),
+('laravel-cache-f7ccf524dc6f25beefe7cc3a734d106399a2e081:timer', 'i:1773492032;', 1773492032),
+('laravel-cache-fa1808e35ce95e54495fb1d02c9fc1393aaaa9d9', 'i:1;', 1776222106),
+('laravel-cache-fa1808e35ce95e54495fb1d02c9fc1393aaaa9d9:timer', 'i:1776222105;', 1776222105),
+('laravel-cache-faef98f258a632ecdd079536d5b26c2c86baae46', 'i:1;', 1772839034),
+('laravel-cache-faef98f258a632ecdd079536d5b26c2c86baae46:timer', 'i:1772839034;', 1772839034),
+('laravel-cache-fb0e20213fd39a21797ff8f267bd198bdaae8bb4', 'i:2;', 1774273162),
+('laravel-cache-fb0e20213fd39a21797ff8f267bd198bdaae8bb4:timer', 'i:1774273162;', 1774273162),
+('laravel-cache-fc1f9f7f6765fd1dae7d64c345d935eb70c27006', 'i:1;', 1776222061),
+('laravel-cache-fc1f9f7f6765fd1dae7d64c345d935eb70c27006:timer', 'i:1776222061;', 1776222061),
+('laravel-cache-fcb01eeb1f416e7d83e35fe8ce7c065481ef2c84', 'i:1;', 1776222065),
+('laravel-cache-fcb01eeb1f416e7d83e35fe8ce7c065481ef2c84:timer', 'i:1776222065;', 1776222065),
+('laravel-cache-fd8ed324ca0382967f639e23cb620cf130a85aea', 'i:1;', 1774380418),
+('laravel-cache-fd8ed324ca0382967f639e23cb620cf130a85aea:timer', 'i:1774380418;', 1774380418),
+('laravel-cache-fd9fac3ee6e12769053458ca2c1f0547bb3ea91b', 'i:1;', 1772773780),
+('laravel-cache-fd9fac3ee6e12769053458ca2c1f0547bb3ea91b:timer', 'i:1772773780;', 1772773780),
+('laravel-cache-fe4eb70a1b6c518a29464f15b736e425ca0c7592', 'i:1;', 1776304681),
+('laravel-cache-fe4eb70a1b6c518a29464f15b736e425ca0c7592:timer', 'i:1776304681;', 1776304681),
+('laravel-cache-fe6fef99183ad2d9cd53e4bed63b3f7049d023b3', 'i:1;', 1776222107),
+('laravel-cache-fe6fef99183ad2d9cd53e4bed63b3f7049d023b3:timer', 'i:1776222107;', 1776222107),
+('laravel-cache-illuminate:queue:restart', 'i:1772440114;', 2087800114),
+('laravel-cache-livewire-rate-limiter:1d132c4df8d56cf857964efb8bd75fdc408e25d2', 'i:1;', 1773279818);
+INSERT INTO `cache` (`key`, `value`, `expiration`) VALUES
+('laravel-cache-livewire-rate-limiter:1d132c4df8d56cf857964efb8bd75fdc408e25d2:timer', 'i:1773279817;', 1773279817),
+('laravel-cache-livewire-rate-limiter:28de7276d84071edfcbb1fea2463999042a6ddf6', 'i:1;', 1776227223),
+('laravel-cache-livewire-rate-limiter:28de7276d84071edfcbb1fea2463999042a6ddf6:timer', 'i:1776227221;', 1776227222),
+('laravel-cache-livewire-rate-limiter:574c5095b948f665cb1fde12d9bd997896a10fb2', 'i:1;', 1772444067),
+('laravel-cache-livewire-rate-limiter:574c5095b948f665cb1fde12d9bd997896a10fb2:timer', 'i:1772444066;', 1772444066),
+('laravel-cache-livewire-rate-limiter:859dfc763957ee31132b4d255e47845e10e83b63', 'i:1;', 1774193806),
+('laravel-cache-livewire-rate-limiter:859dfc763957ee31132b4d255e47845e10e83b63:timer', 'i:1774193806;', 1774193806),
+('laravel-cache-livewire-rate-limiter:a6e05c2d8ae6fe1956e8928019ecf4601f600db7', 'i:1;', 1776263146),
+('laravel-cache-livewire-rate-limiter:a6e05c2d8ae6fe1956e8928019ecf4601f600db7:timer', 'i:1776263146;', 1776263146),
+('laravel-cache-livewire-rate-limiter:d5b04b1a764a8ae555254a00d06a42677cab28b0', 'i:1;', 1776221965),
+('laravel-cache-livewire-rate-limiter:d5b04b1a764a8ae555254a00d06a42677cab28b0:timer', 'i:1776221964;', 1776221964),
+('laravel-cache-livewire-rate-limiter:ee4a2bc531d5fc64e0da682c7e4d79810afbf06a', 'i:3;', 1776220990),
+('laravel-cache-livewire-rate-limiter:ee4a2bc531d5fc64e0da682c7e4d79810afbf06a:timer', 'i:1776220988;', 1776220990),
+('laravel-cache-livewire-rate-limiter:f6dab06ea1090f028b8a40d6edb751b0f56fd5f3', 'i:1;', 1772762830),
+('laravel-cache-livewire-rate-limiter:f6dab06ea1090f028b8a40d6edb751b0f56fd5f3:timer', 'i:1772762830;', 1772762830);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cache_locks`
+--
+
+CREATE TABLE `cache_locks` (
+  `key` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `owner` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `expiration` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `domains`
+--
+
+CREATE TABLE `domains` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `extension` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `type` enum('media_sosial','media_online') COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `rss` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `domains`
+--
+
+INSERT INTO `domains` (`id`, `name`, `extension`, `description`, `type`, `created_at`, `updated_at`, `rss`) VALUES
+(4, 'www.detik.com', '', '-', 'media_online', '2026-03-02 22:13:51', '2026-03-02 22:13:51', NULL),
+(5, 'www.google.com', '', '-', 'media_online', '2026-03-05 00:55:23', '2026-03-05 00:55:23', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `failed_jobs`
+--
+
+CREATE TABLE `failed_jobs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `uuid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `jobs`
+--
+
+CREATE TABLE `jobs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `queue` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `attempts` tinyint(3) UNSIGNED NOT NULL,
+  `reserved_at` int(10) UNSIGNED DEFAULT NULL,
+  `available_at` int(10) UNSIGNED NOT NULL,
+  `created_at` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `job_batches`
+--
+
+CREATE TABLE `job_batches` (
+  `id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `total_jobs` int(11) NOT NULL,
+  `pending_jobs` int(11) NOT NULL,
+  `failed_jobs` int(11) NOT NULL,
+  `failed_job_ids` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `options` mediumtext COLLATE utf8mb4_unicode_ci,
+  `cancelled_at` int(11) DEFAULT NULL,
+  `created_at` int(11) NOT NULL,
+  `finished_at` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `migrations`
+--
+
+CREATE TABLE `migrations` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `batch` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `migrations`
+--
+
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
+(1, '0001_01_01_000000_create_users_table', 1),
+(2, '0001_01_01_000001_create_cache_table', 1),
+(3, '0001_01_01_000002_create_jobs_table', 1),
+(4, '2026_01_21_041135_create_domains_table', 1),
+(5, '2026_01_21_041136_create_results_table', 1),
+(6, '2026_01_21_041505_add_column_user', 1),
+(7, '2026_01_21_042037_create_tracers_table', 1),
+(8, '2026_01_29_021311_add_column_rss_to_domain', 1),
+(9, '2026_01_30_042831_add_category_to_results_table', 1),
+(10, '2026_02_06_092333_add_keterangan_to_results_table', 1),
+(11, '2026_02_24_023600_add_description_to_users_table', 1),
+(12, '2026_03_02_025627_add_fakta_to_results_table', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `password_reset_tokens`
+--
+
+CREATE TABLE `password_reset_tokens` (
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `results`
+--
+
+CREATE TABLE `results` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `keyword` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `url` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` longtext COLLATE utf8mb4_unicode_ci,
+  `target_account` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `capture` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `domain_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `validator_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `team_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `validated_at` timestamp NULL DEFAULT NULL,
+  `published_at` timestamp NULL DEFAULT NULL,
+  `status` enum('new','validated','unvalidated') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'new',
+  `fakta` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `hits` int(11) NOT NULL DEFAULT '0',
+  `tracer_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `category` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `keterangan` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `results`
+--
+
+INSERT INTO `results` (`id`, `keyword`, `url`, `description`, `target_account`, `capture`, `domain_id`, `validator_id`, `team_id`, `validated_at`, `published_at`, `status`, `fakta`, `hits`, `tracer_id`, `created_at`, `updated_at`, `deleted_at`, `category`, `keterangan`) VALUES
+(3, 'Ikan terubuk', 'https://www.detik.com/bengkalis-ikanterubuk', NULL, 'fullan', 'capture/01KJS1VTRZQ2F6G6TCHPJZ5CSG.jpg', 4, 2, NULL, '2026-03-02 22:15:10', '2026-03-02 17:00:00', 'validated', NULL, 0, 6, '2026-03-02 22:13:51', '2026-03-02 22:15:10', NULL, 'fakta', 'Fakta'),
+(4, 'Bupati Bengkalis', 'https://www.google.com/bupati-bengkalis', NULL, 'fullan', 'capture/01KJYFX2DKDMZG319RYB3PWZNV.jpg', 5, 2, NULL, '2026-03-05 00:56:25', '2026-03-04 17:00:00', 'validated', NULL, 0, 7, '2026-03-05 00:55:24', '2026-03-05 00:56:25', NULL, 'hoax', 'Benar ini hoax'),
+(8, 'makanan khas bengkalis', 'https://www.google.com/makanan-khasbengkalis', NULL, 'pemerintah kab.bengkalis', 'capture/01KP7GK6QF0J1YFGWY7MPTQ4WK.jpg', 5, 2, NULL, '2026-04-14 19:50:16', '2026-04-14 17:00:00', 'validated', NULL, 0, 7, '2026-04-14 19:47:44', '2026-04-14 19:50:16', NULL, 'fakta', 'Apakah berita ini benar ');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sessions`
+--
+
+CREATE TABLE `sessions` (
+  `id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `ip_address` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `user_agent` text COLLATE utf8mb4_unicode_ci,
+  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `last_activity` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `sessions`
+--
+
+INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
+('1HBaXfofYU2uZlbLvbz8EZzzkF9gubRhROycHPk0', NULL, '27.124.86.230', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:149.0) Gecko/20100101 Firefox/149.0', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiSzQxWmJoa0NxQjlWdFI5b2k4RnhrVmNNcU9GWHVESmg2MGVRYmtlTiI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6NTA6Imh0dHBzOi8vaG9heC10cmFjZXIuYmVuZ2thbGlza2FiLmdvLmlkL2FkbWluL2xvZ2luIjtzOjU6InJvdXRlIjtzOjI1OiJmaWxhbWVudC5hZG1pbi5hdXRoLmxvZ2luIjt9czozOiJ1cmwiO2E6MTp7czo4OiJpbnRlbmRlZCI7czo0NDoiaHR0cHM6Ly9ob2F4LXRyYWNlci5iZW5na2FsaXNrYWIuZ28uaWQvYWRtaW4iO319', 1776263174),
+('5ecO849kgl5w8azSNhbdBTXWX2pjuTv5LJmuPhBc', NULL, '136.119.132.8', 'Mozilla/5.0 (compatible; CMS-Checker/1.0; +https://example.com)', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiZktNQmVqb212SENkYWtRTFhOdFhxWHRsdEplYllEdFQ3S0dqQ1dSYSI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6Mzg6Imh0dHBzOi8vaG9heC10cmFjZXIuYmVuZ2thbGlza2FiLmdvLmlkIjtzOjU6InJvdXRlIjtOO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19', 1776262757),
+('DU1xgGWWsxlLyvvYtKy6GXSAKdS6gyS0TBtbl1F1', NULL, '103.166.161.146', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:149.0) Gecko/20100101 Firefox/149.0', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoidnlzMWtDazRWZEpYVllMbm1nRTFZbXJXYnNkWXE0RkhYV0IyTVdiMiI7czozOiJ1cmwiO2E6MTp7czo4OiJpbnRlbmRlZCI7czo0NDoiaHR0cHM6Ly9ob2F4LXRyYWNlci5iZW5na2FsaXNrYWIuZ28uaWQvYWRtaW4iO31zOjk6Il9wcmV2aW91cyI7YToyOntzOjM6InVybCI7czo0NDoiaHR0cHM6Ly9ob2F4LXRyYWNlci5iZW5na2FsaXNrYWIuZ28uaWQvYWRtaW4iO3M6NToicm91dGUiO3M6MzA6ImZpbGFtZW50LmFkbWluLnBhZ2VzLmRhc2hib2FyZCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1776304614),
+('fQQ8epDj9Wd6SXTnVTSenzZ7xkJMcsQ5ewVgxOKu', NULL, '64.227.186.49', 'Mozilla/5.0 (compatible; WP-Safe-Scanner/1.0)', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiSW9mSjJjR09nS0w2Nmp0dUgyY3JFdFZwUThBdWFodVN4RXE1emhLcSI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6NTA6Imh0dHBzOi8vaG9heC10cmFjZXIuYmVuZ2thbGlza2FiLmdvLmlkL2FkbWluL2xvZ2luIjtzOjU6InJvdXRlIjtzOjI1OiJmaWxhbWVudC5hZG1pbi5hdXRoLmxvZ2luIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czozOiJ1cmwiO2E6MTp7czo4OiJpbnRlbmRlZCI7czo0NDoiaHR0cHM6Ly9ob2F4LXRyYWNlci5iZW5na2FsaXNrYWIuZ28uaWQvYWRtaW4iO319', 1776307347),
+('I56kkiteMesIbtR2XAkYPQ5YY8sDeKTeeMkNY0rV', NULL, '103.166.161.146', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:149.0) Gecko/20100101 Firefox/149.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiZHlTZVozSFJHdmd1THBOUUdSOTJxMWNlSUc4TXJBOVNuVWFqeDhhZSI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6NTA6Imh0dHBzOi8vaG9heC10cmFjZXIuYmVuZ2thbGlza2FiLmdvLmlkL2FkbWluL2xvZ2luIjtzOjU6InJvdXRlIjtzOjI1OiJmaWxhbWVudC5hZG1pbi5hdXRoLmxvZ2luIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1776304617),
+('IhvT0D8yserMpnbelf4rl3BJ11SjPG2IINsP377V', NULL, '103.166.161.146', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:149.0) Gecko/20100101 Firefox/149.0', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiTklGM3VWYkV1RW15elJ3SDREY2xDcmNDZm1Tb0dEVnpSbHlWSU5hZCI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6NTA6Imh0dHBzOi8vaG9heC10cmFjZXIuYmVuZ2thbGlza2FiLmdvLmlkL2FkbWluL2xvZ2luIjtzOjU6InJvdXRlIjtzOjI1OiJmaWxhbWVudC5hZG1pbi5hdXRoLmxvZ2luIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czozOiJ1cmwiO2E6MTp7czo4OiJpbnRlbmRlZCI7czo0NDoiaHR0cHM6Ly9ob2F4LXRyYWNlci5iZW5na2FsaXNrYWIuZ28uaWQvYWRtaW4iO319', 1776304622),
+('NQZPCFG5DeMpA2kZ0mON3pS7UbmyjS1Dp6weWIJO', NULL, '136.119.132.8', 'Mozilla/5.0 (compatible; CMS-Checker/1.0; +https://example.com)', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoicndxMnppWXdlaTM1OU5qcVR5TGxUd3c0b2ZIemVvNFhtSW5CbFllMyI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6NTA6Imh0dHBzOi8vaG9heC10cmFjZXIuYmVuZ2thbGlza2FiLmdvLmlkL2FkbWluL2xvZ2luIjtzOjU6InJvdXRlIjtzOjI1OiJmaWxhbWVudC5hZG1pbi5hdXRoLmxvZ2luIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1776262758),
+('PAq4qqw4q0eQ4XoiXl0Ul62UrLAC11lbPOg5AUp0', NULL, '27.124.86.230', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:149.0) Gecko/20100101 Firefox/149.0', 'YToyOntzOjY6Il90b2tlbiI7czo0MDoiY3VrNjhMdDFpVmFaaWNCTE5YTXJTM0RPemRSNjVmT1d0SHVVMjljMyI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1776263172),
+('tzPJbppCXQkWSlT8ngL3wMcvF9SQoTyrCo4DibFY', NULL, '136.119.132.8', 'Mozilla/5.0 (compatible; CMS-Checker/1.0; +https://example.com)', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoidDV4VU1RQ2kxQmJXNmxTTkZYcHlTaDBUd0N3Q0lWVXFtbHh6Umd5USI7czozOiJ1cmwiO2E6MTp7czo4OiJpbnRlbmRlZCI7czo0NDoiaHR0cHM6Ly9ob2F4LXRyYWNlci5iZW5na2FsaXNrYWIuZ28uaWQvYWRtaW4iO31zOjk6Il9wcmV2aW91cyI7YToyOntzOjM6InVybCI7czo0NDoiaHR0cHM6Ly9ob2F4LXRyYWNlci5iZW5na2FsaXNrYWIuZ28uaWQvYWRtaW4iO3M6NToicm91dGUiO3M6MzA6ImZpbGFtZW50LmFkbWluLnBhZ2VzLmRhc2hib2FyZCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1776262757);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tracers`
+--
+
+CREATE TABLE `tracers` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `domain` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `type_platform` enum('media_sosial','search_engine') COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `hits` int(11) NOT NULL DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `tracers`
+--
+
+INSERT INTO `tracers` (`id`, `name`, `domain`, `type_platform`, `hits`, `created_at`, `updated_at`) VALUES
+(6, 'detik', 'www.detik.com', 'search_engine', 0, '2026-03-02 22:11:40', '2026-03-02 22:11:40'),
+(7, 'google', 'www.google.com', 'search_engine', 0, '2026-03-05 00:53:45', '2026-03-05 00:53:45');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci,
+  `email_verified_at` timestamp NULL DEFAULT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `role` enum('validator','kadis','admin','team') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'admin'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `email`, `description`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `role`) VALUES
+(1, 'adminb', 'admin@mail.com', NULL, NULL, '$2y$12$/rg2ANxb5uPQdoJeUYS81O.sRVZ5RHdyw1cnY5ukeu6K8JtqGKZvK', 'NWTWPAaOeTz4uEISs1NSs69HOvTCtsiyNILeJTzOSsX6dbobNeio5LCpwABg', '2026-02-24 00:10:13', '2026-02-25 00:36:57', 'admin'),
+(2, 'Kadis', 'kadis@mail.com', 'Kepala Diskominfotik', '2026-02-24 08:06:00', '$2y$12$Yeqs8sP5O5dc/b/43nxtTOZsWyyqhFpA6Jb8y8j3eQ/Ot8WbnbUim', 'vJvH6imuWA7Rgs0Oh6DduxGv3pYe53H4BtDUT5QMrvrQyW74BFejZHyRBYcn', '2026-02-24 01:06:13', '2026-02-25 00:33:47', 'kadis'),
+(3, 'validator', 'validator@mail.com', 'Validator Hoaxs Diskominfotik', '2026-02-24 09:06:00', '$2y$12$naK1JAdBlqx.gGP5ypWqJeMNOMOzvm8l7wXuJ453mOKzYz19w9iv2', 'jwlqBl3SnBUx0UbzrIvUaAvGBNc65Wkr9e9kmGp8kEUbvXP6vbK0hQEYvumo', '2026-02-24 02:07:09', '2026-02-25 00:34:06', 'validator'),
+(4, 'Team', 'team@mail.com', 'Team Diskominfotik', '2026-02-25 07:39:00', '$2y$12$21ikMgDI4LjSNqxofaXEOeERRefSHxfEn6ifXjXrS4V6Co0OaA.gO', NULL, '2026-02-25 00:42:15', '2026-02-25 00:42:15', 'team');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `cache`
+--
+ALTER TABLE `cache`
+  ADD PRIMARY KEY (`key`),
+  ADD KEY `cache_expiration_index` (`expiration`);
+
+--
+-- Indexes for table `cache_locks`
+--
+ALTER TABLE `cache_locks`
+  ADD PRIMARY KEY (`key`),
+  ADD KEY `cache_locks_expiration_index` (`expiration`);
+
+--
+-- Indexes for table `domains`
+--
+ALTER TABLE `domains`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `failed_jobs`
+--
+ALTER TABLE `failed_jobs`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
+
+--
+-- Indexes for table `jobs`
+--
+ALTER TABLE `jobs`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `jobs_queue_index` (`queue`);
+
+--
+-- Indexes for table `job_batches`
+--
+ALTER TABLE `job_batches`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `migrations`
+--
+ALTER TABLE `migrations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `password_reset_tokens`
+--
+ALTER TABLE `password_reset_tokens`
+  ADD PRIMARY KEY (`email`);
+
+--
+-- Indexes for table `results`
+--
+ALTER TABLE `results`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `results_domain_id_foreign` (`domain_id`),
+  ADD KEY `results_validator_id_foreign` (`validator_id`),
+  ADD KEY `results_team_id_foreign` (`team_id`),
+  ADD KEY `results_tracer_id_foreign` (`tracer_id`);
+
+--
+-- Indexes for table `sessions`
+--
+ALTER TABLE `sessions`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `sessions_user_id_index` (`user_id`),
+  ADD KEY `sessions_last_activity_index` (`last_activity`);
+
+--
+-- Indexes for table `tracers`
+--
+ALTER TABLE `tracers`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `users_email_unique` (`email`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `domains`
+--
+ALTER TABLE `domains`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `failed_jobs`
+--
+ALTER TABLE `failed_jobs`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `jobs`
+--
+ALTER TABLE `jobs`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `migrations`
+--
+ALTER TABLE `migrations`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT for table `results`
+--
+ALTER TABLE `results`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `tracers`
+--
+ALTER TABLE `tracers`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `results`
+--
+ALTER TABLE `results`
+  ADD CONSTRAINT `results_domain_id_foreign` FOREIGN KEY (`domain_id`) REFERENCES `domains` (`id`),
+  ADD CONSTRAINT `results_team_id_foreign` FOREIGN KEY (`team_id`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `results_tracer_id_foreign` FOREIGN KEY (`tracer_id`) REFERENCES `tracers` (`id`),
+  ADD CONSTRAINT `results_validator_id_foreign` FOREIGN KEY (`validator_id`) REFERENCES `users` (`id`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

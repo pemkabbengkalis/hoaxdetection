@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\Domain;
 
 
+
 class Result extends Model
 {
     use HasFactory, SoftDeletes;
