@@ -19,6 +19,8 @@ class UserResource extends Resource
 {
     protected static ?string $model = User::class;
     protected static ?int $navigationSort = 4;
+    protected static ?string $pluralModelLabel = 'User';
+
 
     public static function getWidgets(): array
     {

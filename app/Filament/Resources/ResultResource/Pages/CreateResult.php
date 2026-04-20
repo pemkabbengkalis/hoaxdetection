@@ -9,6 +9,9 @@ use App\Filament\Resources\ResultResource;
 use Filament\Resources\Pages\CreateRecord;
 use App\Models\User;
 use Illuminate\Support\Facades\Http;
+use App\Jobs\SendWhatsAppMessage;
+use Carbon\Carbon;
+
 
 
 class CreateResult extends CreateRecord
@@ -35,41 +38,38 @@ class CreateResult extends CreateRecord
         return $data;
     }
 
-    protected function afterCreate()
+    protected function afterCreate(): void
     {
+        SendWhatsAppMessage::dispatch(
+            $this->record->phone,
+            'Data berhasil dibuat'
+        );
 
-        //whatssapp notifikasi
+
+        //     //whatssapp notifikasi
         $token = config('services.whatsapp.token');
         $url   = config('services.whatsapp.url');
         $record = $this->record;
-        // $nokadis = User::whereRole('kadis')->first()?->no_hp;
+       
+        $nokadis = User::whereRole('kadis')->first()?->no_hp;
+        $message = "🔔 *Informasi Ada Berita Hoax!*\n\n"
+            . "📌 *Keyword:* {$record->keyword}\n"
+            . "🌐 *URL:* {$record->url}\n"
+            . "👤 *Target Akun:* {$record->target_account}\n"
+            . "📂 *Kategori:* {$record->category}\n"
+            . "📊 *Status:* {$record->status}\n"
+            . "📝 *Keterangan:* {$record->keterangan}\n"
+            . "🕐 Waktu: " . Carbon::now('Asia/Jakarta')->format('d-m-Y H:i:s');
+        Http::post($url . '/message/send-text', [
+            "session"  => $token,
+            $nokadis = User::whereRole('kadis')->first()?->no_hp,
+            app(WhatsAppService::class)->send($nokadis, $message),
+            "text" => $message,
+        ]);
 
-        // Http::post($url . '/message/send-text', [
-        //     "session"  => $token,
-        //     "to" => (new WhatsAppService)->normalizePhone($nokadis), // fonnte support multiple: "628xx,628yy"
-        //     "text" => 'hallo berhasil ya',
-        // ]);
-
-            $nokadis = User::whereRole('kadis')->first()?->no_hp;
-            $message = "🔔 *Informasi Ada Berita Hoax!*\n\n"
-                . "📌 *Keyword:* {$record->keyword}\n"
-                . "🌐 *URL:* {$record->url}\n"
-                . "👤 *Target Akun:* {$record->target_account}\n"
-                . "📂 *Kategori:* {$record->category}\n"
-                . "📊 *Status:* {$record->status}\n"
-                . "📝 *Keterangan:* {$record->keterangan}\n"
-                . "🕐 *Waktu:* " . now()->format('d-m-Y H:i:s');
-            Http::post($url . '/message/send-text', [
-                "session"  => $token,
-                "to" => (new WhatsAppService)->normalizePhone($nokadis), // fonnte support multiple: "628xx,628yy"
-                "text" => $message,
-            ]);
-       // })->afterResponse();
-
-
-        // WhatsAppService::send($message, $nokadis);
-        return redirect('tracers')->with('success', 'Data berhasil disimpan');
     }
+
+
 
     private function getDomainExtension(string $url): string
     {

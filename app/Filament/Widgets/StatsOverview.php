@@ -3,19 +3,39 @@
 namespace App\Filament\Widgets;
 
 use App\Models\Result;
+use Filament\Actions\Action;
+use Filament\Support\Colors\Color;
+use Illuminate\Support\Facades\Http;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
-use Filament\Support\Colors\Color;
+use Filament\Support\Enums\ActionSize;
 
 
 class StatsOverview extends BaseWidget
 {
     protected static ?int $sort = 2;
+
+
     protected function getStats(): array
     {
 
         $result = Result::query()->whereIn('status', ['validated', 'unvalidated'])->get();
         return [
+
+            Action::make('connect')
+                ->label('Connect WhatsApp')
+                ->icon('heroicon-o-chat-bubble-left-right')
+                ->color('success')
+                ->visible(fn() => in_array(auth()->user()?->role, ['admin']))
+                // ->action(function () {
+                ->url(fn() => route('wa-login'))
+                ->openUrlInNewTab()
+                ->button()
+                ->size(ActionSize::Small),
+            // logic kamu di sini
+            // contoh: generate session / QR
+            //   }),
+
             Stat::make('Total URL', $result->count())
                 ->description('Jumlah url terdaftar')
                 ->extraAttributes([
@@ -51,6 +71,7 @@ class StatsOverview extends BaseWidget
             box-shadow: 0 -4px 6px -2px rgba(255, 0, 0, 0.4);
                 border-radius:12px;',
                 ]),
+
         ];
     }
 }
