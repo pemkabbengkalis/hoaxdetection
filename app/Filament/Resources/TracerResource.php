@@ -126,11 +126,27 @@ class TracerResource extends Resource
                 })
                     ->icon('heroicon-s-magnifying-glass-circle')
                     ->color('primary')
+                    ->button()
+                    ->extraAttributes([
+                        'style' => 'background-color: #2F6FDB; color: white;'
+                    ])
                     ->openUrlInNewTab(),
                 Tables\Actions\ViewAction::make()->label('Lihat Data')->url('results?tracer_id=1')
-                ->color('primary'),
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+               ->color('primary')
+                ->button()
+                    ->extraAttributes([
+                        'style' => 'background-color: #00AA13; color: white;'
+                    ]),
+                Tables\Actions\EditAction::make()
+                    ->button()
+                    ->extraAttributes([
+                        'style' => 'background-color: #facc15; color: black;'
+                    ]),
+                Tables\Actions\DeleteAction::make()
+                    ->button()
+                    ->extraAttributes([
+                        'style' => 'background-color: #dc2626; color: white;'
+                    ]),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

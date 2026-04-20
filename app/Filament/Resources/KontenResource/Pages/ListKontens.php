@@ -13,7 +13,10 @@ class ListKontens extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            Actions\CreateAction::make()
+                ->label('Tambah Data')
+                //->visible(fn() => auth()->user()->role !== 'validator'),
+                ->visible(fn() => !in_array(auth()->user()->role, ['team', 'validator'])) // Hanya tampilkan tombol tambah jika bukan validator,
         ];
     }
 }
