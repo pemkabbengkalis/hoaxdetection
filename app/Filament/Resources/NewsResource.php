@@ -14,6 +14,9 @@ use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\NewsResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\NewsResource\RelationManagers;
+use App\Filament\Resources\NewsResource\Widgets\StatistikNews;
+use Carbon\Carbon;
+
 
 class NewsResource extends Resource
 {
@@ -22,6 +25,13 @@ class NewsResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-s-globe-alt';
     protected static ?string $modelLabel = 'Tracer';
     protected static ?string $pluralModelLabel = 'Tracer';
+
+    public static function getWidgets(): array
+    {
+        return [
+            StatistikNews::class,
+        ];
+    }
 
     public static function form(Form $form): Form
     {
@@ -37,21 +47,32 @@ class NewsResource extends Resource
             ->columns([
                 TextColumn::make('keyword.term')
                     ->label('Keyword')
+                    ->toggleable()
                     ->badge(),
                 TextColumn::make('title')
                     ->label('Judul Berita')
                     ->searchable()
-                    ->wrap()
-                    ->limit(35),
+                    ->toggleable()
+                    ->wrap(),
+                //->limit(50),
                 // TextColumn::make('source')
                 //     ->wrap()
                 //     ->label('Sumber'),
                 TextColumn::make('published_at')
                     ->label('Tanggal Tayang')
-                    ->dateTime('d M Y H:i')
+                    ->toggleable()
+                    ->formatStateUsing(
+                        fn($state) =>
+                        $state
+                            ? Carbon::parse($state)
+                            ->timezone('Asia/Jakarta')
+                            ->format('d M Y H:i')
+                            : '-'
+                    )
                     ->sortable(),
                 TextColumn::make('url')
                     ->label('Baca (Sumber)')
+                    ->toggleable()
                     ->wrap()
                     ->formatStateUsing(fn($state) => wordwrap($state, 50, "\n", true))
                     ->url(fn(News $record) => $record->url)

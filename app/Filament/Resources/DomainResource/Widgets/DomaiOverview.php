@@ -13,7 +13,7 @@ class DomaiOverview extends BaseWidget
 {
     protected function getStats(): array
     {
-        $total = Result::count(); // <-- ambil data dari DB
+        $total = news::count(); // <-- ambil data dari DB
         $totalTracer = Tracer::count();
         $totalPlatform = Tracer::distinct('type_platform')->count('type_platform');
         $totalKeyword = Result::distinct('keyword')->count('keyword');

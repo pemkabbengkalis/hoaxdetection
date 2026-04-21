@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\NewsResource\Pages;
 
 use App\Filament\Resources\NewsResource;
-use Filament\Actions;
+use App\Filament\Resources\NewsResource\Widgets\StatistikNews;
 use Filament\Resources\Pages\ListRecords;
 
 class ListNews extends ListRecords
@@ -12,10 +12,13 @@ class ListNews extends ListRecords
 
     protected function getHeaderActions(): array
     {
-        return [
-            //Actions\CreateAction::make(),
-        ];
+        return [];
     }
 
-    
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            StatistikNews::class,
+        ];
+    }
 }

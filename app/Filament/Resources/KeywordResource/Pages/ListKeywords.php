@@ -14,6 +14,7 @@ class ListKeywords extends ListRecords
     {
         return [
             Actions\CreateAction::make()
+            ->label('Tambah Data')
                 ->visible(fn() => auth()->user()?->role !== 'kadis'),
 
         ];
