@@ -39,6 +39,13 @@ class TracerResource extends Resource
         ]) ?? false;
     }
 
+    //--------------------sembunyikan menu tracer--------------------
+    public static function shouldRegisterNavigation(): bool
+    {
+        return false;
+    }
+    //--------------------end off sembunyikan menu tracer--------------------
+
     protected static ?string $navigationIcon = 'heroicon-s-globe-alt';
     protected static ?string $modelLabel = 'Room Tracer';
     protected static ?string $pluralModelLabel = 'Room Tracer';
@@ -132,8 +139,8 @@ class TracerResource extends Resource
                     ])
                     ->openUrlInNewTab(),
                 Tables\Actions\ViewAction::make()->label('Lihat Data')->url('results?tracer_id=1')
-               ->color('primary')
-                ->button()
+                    ->color('primary')
+                    ->button()
                     ->extraAttributes([
                         'style' => 'background-color: #00AA13; color: white;'
                     ]),

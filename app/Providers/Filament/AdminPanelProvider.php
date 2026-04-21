@@ -58,6 +58,15 @@ class AdminPanelProvider extends PanelProvider
             ->brandLogo(asset('storage/bengkalis.png'))
             ->brandLogoHeight('3rem')
             ->login()
+            ->navigationItems([
+                NavigationItem::make('WA Login')
+                    ->icon('heroicon-o-qr-code')
+                    ->group('Integrasi')
+                    ->sort(99) // biar di bawah
+                    ->url(url('/wa-login'), shouldOpenInNewTab: true)
+                    ->visible(fn() => auth()->check() && auth()->user()->role === 'admin'),
+
+            ])
             ->renderHook(
                 PanelsRenderHook::HEAD_END,
                 fn() => '

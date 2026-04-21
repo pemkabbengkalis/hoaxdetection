@@ -11,8 +11,15 @@ use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Support\Enums\ActionSize;
 
 
+use Filament\Actions\Concerns\InteractsWithActions;
+use Filament\Actions\Contracts\HasActions;
+use Filament\Widgets\Widget;
+
 class StatsOverview extends BaseWidget
 {
+
+    
+
     protected static ?int $sort = 2;
 
 
@@ -22,16 +29,14 @@ class StatsOverview extends BaseWidget
         $result = Result::query()->whereIn('status', ['validated', 'unvalidated'])->get();
         return [
 
-            Action::make('connect')
-                ->label('Connect WhatsApp')
-                ->icon('heroicon-o-chat-bubble-left-right')
-                ->color('success')
-                ->visible(fn() => in_array(auth()->user()?->role, ['admin']))
-                // ->action(function () {
-                ->url(fn() => route('wa-login'))
-                ->openUrlInNewTab()
-                ->button()
-                ->size(ActionSize::Small),
+            // Action::make('connect')
+            //     ->label('Connect WhatsApp')
+            //     ->icon('heroicon-o-chat-bubble-left-right')
+            //     ->color('success')
+            //     ->visible(fn() => auth()->user()?->role === 'admin')   // <-- hanya admin
+            //     ->url(fn() => route('wa-login'))
+            //     ->openUrlInNewTab()                                      // buka tab baru
+            //     ->size(ActionSize::Small),
             // logic kamu di sini
             // contoh: generate session / QR
             //   }),
