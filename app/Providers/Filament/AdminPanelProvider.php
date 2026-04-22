@@ -25,18 +25,8 @@ use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 
-
-
-
-
-
-
 class AdminPanelProvider extends PanelProvider
 {
-
-    //------------adrian-------------------------------------//
-
-
     public function boot(): void
 
     {
@@ -45,7 +35,7 @@ class AdminPanelProvider extends PanelProvider
             Css::make('login-bg', asset('login.css')),
         ]);
     }
-    //------------end of adrian------------------------------//
+
     public function panel(Panel $panel): Panel
     {
         return $panel
@@ -67,6 +57,12 @@ class AdminPanelProvider extends PanelProvider
                     ->visible(fn() => auth()->check() && auth()->user()->role === 'admin'),
 
             ])
+
+            ->renderHook(
+                PanelsRenderHook::HEAD_END,
+                fn(): string => '<link rel="stylesheet" href="' . asset('css/custom.css') . '">'
+            )
+
             ->renderHook(
                 PanelsRenderHook::HEAD_END,
                 fn() => '
@@ -74,7 +70,6 @@ class AdminPanelProvider extends PanelProvider
         <meta name="theme-color" content="#0f172a">
     '
             )
-
             ->navigationItems([
                 NavigationItem::make('Contoh Keyword')
                     ->icon('heroicon-s-book-open')
@@ -96,8 +91,6 @@ class AdminPanelProvider extends PanelProvider
     '
             )
 
-
-            //-------------------adrian------------------------------------//
             ->colors([
 
                 'primary' => Color::Blue,
@@ -112,7 +105,7 @@ class AdminPanelProvider extends PanelProvider
             //         ->isActiveWhen(fn() => request()->routeIs('filament.admin.pages.dashboard'))
 
             // ])    
-            //------------------------end of adrian-------------------------//
+
 
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
