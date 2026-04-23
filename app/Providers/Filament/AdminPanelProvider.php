@@ -25,6 +25,7 @@ use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Filament\Enums\ThemeMode;
+use App\Filament\Pages\Auth\Login;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -44,6 +45,7 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             //->spa()
             ->id('admin')
+            ->login(\App\Filament\Pages\Auth\Login::class)
             ->path('admin')
             ->brandName('Hoaxs Tracer')
             ->brandLogo(asset('storage/bengkalis.png'))
