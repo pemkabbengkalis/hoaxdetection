@@ -18,7 +18,8 @@ class ListUsers extends ListRecords
     {
         return [
             Actions\CreateAction::make()
-                ->label('Tambah Data'),
+                ->label('Tambah Data')
+                ->visible(fn() => auth()->user()?->role === \App\Models\User::ROLE_ADMIN),
 
 
             //     Actions\Action::make('preview')

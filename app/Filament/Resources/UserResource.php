@@ -164,6 +164,7 @@ class UserResource extends Resource
                     ]),
                 Tables\Actions\DeleteAction::make()
                     ->button()
+                    ->visible(fn() => auth()->user()?->role === \App\Models\User::ROLE_ADMIN)
                     ->extraAttributes([
                         'style' => 'background-color: #dc2626; color: white;'
                     ]),
