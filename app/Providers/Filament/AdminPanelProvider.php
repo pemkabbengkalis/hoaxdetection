@@ -24,6 +24,7 @@ use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
+use Filament\Enums\ThemeMode;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -48,6 +49,8 @@ class AdminPanelProvider extends PanelProvider
             ->brandLogo(asset('storage/bengkalis.png'))
             ->brandLogoHeight('3rem')
             ->login()
+            ->darkMode(false)
+            ->defaultThemeMode(ThemeMode::Light)
             ->navigationItems([
                 NavigationItem::make('WA Login')
                     ->icon('heroicon-o-qr-code')
