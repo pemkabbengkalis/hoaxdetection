@@ -16,6 +16,7 @@ use App\Filament\Resources\KontenResource\RelationManagers;
 use Filament\Forms\Components\Textarea;
 use Illuminate\Support\Facades\Auth;
 
+
 class KontenResource extends Resource
 {
     protected static ?string $model = Konten::class;
@@ -76,12 +77,12 @@ class KontenResource extends Resource
     //---------------------------end of badge notifikasi menu-----------------
 
 
-//----------------------halaman ini hanya bisa diakses oleh admin dan kadis-----------
+    //----------------------halaman ini hanya bisa diakses oleh admin dan kadis-----------
     public static function canAccess(): bool
     {
         return in_array(auth()->user()->role, ['admin', 'kadis', 'validator']);
     }
-//-------------------------------end of access control---------------------------------
+    //-------------------------------end of access control---------------------------------
 
     public static function form(Form $form): Form
     {
@@ -89,7 +90,7 @@ class KontenResource extends Resource
             ->schema([
 
                 Forms\Components\TextInput::make('url')
-                    ->label('Mohon Isi URL')
+                    ->label('Isi sumber berita yang ingin dicari')
                     // ->required(fn($operation) => $operation === 'create')//hanya wajib di isi saat tambah data baru
                     //->disabled(fn(string $operation) => $operation === 'edit')//tidak bisa edit saat sesi edit
                     ->placeholder('https://google.com')
@@ -115,6 +116,10 @@ class KontenResource extends Resource
                     //->required(fn($operation) => $operation === 'create'
                     //->required()
                     ->hidden(fn($operation) => $operation === 'create')
+                    ->hidden(function ($operation) {
+                        return $operation === 'create'
+                            || Auth::user()?->role === 'kadis';
+                    })
                     // ->formatStateUsing(fn($state) => wordwrap($state, 40, "\n", true))
                     ->validationMessages([
                         'required' => 'Mohon jelaskan data yang dibutuhkan',
@@ -165,6 +170,7 @@ class KontenResource extends Resource
                     ]),
                 Tables\Actions\DeleteAction::make()
                     ->button()
+                    ->label('Hapus')
                     // ->visible(fn () => auth()->user()->role !== 'validator') // Hanya tampilkan tombol delete jika bukan validator,
                     ->extraAttributes([
                         'style' => 'background-color: #dc2626; color: white;'

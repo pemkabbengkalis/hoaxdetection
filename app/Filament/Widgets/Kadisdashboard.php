@@ -37,10 +37,10 @@ class Kadisdashboard extends BaseWidget
                 Result::query()->whereStatus('unvalidated')
             )
             ->columns([
-                TextColumn::make('tracer.name')
-                    ->label('Penelusuran dari')
-                    ->description(fn($record) => $record->tracer->domain)
-                    ->searchable(),
+                // TextColumn::make('news.url')
+                //     ->label('Penelusuran dari')
+                //     //->description(fn($record) => $record->tracer->domain)
+                //     ->searchable(),
                 TextColumn::make('keyword')
                     ->label('Kata kunci')
                     ->searchable(),
@@ -50,7 +50,7 @@ class Kadisdashboard extends BaseWidget
 
                 TextColumn::make('url')
                     ->label('URL didapatkan')
-                    // ->limit(25) // jumlah karakter
+                    ->limit(40) // jumlah karakter
                     ->tooltip(fn($record) => $record->url) // biar full URL muncul saat hover
                     ->description(
                         fn($record) =>

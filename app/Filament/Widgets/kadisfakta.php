@@ -25,10 +25,10 @@ class KadisFakta extends BaseWidget
                     ->where('category', 'fakta')
             )
             ->columns([
-                TextColumn::make('tracer.name')
-                    ->label('Penelusuran dari')
-                    ->description(fn($record) => $record->tracer->domain)
-                    ->searchable(),
+                // TextColumn::make('tracer.name')
+                //     ->label('Penelusuran dari')
+                //     ->description(fn($record) => $record->tracer->domain)
+                //     ->searchable(),
 
                 TextColumn::make('keyword')
                     ->label('Kata kunci')

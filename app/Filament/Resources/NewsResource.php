@@ -89,14 +89,15 @@ class NewsResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make()
-                    ->button()
-                    ->visible(fn() => auth()->user()?->role !== 'kadis')
-                    ->extraAttributes([
-                        'style' => 'background-color: #facc15; color: black;'
-                    ]),
+                // Tables\Actions\EditAction::make()
+                //     ->button()
+                //     ->visible(fn() => auth()->user()?->role !== 'kadis')
+                //     ->extraAttributes([
+                //         'style' => 'background-color: #facc15; color: black;'
+                //     ]),
                 Tables\Actions\DeleteAction::make()
                     ->button()
+                    ->label('Hapus')
                     ->visible(fn() => auth()->user()?->role !== 'kadis')
                     ->extraAttributes([
                         'style' => 'background-color: #dc2626; color: white;'

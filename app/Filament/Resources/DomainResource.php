@@ -29,6 +29,14 @@ class DomainResource extends Resource
     protected static ?int $navigationSort = 3;
     //protected static ?string $navigationGroup = 'Validator';
 
+
+    //--------------------sembunyikan menu domain--------------------
+    public static function shouldRegisterNavigation(): bool
+    {
+        return false;
+    }
+    //--------------------end off sembunyikan menu domain--------------------
+
     protected static function getTableQuery(): Builder
     {
         return parent::getTableQuery()->with('results.tracer');

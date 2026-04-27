@@ -16,14 +16,27 @@ use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\KeywordResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\KeywordResource\RelationManagers;
+use Filament\Facades\Filament;
 
 class KeywordResource extends Resource
 {
     protected static ?string $model = Keyword::class;
-
     protected static ?string $navigationIcon = 'heroicon-s-rectangle-stack';
-     protected static ?string $modelLabel = 'Keyword';
+    protected static ?string $modelLabel = 'Keyword';
     protected static ?string $pluralModelLabel = 'Keyword';
+
+    //--------------------protected menu aktif-----------------
+    public static function shouldRegisterNavigation(): bool
+    {
+        return ! auth()->user()?->hasRole('kadis');
+    }
+
+    public static function canAccess(): bool
+    {
+        return ! auth()->user()?->hasRole('kadis');
+    }
+    //--------------------protected menu aktif-----------------
+
 
     public static function form(Form $form): Form
     {
@@ -53,7 +66,12 @@ class KeywordResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                // Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()
+                    ->button()
+                    ->extraAttributes([
+                        'style' => 'background-color: #facc15; color: black;'
+                    ]),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

@@ -5,6 +5,8 @@ namespace App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
+use Filament\Notifications\Notification;
+
 
 class EditUser extends EditRecord
 {
@@ -27,6 +29,35 @@ class EditUser extends EditRecord
     }
     //end of redirect to list after create
 
+    //-----------hapus notifikasi save-----------------
+    protected function getSavedNotification(): ?Notification
+    {
+        return null;
+    }
+    //-----------end of hapus notifikasi save-----------------
 
 
+    protected function afterSave(): void
+    {
+        Notification::make()
+            ->title('Data berhasil diperbarui!')
+            ->success()
+            ->send();
+    }
+
+    protected function getFormActions(): array
+    {
+        return [
+            Actions\Action::make('save')
+                ->label('Simpan Perubahan')
+                ->submit('save')
+                ->color('gray'),
+
+            Actions\Action::make('cancel')
+                ->label('Batal') // ini yang mengganti "Cancel"
+                ->url($this->getResource()::getUrl())
+                ->color('gray'), // kembali ke halaman list
+            // ->color('gray') // optional biar mirip default
+        ];
+    }
 }

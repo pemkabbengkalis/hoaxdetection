@@ -11,6 +11,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\Http;
 use App\Jobs\SendWhatsAppMessage;
 use Carbon\Carbon;
+use Filament\Notifications\Notification;
+
 
 
 
@@ -50,7 +52,7 @@ class CreateResult extends CreateRecord
         $token = config('services.whatsapp.token');
         $url   = config('services.whatsapp.url');
         $record = $this->record;
-       
+
         $nokadis = User::whereRole('kadis')->first()?->no_hp;
         $message = "🔔 *Informasi Ada Berita Hoax!*\n\n"
             . "📌 *Keyword:* {$record->keyword}\n"
@@ -66,7 +68,6 @@ class CreateResult extends CreateRecord
             app(WhatsAppService::class)->send($nokadis, $message),
             "text" => $message,
         ]);
-
     }
 
 
@@ -112,4 +113,13 @@ class CreateResult extends CreateRecord
 
     //end of redirect to list after create
     //-------------end of adrian---------------//
+
+    protected function afterSave(): void
+    {
+        Notification::make()
+            ->title('Data berhasil disimpan!')
+            ->success()
+            ->send();
+        //$this->redirect($this->getResource()::getUrl('index')); //untuk memberikan redirect setelah penyimpanan
+    }
 }

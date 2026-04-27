@@ -14,6 +14,8 @@ use Filament\Resources\Pages\CreateRecord;
 use Illuminate\Support\Facades\Hash;
 use Filament\Forms\Components\Wizard;
 use Filament\Forms\Form;
+use Filament\Notifications\Notification;
+
 
 
 class CreateUser extends CreateRecord
@@ -32,6 +34,15 @@ class CreateUser extends CreateRecord
         return $this->getResource()::getUrl('index');
     }
     //end of redirect to list after create
+
+
+    protected function afterSave(): void
+    {
+        Notification::make()
+            ->title('Data berhasil disimpan!')
+            ->success()
+            ->send();
+    }
 
 
     public function form(Form $form): Form
@@ -99,16 +110,16 @@ class CreateUser extends CreateRecord
                                 ]),
                         ]),
 
-                    Step::make('Deskripsi')
-                        ->schema([
-                            Textarea::make('description')
-                                ->label('Deskripsi')
-                                ->required()
-                                ->validationMessages([
-                                    'required' => 'Deskripsi wajib diisi',
+                    // Step::make('Deskripsi')
+                    //     ->schema([
+                    //         Textarea::make('description')
+                    //             ->label('Deskripsi')
+                    //             ->required()
+                    //             ->validationMessages([
+                    //                 'required' => 'Deskripsi wajib diisi',
 
-                                ]),
-                        ]),
+                    //             ]),
+                    //     ]),
 
                     Step::make('Pilih Role')
                         ->schema([
