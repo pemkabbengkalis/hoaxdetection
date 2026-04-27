@@ -103,12 +103,12 @@ class ResultResource extends Resource
     {
         return $form
             ->schema([
-                Select::make('tracer_id')
+                Select::make('keywords_term')
                     ->label('Tracer')
                     ->required(fn($operation) => $operation === 'create')
                     ->options(
-                        Tracer::query()
-                            ->pluck('domain', 'id')
+                        \App\Models\Keyword::query()
+                            ->pluck('term', 'term')
                             ->toArray()
                     )
                     ->searchable()
@@ -294,7 +294,7 @@ class ResultResource extends Resource
                 //
             ])
             ->actions([
-                 Tables\Actions\EditAction::make()
+                Tables\Actions\EditAction::make()
                     ->button()
                     ->extraAttributes([
                         'style' => 'background-color: #facc15; color: black;'
