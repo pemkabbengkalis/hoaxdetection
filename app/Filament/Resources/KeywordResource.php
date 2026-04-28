@@ -72,6 +72,17 @@ class KeywordResource extends Resource
                     ->extraAttributes([
                         'style' => 'background-color: #facc15; color: black;'
                     ]),
+
+                Tables\Actions\DeleteAction::make()
+                    ->button()
+                    // ->visible(fn() => auth()->user()?->role === \App\Models\User::ROLE_ADMIN)
+                    ->visible(fn() => in_array(auth()->user()?->role, [
+                        \App\Models\User::ROLE_ADMIN,
+                        \App\Models\User::ROLE_VALIDATOR,
+                    ]))
+                    ->extraAttributes([
+                        'style' => 'background-color: #dc2626; color: white;'
+                    ]),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
