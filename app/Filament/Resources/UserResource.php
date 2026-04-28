@@ -22,7 +22,7 @@ class UserResource extends Resource
     protected static ?string $pluralModelLabel = 'User';
 
 
-    //---------------hanya bisa edit hapus user itu sendiri-----------------
+    //---------------hanya bisa edit hapus user itu sendiri---------------
     public static function getEloquentQuery(): Builder
     {
         $query = parent::getEloquentQuery();
@@ -61,22 +61,6 @@ class UserResource extends Resource
             UserOverview::class,
         ];
     }
-
-
-    // public static function canViewAny(): bool
-    // {
-    //     /** @var User|null $user */
-    //     $user = Filament::auth()->user();
-
-    //     return $user?->hasAnyRole([
-    //         User::ROLE_ADMIN,
-    //         User::ROLE_TEAM,
-    //         User::ROLE_KADIS,
-    //         User::ROLE_VALIDATOR,
-    //     ]) ?? false;
-    // }
-
-
 
     protected static ?string $navigationIcon = 'heroicon-s-user-group';
 
