@@ -102,11 +102,6 @@ class UserResource extends Resource
                     ->required(fn($operation) => $operation === 'create')
                     ->maxLength(255),
 
-                // Forms\Components\TextInput::make('password')
-                //     ->password()
-                //     ->required(fn($operation) => $operation === 'create')
-                //     ->maxLength(255),
-
                 Forms\Components\TextInput::make('password')
                     ->label('Password')
                     ->password()
