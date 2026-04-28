@@ -134,14 +134,6 @@ class KontenResource extends Resource
     {
         return $table
             ->columns([
-<<<<<<< HEAD
-                Tables\Columns\TextColumn::make('url')
-                    ->disableClick()
-                    ->searchable(['url']),
-                Tables\Columns\TextColumn::make('keterangan')
-                    ->disableClick()
-                    ->searchable(['keterangan']),
-=======
                 Tables\Columns\TextColumn::make('user.role')
                     ->label('Pengirim')
                     ->disableClick()
@@ -165,16 +157,11 @@ class KontenResource extends Resource
                     ->wrap()
                     ->searchable()
                     ->toggleable(),
->>>>>>> meldi-adrian
             ])
             ->filters([
                 //
             ])
             ->actions([
-<<<<<<< HEAD
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\EditAction::make(),
-=======
                 Tables\Actions\EditAction::make()
                     ->button()
                     // ->visible(fn () => auth()->user()->role !== 'validator') // Hanya tampilkan tombol edit jika bukan validator,
@@ -188,7 +175,6 @@ class KontenResource extends Resource
                     ->extraAttributes([
                         'style' => 'background-color: #dc2626; color: white;'
                     ]),
->>>>>>> meldi-adrian
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
