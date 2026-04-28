@@ -19,6 +19,41 @@ class UserResource extends Resource
 {
     protected static ?string $model = User::class;
     protected static ?int $navigationSort = 4;
+    protected static ?string $pluralModelLabel = 'User';
+
+
+    //---------------hanya bisa edit hapus user itu sendiri-----------------
+    public static function getEloquentQuery(): Builder
+    {
+        $query = parent::getEloquentQuery();
+        $user = auth()->user();
+
+        if ($user->role !== User::ROLE_ADMIN) {
+            $query->where('id', $user->id);
+        }
+
+        return $query;
+    }
+    //---------------end off hanya bisa edit hapus user itu sendiri-----------------
+
+
+    public static function canViewAny(): bool
+    {
+        return Filament::auth()->check();
+    }
+
+    public static function canEdit($record): bool
+    {
+        $user = Filament::auth()->user();
+
+        // Admin bebas edit siapa saja
+        if ($user->role === User::ROLE_ADMIN) {
+            return true;
+        }
+
+        // Selain admin hanya boleh edit dirinya sendiri
+        return $user->id === $record->id;
+    }
 
     public static function getWidgets(): array
     {
@@ -28,18 +63,18 @@ class UserResource extends Resource
     }
 
 
-    public static function canViewAny(): bool
-    {
-        /** @var User|null $user */
-        $user = Filament::auth()->user();
+    // public static function canViewAny(): bool
+    // {
+    //     /** @var User|null $user */
+    //     $user = Filament::auth()->user();
 
-        return $user?->hasAnyRole([
-            User::ROLE_ADMIN,
-            // User::ROLE_TEAM,
-            // User::ROLE_KADIS,
-            //User::ROLE_VALIDATOR,
-        ]) ?? false;
-    }
+    //     return $user?->hasAnyRole([
+    //         User::ROLE_ADMIN,
+    //         User::ROLE_TEAM,
+    //         User::ROLE_KADIS,
+    //         User::ROLE_VALIDATOR,
+    //     ]) ?? false;
+    // }
 
 
 
@@ -103,8 +138,13 @@ class UserResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
                     ->searchable(),
+<<<<<<< HEAD
                 Tables\Columns\TextColumn::make('no_hp')
                     ->searchable(),
+=======
+                // Tables\Columns\TextColumn::make('description')
+                //     ->searchable(),
+>>>>>>> meldi-adrian
                 Tables\Columns\TextColumn::make('email_verified_at')
                     ->dateTime()
                     ->sortable(),
@@ -119,11 +159,20 @@ class UserResource extends Resource
                 Tables\Columns\TextColumn::make('role'),
             ])
             ->filters([
-                //
+                //-----------------
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\EditAction::make()
+                    ->button()
+                    ->extraAttributes([
+                        'style' => 'background-color: #facc15; color: black;'
+                    ]),
+                Tables\Actions\DeleteAction::make()
+                    ->button()
+                    ->visible(fn() => auth()->user()?->role === \App\Models\User::ROLE_ADMIN)
+                    ->extraAttributes([
+                        'style' => 'background-color: #dc2626; color: white;'
+                    ]),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

@@ -25,7 +25,7 @@ return new class extends Migration
             $table->foreignId('team_id')->nullable()->constrained('users');
             $table->timestamp('validated_at')->nullable();
             $table->timestamp('published_at')->nullable();
-            $table->enum('status',['new','validated','unvalidated'])->default('new');
+            $table->enum('status', ['new', 'validated', 'unvalidated'])->default('new');
             $table->integer('hits')->default(0);
             $table->foreignId('tracer_id')->nullable()->constrained('tracers');
             $table->timestamps();

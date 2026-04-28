@@ -29,6 +29,14 @@ class DomainResource extends Resource
     protected static ?int $navigationSort = 3;
     //protected static ?string $navigationGroup = 'Validator';
 
+
+    //--------------------sembunyikan menu domain--------------------
+    public static function shouldRegisterNavigation(): bool
+    {
+        return false;
+    }
+    //--------------------end off sembunyikan menu domain--------------------
+
     protected static function getTableQuery(): Builder
     {
         return parent::getTableQuery()->with('results.tracer');
@@ -89,6 +97,7 @@ class DomainResource extends Resource
                 Tables\Columns\TextColumn::make('tracer_domain')
                     ->label('Domain')
                     ->disableClick()
+                    ->toggleable()
                     ->getStateUsing(
                         fn($record) =>
                         $record->results
@@ -99,6 +108,7 @@ class DomainResource extends Resource
                 Tables\Columns\TextColumn::make('results.url')
                     ->label('Url')
                     ->disableClick()
+                    ->toggleable()
                     ->getStateUsing(
                         fn($record) =>
                         $record->results->first()?->url
@@ -112,6 +122,7 @@ class DomainResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('results.keywords')
                     ->label('Keyword')
+                    ->toggleable()
                     ->disableClick()
                     //->getStateUsing(fn($record) => $record->results->pluck('keyword')->all()),
                     ->getStateUsing(
@@ -123,6 +134,7 @@ class DomainResource extends Resource
                 Tables\Columns\TextColumn::make('results.target_account')
                     ->label('Target Akun')
                     ->disableClick()
+                    ->toggleable()
                     ->getStateUsing(
                         fn($record) =>
                         $record->results->first()?->target_account
@@ -132,27 +144,32 @@ class DomainResource extends Resource
                 Tables\Columns\TextColumn::make('rss')
                     ->label('Rss')
                     ->disableClick()
+                    ->toggleable()
                     ->searchable(),
 
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
+                    ->toggleable()
                     ->disableClick()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
 
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime()
+                    ->toggleable()
                     ->disableClick()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
 
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
+                    ->toggleable()
                     ->disableClick()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime()
+                    ->toggleable()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
@@ -163,6 +180,10 @@ class DomainResource extends Resource
                 Action::make('detail')
                     ->label('Detail')
                     ->icon('heroicon-s-eye')
+                    ->button()
+                    ->extraAttributes([
+                        'style' => 'background-color: #2F6FDB; color: white;'
+                    ])
                     ->modalHeading('')
                     ->modalSubmitAction(false)
                     ->modalCancelActionLabel('')
@@ -203,8 +224,16 @@ class DomainResource extends Resource
                 </table>
             ");
                     }),
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\EditAction::make()
+                    ->button()
+                    ->extraAttributes([
+                        'style' => 'background-color: #facc15; color: black;'
+                    ]),
+                Tables\Actions\DeleteAction::make()
+                    ->button()
+                    ->extraAttributes([
+                        'style' => 'background-color: #dc2626; color: white;'
+                    ]),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

@@ -41,12 +41,12 @@ class KadisUnvalidated extends BaseWidget
 
             )
             ->columns([
-                TextColumn::make('tracer.name')
-                    ->label('Penelusuran dari')
-                    ->description(fn($record) => $record->tracer->domain)
-                    ->searchable(),
+                // TextColumn::make('news.url')
+                //     ->label('Penelusuran dari')
+                //    // ->description(fn($record) => $record->tracer->domain)
+                //     ->searchable(),
                 TextColumn::make('keyword')
-                    ->label('Kata kunci')
+                    ->label('Keyword')
                     ->searchable(),
                 TextColumn::make('url')
                     ->label('URL didapatkan')

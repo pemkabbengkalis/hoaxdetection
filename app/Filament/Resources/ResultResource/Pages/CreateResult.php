@@ -9,7 +9,15 @@ use App\Filament\Resources\ResultResource;
 use Filament\Resources\Pages\CreateRecord;
 use App\Models\User;
 use Illuminate\Support\Facades\Http;
+<<<<<<< HEAD
 use Carbon\Carbon;
+=======
+use App\Jobs\SendWhatsAppMessage;
+use Carbon\Carbon;
+use Filament\Notifications\Notification;
+
+
+>>>>>>> meldi-adrian
 
 
 class CreateResult extends CreateRecord
@@ -36,15 +44,20 @@ class CreateResult extends CreateRecord
         return $data;
     }
 
-    protected function afterCreate()
+    protected function afterCreate(): void
     {
+        SendWhatsAppMessage::dispatch(
+            $this->record->phone,
+            'Data berhasil dibuat'
+        );
 
-        //whatssapp notifikasi
+
+        //     //whatssapp notifikasi
         $token = config('services.whatsapp.token');
         $url   = config('services.whatsapp.url');
         $record = $this->record;
-        // $nokadis = User::whereRole('kadis')->first()?->no_hp;
 
+<<<<<<< HEAD
         // Http::post($url . '/message/send-text', [
         //     "session"  => $token,
         //     "to" => (new WhatsAppService)->normalizePhone($nokadis), // fonnte support multiple: "628xx,628yy"
@@ -52,6 +65,8 @@ class CreateResult extends CreateRecord
         // ]);                
 
 
+=======
+>>>>>>> meldi-adrian
         $nokadis = User::whereRole('kadis')->first()?->no_hp;
         $message = "🔔 *Informasi Ada Berita Hoax!*\n\n"
             . "📌 *Keyword:* {$record->keyword}\n"
@@ -60,6 +75,7 @@ class CreateResult extends CreateRecord
             . "📂 *Kategori:* {$record->category}\n"
             . "📊 *Status:* {$record->status}\n"
             . "📝 *Keterangan:* {$record->keterangan}\n"
+<<<<<<< HEAD
             //. "🕐 *Waktu:* " . now()->format('d-m-Y H:i:s');
             . "🕐 *Waktu:* " . Carbon::now('Asia/Jakarta')->format('d-m-Y H:i:s');
         Http::post($url . '/message/send-text', [
@@ -72,7 +88,18 @@ class CreateResult extends CreateRecord
 
         // WhatsAppService::send($message, $nokadis);
         return redirect('tracers')->with('success', 'Data berhasil disimpan');
+=======
+            . "🕐 Waktu: " . Carbon::now('Asia/Jakarta')->format('d-m-Y H:i:s');
+        Http::post($url . '/message/send-text', [
+            "session"  => $token,
+            $nokadis = User::whereRole('kadis')->first()?->no_hp,
+            app(WhatsAppService::class)->send($nokadis, $message),
+            "text" => $message,
+        ]);
+>>>>>>> meldi-adrian
     }
+
+
 
     private function getDomainExtension(string $url): string
     {
@@ -115,4 +142,13 @@ class CreateResult extends CreateRecord
 
     //end of redirect to list after create
     //-------------end of adrian---------------//
+
+    protected function afterSave(): void
+    {
+        Notification::make()
+            ->title('Data berhasil disimpan!')
+            ->success()
+            ->send();
+        //$this->redirect($this->getResource()::getUrl('index')); //untuk memberikan redirect setelah penyimpanan
+    }
 }

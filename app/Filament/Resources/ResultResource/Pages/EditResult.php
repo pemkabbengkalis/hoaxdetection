@@ -6,10 +6,18 @@ use Filament\Actions;
 use App\Models\Domain;
 use Filament\Resources\Pages\EditRecord;
 use App\Filament\Resources\ResultResource;
+use Filament\Notifications\Notification;
 
 class EditResult extends EditRecord
 {
     protected static string $resource = ResultResource::class;
+
+    //-----------hapus notifikasi save-----------------
+    protected function getSavedNotification(): ?Notification
+    {
+        return null;
+    }
+    //-----------end of hapus notifikasi save-----------------
 
     protected function getHeaderActions(): array
     {
@@ -55,4 +63,27 @@ class EditResult extends EditRecord
         return $this->getResource()::getUrl('index');
     }
     //end of redirect to list after create
+
+    protected function afterSave(): void
+    {
+        Notification::make()
+            ->title('Data berhasil diperbarui!')
+            ->success()
+            ->send();
+    }
+
+    protected function getFormActions(): array
+    {
+        return [
+            Actions\Action::make('save')
+                ->label('Simpan Perubahan')
+                ->submit('save')
+                ->color('gray'),
+
+            Actions\Action::make('cancel')
+                ->label('Batal') // ini yang mengganti "Cancel"
+                ->url($this->getResource()::getUrl()) // kembali ke halaman list
+                ->color('gray'), // optional biar mirip default
+        ];
+    }
 }

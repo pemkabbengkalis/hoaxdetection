@@ -65,6 +65,7 @@ class ResultResource extends Resource
         return parent::getEloquentQuery()
             ->with(['tracer', 'domain', 'validator',]);
     }
+
     public static function canViewAny(): bool
     {
         $user = Filament::auth()->user();
@@ -103,18 +104,19 @@ class ResultResource extends Resource
     {
         return $form
             ->schema([
-                Select::make('tracer_id')
-                    ->label('Tracer')
-                    ->required(fn($operation) => $operation === 'create')
-                    ->options(
-                        Tracer::query()
-                            ->pluck('domain', 'id')
-                            ->toArray()
-                    )
-                    ->searchable()
-                    ->validationMessages([
-                        'required' => 'Trace wajib dipilih',
-                    ]),
+                // Select::make('keywords_term')
+                //     ->label('Tracer')
+                //     ->required(fn($operation) => $operation === 'create')
+                //     ->options(
+                //         \App\Models\Keyword::query()
+                //             ->pluck('term', 'term')
+                //             ->toArray()
+                //     )
+                //     ->searchable()
+                //     ->validationMessages([
+                //         'required' => 'Trace wajib dipilih',
+                //     ]),
+
 
                 Forms\Components\TextInput::make('keyword')
                     ->required(fn($operation) => $operation === 'create')
@@ -188,7 +190,7 @@ class ResultResource extends Resource
                     ->required(fn($operation) => $operation === 'create')
                     ->label('Keterangan')
                     ->maxLength(255)
-                    ->columnSpanFull()
+                    //->columnSpanFull()
                     ->validationMessages([
                         'required' => 'keterangan wajib diisi',
                     ]),
@@ -294,8 +296,17 @@ class ResultResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\EditAction::make()
+                    ->button()
+                    ->extraAttributes([
+                        'style' => 'background-color: #facc15; color: black;'
+                    ]),
+                Tables\Actions\DeleteAction::make()
+                    ->label('Hapus')
+                    ->button()
+                    ->extraAttributes([
+                        'style' => 'background-color: #dc2626; color: white;'
+                    ]),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

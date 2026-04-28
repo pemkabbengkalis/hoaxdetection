@@ -1,0 +1,16 @@
+.fi-layout-sidebar {
+    background-color: #1a4ec9 !important;
+}
+
+.fi-layout-sidebar .fi-sidebar-item {
+    color: #cbd5f5 !important;
+}
+
+.fi-layout-sidebar .fi-sidebar-item:hover {
+    background-color: #1e293b !important;
+}
+
+.fi-layout-sidebar .fi-sidebar-item.fi-active {
+    background-color: #4f46e5 !important;
+    color: #ffffff !important;
+}

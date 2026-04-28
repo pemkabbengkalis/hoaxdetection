@@ -2,9 +2,10 @@
 
 namespace App\Filament\Resources\ResultResource\Pages;
 
-use App\Filament\Resources\ResultResource;
 use Filament\Actions;
+use Filament\Actions\Action;
 use Filament\Resources\Pages\ListRecords;
+use App\Filament\Resources\ResultResource;
 use App\Filament\Resources\ResultResource\Widgets\ResultOverview;
 
 
@@ -14,9 +15,22 @@ class ListResults extends ListRecords
     //-----------------adrian----------------------------------//
     // protected static bool $isLazy = true;
 
+    protected function getActions(): array
+    {
+        return [
+            Action::make('connect')
+                ->label('Connect WhatsApp')
+                ->icon('heroicon-o-chat-bubble-left-right')
+                ->action(function () {
+                    // logic kamu di sini
+                    // contoh: generate session / QR
+                }),
+        ];
+    }
     protected function getHeaderActions(): array
     {
         return [
+            
             Actions\CreateAction::make()
                 ->label('Tambah Data'),
         ];

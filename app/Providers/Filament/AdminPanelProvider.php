@@ -2,40 +2,33 @@
 
 namespace App\Providers\Filament;
 
-use Filament\Http\Middleware\Authenticate;
-use Filament\Http\Middleware\AuthenticateSession;
-use Filament\Http\Middleware\DisableBladeIconComponents;
-use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Pages;
 use Filament\Panel;
-use Filament\PanelProvider;
-use Filament\Support\Colors\Color;
-use Filament\Widgets;
-use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
-use Illuminate\Cookie\Middleware\EncryptCookies;
-use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
-use Illuminate\Routing\Middleware\SubstituteBindings;
-use Illuminate\Session\Middleware\StartSession;
-use Illuminate\View\Middleware\ShareErrorsFromSession;
-use Filament\Navigation\NavigationItem;
 use App\Models\User;
-use Filament\Support\Facades\FilamentAsset;
+use Filament\Widgets;
+use Filament\PanelProvider;
 use Filament\Support\Assets\Css;
+use Filament\Support\Colors\Color;
 use Filament\View\PanelsRenderHook;
+use Filament\Navigation\UserMenuItem;
+use Filament\Navigation\NavigationItem;
+use Filament\Http\Middleware\Authenticate;
+use Filament\Support\Facades\FilamentAsset;
 use Filament\Support\Facades\FilamentColor;
-
-
-
-
-
-
+use Illuminate\Session\Middleware\StartSession;
+use Illuminate\Cookie\Middleware\EncryptCookies;
+use Filament\Http\Middleware\AuthenticateSession;
+use Illuminate\Routing\Middleware\SubstituteBindings;
+use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Filament\Http\Middleware\DisableBladeIconComponents;
+use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
+use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
+use Filament\Enums\ThemeMode;
+use App\Filament\Pages\Auth\Login;
 
 class AdminPanelProvider extends PanelProvider
 {
-
-    //------------adrian-------------------------------------//
-
-
     public function boot(): void
 
     {
@@ -44,36 +37,54 @@ class AdminPanelProvider extends PanelProvider
             Css::make('login-bg', asset('login.css')),
         ]);
     }
-    //------------end of adrian------------------------------//
+
     public function panel(Panel $panel): Panel
     {
         return $panel
+
             ->default()
             //->spa()
             ->id('admin')
+            ->login(\App\Filament\Pages\Auth\Login::class)
             ->path('admin')
             ->brandName('Hoaxs Tracer')
             ->brandLogo(asset('storage/bengkalis.png'))
             ->brandLogoHeight('3rem')
             ->login()
+            ->darkMode(false)
+            ->defaultThemeMode(ThemeMode::Light)
+            ->navigationItems([
+                NavigationItem::make('WA Login')
+                    ->icon('heroicon-o-qr-code')
+                    ->group('Integrasi')
+                    ->sort(99) // biar di bawah
+                    ->url(url('/wa-login'), shouldOpenInNewTab: true)
+                    ->visible(fn() => auth()->check() && auth()->user()->role === 'admin'),
+
+            ])
+
             ->renderHook(
                 PanelsRenderHook::HEAD_END,
-                fn() => '
-        <link rel="manifest" href="/manifest.json">
-        <meta name="theme-color" content="#0f172a">
-    '
+                fn(): string => '<link rel="stylesheet" href="' . asset('css/custom.css') . '">'
             )
 
-            ->navigationItems([
-                NavigationItem::make('Contoh Keyword')
-                    ->icon('heroicon-s-book-open')
-                    ->url("javascript:window.open(
-            'https://docs.google.com/spreadsheets/d/10affbAEggTnIyGU4LSvNU-Dygaoq6-o9/edit?usp=sharing',
-            'popupWindow',
-            'width=1000,height=700,scrollbars=yes,resizable=yes'
-        )")
-                    ->sort(999),
-            ])
+    //         ->renderHook(
+    //             PanelsRenderHook::HEAD_END,
+    //             fn() => '
+    //     <link rel="manifest" href="/manifest.json">
+    //     <meta name="theme-color" content="#0f172a">
+    // '
+    //         )
+    //         ->navigationItems([
+    //             NavigationItem::make('Contoh Keyword')
+    //                 ->icon('heroicon-s-book-open')
+    //                 ->url("javascript:window.open(
+    //         'https://docs.google.com/spreadsheets/d/10affbAEggTnIyGU4LSvNU-Dygaoq6-o9/edit?usp=sharing',
+    //         'popupWindow',
+    //         'width=1000,height=700,scrollbars=yes,resizable=yes'
+    //     )")
+    //                 ->sort(999),
+    //         ])
             ->renderHook(
                 PanelsRenderHook::BODY_END,
                 fn() => '
@@ -85,8 +96,6 @@ class AdminPanelProvider extends PanelProvider
     '
             )
 
-
-            //-------------------adrian------------------------------------//
             ->colors([
 
                 'primary' => Color::Blue,
@@ -101,7 +110,7 @@ class AdminPanelProvider extends PanelProvider
             //         ->isActiveWhen(fn() => request()->routeIs('filament.admin.pages.dashboard'))
 
             // ])    
-            //------------------------end of adrian-------------------------//
+
 
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')

@@ -37,10 +37,10 @@ class Kadisdashboard extends BaseWidget
                 Result::query()->whereStatus('unvalidated')
             )
             ->columns([
-                TextColumn::make('tracer.name')
-                    ->label('Penelusuran dari')
-                    ->description(fn($record) => $record->tracer->domain)
-                    ->searchable(),
+                // TextColumn::make('news.url')
+                //     ->label('Penelusuran dari')
+                //     //->description(fn($record) => $record->tracer->domain)
+                //     ->searchable(),
                 TextColumn::make('keyword')
                     ->label('Kata kunci')
                     ->searchable(),
@@ -50,7 +50,7 @@ class Kadisdashboard extends BaseWidget
 
                 TextColumn::make('url')
                     ->label('URL didapatkan')
-                    // ->limit(25) // jumlah karakter
+                    ->limit(40) // jumlah karakter
                     ->tooltip(fn($record) => $record->url) // biar full URL muncul saat hover
                     ->description(
                         fn($record) =>
@@ -62,14 +62,14 @@ class Kadisdashboard extends BaseWidget
                         'hoax' => 'Hoax',
                         'fakta' => 'Fakta'
                     ])
-                    ->hidden(fn() => in_array(auth()->user()->role, ['admin', 'team',])),
+                    ->hidden(fn() => in_array(auth()->user()->role, ['admin', 'team', 'validator'])),
 
 
                 TextInputColumn::make('keterangan')
                     ->label('Keterangan')
                     ->placeholder('Isi keterangan...')
                     ->rules(['max:255'])
-                    ->hidden(fn() => in_array(auth()->user()->role, ['admin', 'team',]))
+                    ->hidden(fn() => in_array(auth()->user()->role, ['admin', 'team', 'validator']))
                     ->afterStateUpdated(function ($record, $state) {
                         $record->update([
                             'keterangan' => $state,
@@ -96,7 +96,7 @@ class Kadisdashboard extends BaseWidget
                 CheckboxColumn::make('status')
                     ->label('Status')
                     ->tooltip('Pastikan pilihan sudah sesuai')
-                    ->hidden(fn() => in_array(auth()->user()->role, ['admin', 'team']))
+                    ->hidden(fn() => in_array(auth()->user()->role, ['admin', 'team', 'validator']))
                     ->getStateUsing(fn($record) => $record?->status === 'validated')
                     ->updateStateUsing(function ($record, bool $state) {
 
@@ -128,7 +128,7 @@ class Kadisdashboard extends BaseWidget
                     ->wrap()
                     ->color('primary')
                     ->size(TextColumn\TextColumnSize::Small)
-                    ->hidden(fn() => in_array(auth()->user()->role, ['admin', 'team'])),
+                    ->hidden(fn() => in_array(auth()->user()->role, ['admin', 'team', 'validator'])),
 
 
                 //-------------------end of adrian----------------------------------------
