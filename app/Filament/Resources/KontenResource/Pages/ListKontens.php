@@ -14,13 +14,9 @@ class ListKontens extends ListRecords
     {
         return [
             Actions\CreateAction::make()
-<<<<<<< HEAD
-            ->label('Tambah Data'),
-=======
                 ->label('Tambah Data')
                 //->visible(fn() => auth()->user()->role !== 'validator'),
                 ->visible(fn() => !in_array(auth()->user()->role, ['team', 'validator'])) // Hanya tampilkan tombol tambah jika bukan validator,
->>>>>>> meldi-adrian
         ];
     }
 }
