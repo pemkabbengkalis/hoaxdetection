@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('news', function (Blueprint $table) {
             if (!Schema::hasColumn('news', 'url')) {
-                $table->text('url')->unique()->after('description');
+                $table->text('url')->after('description');
             }
         });
     }
