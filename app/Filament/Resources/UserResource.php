@@ -62,22 +62,6 @@ class UserResource extends Resource
         ];
     }
 
-
-    // public static function canViewAny(): bool
-    // {
-    //     /** @var User|null $user */
-    //     $user = Filament::auth()->user();
-
-    //     return $user?->hasAnyRole([
-    //         User::ROLE_ADMIN,
-    //         User::ROLE_TEAM,
-    //         User::ROLE_KADIS,
-    //         User::ROLE_VALIDATOR,
-    //     ]) ?? false;
-    // }
-
-
-
     protected static ?string $navigationIcon = 'heroicon-s-user-group';
 
     public static function form(Form $form): Form
