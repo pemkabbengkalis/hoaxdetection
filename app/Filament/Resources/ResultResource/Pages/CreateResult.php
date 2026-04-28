@@ -9,15 +9,11 @@ use App\Filament\Resources\ResultResource;
 use Filament\Resources\Pages\CreateRecord;
 use App\Models\User;
 use Illuminate\Support\Facades\Http;
-<<<<<<< HEAD
-use Carbon\Carbon;
-=======
 use App\Jobs\SendWhatsAppMessage;
 use Carbon\Carbon;
 use Filament\Notifications\Notification;
 
 
->>>>>>> meldi-adrian
 
 
 class CreateResult extends CreateRecord
@@ -57,16 +53,6 @@ class CreateResult extends CreateRecord
         $url   = config('services.whatsapp.url');
         $record = $this->record;
 
-<<<<<<< HEAD
-        // Http::post($url . '/message/send-text', [
-        //     "session"  => $token,
-        //     "to" => (new WhatsAppService)->normalizePhone($nokadis), // fonnte support multiple: "628xx,628yy"
-        //     "text" => 'hallo berhasil ya',
-        // ]);                
-
-
-=======
->>>>>>> meldi-adrian
         $nokadis = User::whereRole('kadis')->first()?->no_hp;
         $message = "🔔 *Informasi Ada Berita Hoax!*\n\n"
             . "📌 *Keyword:* {$record->keyword}\n"
@@ -75,20 +61,6 @@ class CreateResult extends CreateRecord
             . "📂 *Kategori:* {$record->category}\n"
             . "📊 *Status:* {$record->status}\n"
             . "📝 *Keterangan:* {$record->keterangan}\n"
-<<<<<<< HEAD
-            //. "🕐 *Waktu:* " . now()->format('d-m-Y H:i:s');
-            . "🕐 *Waktu:* " . Carbon::now('Asia/Jakarta')->format('d-m-Y H:i:s');
-        Http::post($url . '/message/send-text', [
-            "session"  => $token,
-            "to" => (new WhatsAppService)->normalizePhone($nokadis), // fonnte support multiple: "628xx,628yy"
-            "text" => $message,
-        ]);
-        // })->afterResponse();
-
-
-        // WhatsAppService::send($message, $nokadis);
-        return redirect('tracers')->with('success', 'Data berhasil disimpan');
-=======
             . "🕐 Waktu: " . Carbon::now('Asia/Jakarta')->format('d-m-Y H:i:s');
         Http::post($url . '/message/send-text', [
             "session"  => $token,
@@ -96,7 +68,6 @@ class CreateResult extends CreateRecord
             app(WhatsAppService::class)->send($nokadis, $message),
             "text" => $message,
         ]);
->>>>>>> meldi-adrian
     }
 
 
