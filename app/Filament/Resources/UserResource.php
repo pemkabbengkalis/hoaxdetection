@@ -22,7 +22,7 @@ class UserResource extends Resource
     protected static ?string $pluralModelLabel = 'User';
 
 
-    //---------------hanya bisa edit hapus user itu sendiri-----------------
+    //---------------hanya bisa edit hapus user itu sendiri---------------
     public static function getEloquentQuery(): Builder
     {
         $query = parent::getEloquentQuery();
