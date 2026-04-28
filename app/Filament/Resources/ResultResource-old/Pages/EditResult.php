@@ -1,0 +1,89 @@
+<?php
+
+namespace App\Filament\Resources\ResultResource\Pages;
+
+use Filament\Actions;
+use App\Models\Domain;
+use Filament\Resources\Pages\EditRecord;
+use App\Filament\Resources\ResultResource;
+use Filament\Notifications\Notification;
+
+class EditResult extends EditRecord
+{
+    protected static string $resource = ResultResource::class;
+
+    //-----------hapus notifikasi save-----------------
+    protected function getSavedNotification(): ?Notification
+    {
+        return null;
+    }
+    //-----------end of hapus notifikasi save-----------------
+
+    protected function getHeaderActions(): array
+    {
+        return [
+            Actions\DeleteAction::make(),
+        ];
+    }
+    protected function mutateFormDataBeforeSave(array $data): array
+    {
+        $domainName = $this->extractDomain($data['url']);
+
+        $domain = Domain::firstOrCreate([
+            'name' => $domainName,
+            'description' => '-',
+            'type' => 'media_online',
+            'extension' => 'id'
+        ]);
+
+        $data['domain_id'] = $domain->id;
+
+        return $data;
+    }
+    private function extractDomain(string $url): string
+    {
+        $host = parse_url($url, PHP_URL_HOST);
+
+        if (!$host) {
+            return '';
+        }
+
+        return preg_replace('/^www\./', '', $host);
+    }
+
+
+
+    //redirect to list after create
+    public function getHeading(): string
+    {
+        return '';
+    }
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
+    //end of redirect to list after create
+
+    protected function afterSave(): void
+    {
+        Notification::make()
+            ->title('Data berhasil diperbarui!')
+            ->success()
+            ->send();
+    }
+
+    protected function getFormActions(): array
+    {
+        return [
+            Actions\Action::make('save')
+                ->label('Simpan Perubahan')
+                ->submit('save')
+                ->color('gray'),
+
+            Actions\Action::make('cancel')
+                ->label('Batal') // ini yang mengganti "Cancel"
+                ->url($this->getResource()::getUrl()) // kembali ke halaman list
+                ->color('gray'), // optional biar mirip default
+        ];
+    }
+}
