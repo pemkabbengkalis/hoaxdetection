@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::table('kontens', function (Blueprint $table) {
             //
+            $table->text('konfirmasi')->nullable();
         });
     }
 
