@@ -117,13 +117,8 @@ class UserResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
                     ->searchable(),
-<<<<<<< HEAD
-                Tables\Columns\TextColumn::make('no_hp')
-                    ->searchable(),
-=======
                 // Tables\Columns\TextColumn::make('description')
                 //     ->searchable(),
->>>>>>> meldi-adrian
                 Tables\Columns\TextColumn::make('email_verified_at')
                     ->dateTime()
                     ->sortable(),
