@@ -79,11 +79,13 @@ class UserResource extends Resource
                     ->maxLength(255),
 
                 Forms\Components\DateTimePicker::make('email_verified_at')
-                    ->required(fn($operation) => $operation === 'create'),
+                    ->required(fn($operation) => $operation === 'create')
+                    ->hidden(fn() => auth()->user()->role !== 'admin'), // selain admin tidak bisa edit,
 
                 Forms\Components\TextInput::make('no_hp')
                     ->label('No Hp')
                     ->required(fn($operation) => $operation === 'create')
+                    ->hidden(fn() => auth()->user()->role !== 'admin')
                     ->maxLength(255),
 
                 Forms\Components\TextInput::make('password')
@@ -102,7 +104,8 @@ class UserResource extends Resource
                         User::ROLE_TEAM      => 'Team',
                         User::ROLE_VALIDATOR => 'Validator',
                     ])
-                    ->default(User::ROLE_TEAM),
+                    ->default(User::ROLE_TEAM)
+                    ->hidden(fn() => auth()->user()->role !== 'admin'), // selain admin tidak bisa edit,
 
 
             ]);
