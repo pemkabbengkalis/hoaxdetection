@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('kontens', function (Blueprint $table) {
-            //
+            //jhgg//
+            $table->text('konfirmasi')->nullable();
         });
     }
 
