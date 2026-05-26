@@ -10,6 +10,7 @@ use Coderflex\FilamentTurnstile\Forms\Components\TurnstileField;
 use Filament\Forms\Components\ViewField;
 
 
+
 class Login extends BaseLogin
 {
     public function getHeading(): string
@@ -29,11 +30,13 @@ class Login extends BaseLogin
 
     public function form(Form $form): Form
     {
-        return parent::form($form)
+        return $form
             ->schema([
-                ...parent::form($form)->getComponents(),
+                $this->getEmailFormComponent(),
+                $this->getPasswordFormComponent(),
+                $this->getRememberFormComponent(),
 
-                Turnstile::make('captcha')
+                Turnstile::make('turnstile')
                     ->theme('light')
                     ->language('id'),
             ]);

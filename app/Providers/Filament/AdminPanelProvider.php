@@ -50,7 +50,6 @@ class AdminPanelProvider extends PanelProvider
             ->brandName('Hoaxs Tracer')
             ->brandLogo(asset('storage/bengkalis.png'))
             ->brandLogoHeight('3rem')
-            ->login()
             ->darkMode(false)
             ->defaultThemeMode(ThemeMode::Light)
             ->navigationItems([
