@@ -37,7 +37,8 @@ class Login extends BaseLogin
                         Turnstile::make('captcha')
                             ->theme('light')
                             ->language('id')
-                            ->size('normal'),
+                            ->size('normal')
+                            ->required(),
                     ])
                     ->statePath('data'),
             ),
