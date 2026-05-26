@@ -8,6 +8,7 @@
     "require": {
         "php": "^8.2",
         "alareqi/filament-pwa": "^1.0",
+        "coderflex/filament-turnstile": "^2.4",
         "doctrine/dbal": "^4.4",
         "filament/filament": "3.3",
         "laravel/framework": "^12.0",
