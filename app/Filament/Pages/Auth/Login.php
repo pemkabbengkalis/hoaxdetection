@@ -8,6 +8,7 @@ use Filament\Pages\Auth\Login as BaseAuth;
 use Coderflex\FilamentTurnstile\Forms\Components\Turnstile;
 use Coderflex\FilamentTurnstile\Forms\Components\TurnstileField;
 use Filament\Forms\Components\ViewField;
+use Filament\Forms\Components\Checkbox;
 
 
 
@@ -39,6 +40,12 @@ class Login extends BaseLogin
                 Turnstile::make('turnstile')
                     ->theme('light')
                     ->language('id'),
+
+
+                Checkbox::make('agree')
+                    ->label('Saya setuju dan bukan bot')
+                    ->accepted()
+                    ->required(),
             ]);
     }
 }
