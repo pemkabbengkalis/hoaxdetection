@@ -39,7 +39,8 @@ class Login extends BaseLogin
 
                 Turnstile::make('turnstile')
                     ->theme('light')
-                    ->language('id'),
+                    ->language('id')
+                    ->size('normal'),
 
 
                 Checkbox::make('agree')
