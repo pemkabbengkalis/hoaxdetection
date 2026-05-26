@@ -49,4 +49,15 @@ class Login extends BaseLogin
                     ->required(),
             ]);
     }
+
+
+    protected function authenticate(): void
+    {
+        // ❌ BLOCK kalau checkbox belum dicentang
+        if (! $this->agree) {
+            $this->throwFailureValidationException();
+        }
+
+        parent::authenticate();
+    }
 }
