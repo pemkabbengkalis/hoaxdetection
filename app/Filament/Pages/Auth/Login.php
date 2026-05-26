@@ -40,7 +40,7 @@ class Login extends BaseLogin
                 Turnstile::make('turnstile')
                     ->theme('light')
                     ->language('id')
-                    ->appearance('always')
+                    // ->appearance('always')
                     ->execution('execute'),
 
 
