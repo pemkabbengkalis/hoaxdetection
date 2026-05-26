@@ -12,7 +12,7 @@ use Carbon\Carbon;
 class FetchNews extends Command
 {
     protected $signature = 'app:fetch-news';
-    protected $description = 'Fetch berita otomatis dari Google News RSS setiap 3 jam';
+    protected $description = 'Fetch berita otomatis dari Google News, dan simpan URL TikTok, Instagram, Facebook setiap 3 jam';
 
     public function handle()
     {
@@ -23,59 +23,89 @@ class FetchNews extends Command
         foreach ($keywords as $keyword) {
             $this->info("🔍 Processing keyword: {$keyword->term}");
 
-            $rssUrl = $this->buildRssUrl($keyword->term);
+            $urls = $this->buildRssUrl($keyword->term);
 
-            $response = Http::timeout(15)->get($rssUrl);
+            foreach ($urls as $platform => $rssUrl) {
+                $this->info("🔍 Processing {$platform} untuk keyword: {$keyword->term}");
 
-            if ($response->failed()) {
-                $this->error("❌ Gagal fetch RSS untuk {$keyword->term}");
-                continue;
-            }
+                // Hanya Google News & YouTube pakai Http::get()
+                if (in_array($platform, ['google_news', 'youtube'])) {
+                    $response = Http::timeout(15)->get($rssUrl);
 
-            $xml = @simplexml_load_string($response->body());
+                    if ($response->failed()) {
+                        $this->error("❌ Gagal fetch {$platform} untuk {$keyword->term}");
+                        continue;
+                    }
 
-            if (!$xml || !isset($xml->channel->item)) {
-                $this->warn("⚠️ RSS tidak valid untuk {$keyword->term}");
-                continue;
-            }
+                    $xml = @simplexml_load_string($response->body());
 
-            $newCount = 0;
+                    if (!$xml || !isset($xml->channel->item)) {
+                        $this->warn("⚠️ RSS tidak valid untuk {$platform} dan keyword {$keyword->term}");
+                        continue;
+                    }
 
-            foreach ($xml->channel->item as $item) {
-                $url = trim((string) $item->link);
+                    $newCount = 0;
+                    foreach ($xml->channel->item as $item) {
+                        $url = trim((string) $item->link);
 
-                if (!$url || News::where('url', $url)->exists()) {
-                    continue;
+                        if (!$url || News::where('url', $url)->exists()) {
+                            continue;
+                        }
+
+                        $title = $this->cleanText((string) $item->title);
+                        $descriptionHtml = (string) $item->description;
+                        $description = $this->cleanText($descriptionHtml);
+                        $source = $this->extractSource($descriptionHtml) ?? $platform;
+
+                        News::create([
+                            'keyword_id'   => $keyword->id,
+                            'title'        => Str::limit($title, 255),
+                            'description'  => Str::limit($description, 500),
+                            'url'          => $url,
+                            'source'       => $source,
+                            'published_at' => Carbon::parse((string) $item->pubDate),
+                        ]);
+
+                        $newCount++;
+                    }
+
+                    $this->info("✅ {$newCount} berita baru untuk '{$keyword->term}' di {$platform}");
+                } else {
+                    // TikTok / Instagram / Facebook → simpan URL agar tampil di tabel
+                    if (!News::where('url', $rssUrl)->exists()) {
+                        News::create([
+                            'keyword_id'   => $keyword->id,
+                            'title'        => ucfirst($platform) . " posts untuk '{$keyword->term}'",
+                            'description'  => "Link ke {$platform} untuk keyword '{$keyword->term}'",
+                            'url'          => $rssUrl,
+                            'source'       => $platform,
+                            'published_at' => Carbon::now(),
+                        ]);
+                        $this->info("✅ URL {$platform} disimpan untuk '{$keyword->term}'");
+                    } else {
+                        $this->info("ℹ️ URL {$platform} sudah ada di database untuk '{$keyword->term}'");
+                    }
                 }
-
-                $title = $this->cleanText((string) $item->title);
-                $descriptionHtml = (string) $item->description;
-
-                $description = $this->cleanText($descriptionHtml);
-                $source = $this->extractSource($descriptionHtml);
-
-                News::create([
-                    'keyword_id'   => $keyword->id,
-                    'title'        => Str::limit($title, 255),
-                    'description'  => Str::limit($description, 500),
-                    'url'          => $url,
-                    'source'       => $source,
-                    'published_at' => Carbon::parse((string) $item->pubDate),
-                ]);
-
-                $newCount++;
             }
-
-            $this->info("✅ {$newCount} berita baru untuk '{$keyword->term}'");
         }
 
         $this->info('🎉 Semua keyword selesai!');
     }
 
-    private function buildRssUrl(string $term): string
+    /**
+     * Build RSS / URL per platform
+     */
+    private function buildRssUrl(string $term): array
     {
         $searchTerm = urlencode($term);
-        return "https://news.google.com/rss/search?q={$searchTerm}&hl=id&gl=ID&ceid=ID:id";
+
+        return [
+            'google_news' => "https://news.google.com/rss/search?q={$searchTerm}&hl=id&gl=ID&ceid=ID:id",
+            'youtube'     => "https://www.youtube.com/feeds/videos.xml?search_query={$searchTerm}",
+            'tiktok'      => "https://www.tiktok.com/tag/{$searchTerm}",
+            'instagram'   => "https://www.instagram.com/explore/tags/{$searchTerm}/",
+            'facebook'    => "https://www.facebook.com/search/posts/?q={$searchTerm}",
+        ];
     }
 
     /**
@@ -85,9 +115,7 @@ class FetchNews extends Command
     {
         $text = html_entity_decode($text, ENT_QUOTES | ENT_HTML5, 'UTF-8');
         $text = strip_tags($text);
-        $text = trim($text);
-
-        return $text;
+        return trim($text);
     }
 
     /**
@@ -95,11 +123,9 @@ class FetchNews extends Command
      */
     private function extractSource(string $html): ?string
     {
-        // ambil isi <font> (biasanya sumber)
         if (preg_match('/<font.*?>(.*?)<\/font>/si', $html, $matches)) {
             $source = html_entity_decode($matches[1], ENT_QUOTES | ENT_HTML5, 'UTF-8');
             $source = strip_tags($source);
-
             return Str::limit(trim($source), 255);
         }
 
