@@ -43,4 +43,5 @@ class Login extends BaseLogin
             ),
         ];
     }
+    //-----------------------cloudflare captcha--------------------------------
 }
