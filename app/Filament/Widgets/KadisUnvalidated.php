@@ -98,6 +98,7 @@ class KadisUnvalidated extends BaseWidget
                     ->label('Jadikan Fakta')
                     ->icon('heroicon-o-check-circle')
                     ->color('success')
+                    //hide button jika bukan admin atau kadis
                     ->visible(fn(): bool => in_array(
                         auth()->user()?->role,
                         ['admin', 'kadis']

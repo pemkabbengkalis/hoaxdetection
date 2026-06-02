@@ -100,6 +100,7 @@ class KadisFakta extends BaseWidget
                     ->label('Jadikan Hoax')
                     ->icon('heroicon-o-x-circle')
                     ->color('danger')
+                    //hide button jika bukan admin atau kadis
                     ->visible(fn(): bool => in_array(
                         auth()->user()?->role,
                         ['admin', 'kadis']
