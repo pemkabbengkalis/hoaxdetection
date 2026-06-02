@@ -50,7 +50,7 @@ class AdminPanelProvider extends PanelProvider
             ->brandName('Hoaxs Tracer')
             ->brandLogo(asset('storage/bengkalis.png'))
             ->brandLogoHeight('3rem')
-            ->login()
+            //->login()
             ->darkMode(false)
             ->defaultThemeMode(ThemeMode::Light)
             ->navigationItems([
@@ -68,23 +68,23 @@ class AdminPanelProvider extends PanelProvider
                 fn(): string => '<link rel="stylesheet" href="' . asset('css/custom.css') . '">'
             )
 
-    //         ->renderHook(
-    //             PanelsRenderHook::HEAD_END,
-    //             fn() => '
-    //     <link rel="manifest" href="/manifest.json">
-    //     <meta name="theme-color" content="#0f172a">
-    // '
-    //         )
-    //         ->navigationItems([
-    //             NavigationItem::make('Contoh Keyword')
-    //                 ->icon('heroicon-s-book-open')
-    //                 ->url("javascript:window.open(
-    //         'https://docs.google.com/spreadsheets/d/10affbAEggTnIyGU4LSvNU-Dygaoq6-o9/edit?usp=sharing',
-    //         'popupWindow',
-    //         'width=1000,height=700,scrollbars=yes,resizable=yes'
-    //     )")
-    //                 ->sort(999),
-    //         ])
+            //         ->renderHook(
+            //             PanelsRenderHook::HEAD_END,
+            //             fn() => '
+            //     <link rel="manifest" href="/manifest.json">
+            //     <meta name="theme-color" content="#0f172a">
+            // '
+            //         )
+            //         ->navigationItems([
+            //             NavigationItem::make('Contoh Keyword')
+            //                 ->icon('heroicon-s-book-open')
+            //                 ->url("javascript:window.open(
+            //         'https://docs.google.com/spreadsheets/d/10affbAEggTnIyGU4LSvNU-Dygaoq6-o9/edit?usp=sharing',
+            //         'popupWindow',
+            //         'width=1000,height=700,scrollbars=yes,resizable=yes'
+            //     )")
+            //                 ->sort(999),
+            //         ])
             ->renderHook(
                 PanelsRenderHook::BODY_END,
                 fn() => '
