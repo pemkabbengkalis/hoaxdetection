@@ -100,6 +100,10 @@ class KadisFakta extends BaseWidget
                     ->label('Jadikan Hoax')
                     ->icon('heroicon-o-x-circle')
                     ->color('danger')
+                    ->visible(fn(): bool => in_array(
+                        auth()->user()?->role,
+                        ['admin', 'kadis']
+                    ))
                     ->requiresConfirmation()
                     ->modalHeading('Ubah Menjadi Hoax')
                     ->modalDescription('Apakah Anda yakin berita ini termasuk HOAX?')

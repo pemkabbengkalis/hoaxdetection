@@ -98,6 +98,10 @@ class KadisUnvalidated extends BaseWidget
                     ->label('Jadikan Fakta')
                     ->icon('heroicon-o-check-circle')
                     ->color('success')
+                    ->visible(fn(): bool => in_array(
+                        auth()->user()?->role,
+                        ['admin', 'kadis']
+                    ))
                     ->requiresConfirmation()
                     ->modalHeading('Verifikasi Fakta')
                     ->modalDescription('Apakah Anda yakin berita ini termasuk FAKTA?')
