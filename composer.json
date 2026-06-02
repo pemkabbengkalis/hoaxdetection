@@ -7,6 +7,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "afatmustafa/filamentv3-turnstile": "^1.2",
         "alareqi/filament-pwa": "^1.0",
         "coderflex/filament-turnstile": "^2.4",
         "doctrine/dbal": "^4.4",
