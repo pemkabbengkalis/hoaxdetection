@@ -2,21 +2,18 @@
 
 namespace App\Filament\Widgets;
 
-use Filament\Tables;
 use App\Models\Result;
+use Filament\Forms;
 use Filament\Tables\Table;
-use Illuminate\Support\Collection;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Columns\ToggleColumn;
 use Filament\Widgets\TableWidget as BaseWidget;
-use Filament\Tables\Actions\BulkAction;
-
-use function Symfony\Component\String\s;
+use Filament\Notifications\Notification;
 
 class KadisUnvalidated extends BaseWidget
 {
-    protected static ?string $heading = 'Hoax';
+    protected static ?string $heading = 'Verifikasi Hoax';
+
     protected static ?int $sort = 5;
 
     protected int|string|array $columnSpan = 'full';
@@ -26,54 +23,103 @@ class KadisUnvalidated extends BaseWidget
         return $table
             ->poll('1s')
             ->query(
-                // Result::query()->whereStatus('validated')->Where('category', 'hoax'),
-
-                $results = Result::query()
-                    ->where(function ($query) {
-                        $query->where('status', 'validated')
-                            ->where('category', 'hoax')
-                            ->orWhere(function ($q) {
-                                $q->where('status', 'fakta')
-                                    ->where('category', 'fakta');
-                            });
-                    })
-
-
+                Result::query()
+                    ->where('status', 'validated')
+                    ->where('category', 'hoax')
+                    ->latest()
             )
             ->columns([
-                // TextColumn::make('news.url')
-                //     ->label('Penelusuran dari')
-                //    // ->description(fn($record) => $record->tracer->domain)
-                //     ->searchable(),
                 TextColumn::make('keyword')
                     ->label('Keyword')
-                    ->searchable(),
+                    ->searchable()
+                    ->weight('bold'),
+
                 TextColumn::make('url')
-                    ->label('URL didapatkan')
-                    ->limit(40) // jumlah karakter
-                    ->tooltip(fn($record) => $record->url) // biar full URL muncul saat hover
+                    ->label('URL Didapatkan')
+                    ->limit(50)
+                    ->tooltip(fn (Result $record) => $record->url)
                     ->description(
-                        fn($record) =>
-                        'Publikasi pada : ' . $record->published_at->format('d F Y')
+                        fn (Result $record) =>
+                        $record->published_at
+                            ? 'Publikasi: ' . $record->published_at->format('d F Y')
+                            : null
                     ),
+
                 TextColumn::make('keterangan')
                     ->label('Keterangan')
-                    ->searchable(),
+                    ->limit(100)
+                    ->tooltip(fn (Result $record) => $record->keterangan)
+                    ->wrap(),
 
-                // ->description(fn($record) => 'Publikasi pada : ' . $record->published_at->format('d F Y')),
-
-
+                TextColumn::make('category')
+                    ->label('Status')
+                    ->badge()
+                    ->formatStateUsing(fn (?string $state) => strtoupper($state ?? '-'))
+                    ->color(fn (?string $state) => match ($state) {
+                        'fakta' => 'success',
+                        'hoax' => 'danger',
+                        default => 'gray',
+                    }),
             ])
             ->actions([
+
+                Action::make('edit_keterangan')
+                    ->label('Edit Keterangan')
+                    ->icon('heroicon-o-pencil-square')
+                    ->color('warning')
+                    ->fillForm(fn (Result $record): array => [
+                        'keterangan' => $record->keterangan,
+                    ])
+                    ->form([
+                        Forms\Components\Textarea::make('keterangan')
+                            ->label('Keterangan')
+                            ->rows(5)
+                            ->required()
+                            ->maxLength(1000),
+                    ])
+                    ->action(function (Result $record, array $data): void {
+
+                        $record->update([
+                            'keterangan' => $data['keterangan'],
+                        ]);
+
+                        Notification::make()
+                            ->title('Berhasil')
+                            ->body('Keterangan berhasil diperbarui.')
+                            ->success()
+                            ->send();
+                    }),
+
+                Action::make('jadikan_fakta')
+                    ->label('Jadikan Fakta')
+                    ->icon('heroicon-o-check-circle')
+                    ->color('success')
+                    ->requiresConfirmation()
+                    ->modalHeading('Verifikasi Fakta')
+                    ->modalDescription('Apakah Anda yakin berita ini termasuk FAKTA?')
+                    ->action(function (Result $record): void {
+
+                        $record->update([
+                            'status'   => 'validated',
+                            'category' => 'fakta',
+                        ]);
+
+                        Notification::make()
+                            ->title('Berhasil')
+                            ->body('Berita berhasil dipindahkan ke kategori Fakta.')
+                            ->success()
+                            ->send();
+                    }),
+
                 Action::make('lihat_berita')
                     ->label('Lihat Berita')
                     ->icon('heroicon-o-eye')
-                    ->url(fn($record) => $record->url)
+                    ->url(fn (Result $record) => $record->url)
                     ->openUrlInNewTab()
                     ->button()
-                    ->outlined()        // style outline
-                    ->color('primary')
+                    ->outlined()
+                    ->color('primary'),
             ])
-            ->paginated(false); // dashboard biasanya tanpa pagination
+            ->paginated(false);
     }
 }
