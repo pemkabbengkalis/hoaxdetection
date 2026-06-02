@@ -24,25 +24,25 @@ class Login extends BaseLogin
         return 'Masuk';
     }
 
-    protected function getForms(): array
-    {
-        return [
-            'form' => $this->form(
-                $this->makeForm()
-                    ->schema([
-                        $this->getEmailFormComponent(),
-                        $this->getPasswordFormComponent(),
-                        $this->getRememberFormComponent(),
+    // protected function getForms(): array
+    // {
+    //     return [
+    //         'form' => $this->form(
+    //             $this->makeForm()
+    //                 ->schema([
+    //                     $this->getEmailFormComponent(),
+    //                     $this->getPasswordFormComponent(),
+    //                     $this->getRememberFormComponent(),
 
-                        Turnstile::make('captcha')
-                            ->theme('light')
-                            ->language('id')
-                            ->size('normal')
-                            ->required(),
-                    ])
-                    ->statePath('data'),
-            ),
-        ];
-    }
-    //-----------------------cloudflare--------------------------------
+    //                     Turnstile::make('captcha')
+    //                         ->theme('light')
+    //                         ->language('id')
+    //                         ->size('normal')
+    //                         ->required(),
+    //                 ])
+    //                 ->statePath('data'),
+    //         ),
+    //     ];
+    // }
+    // //-----------------------cloudflare--------------------------------
 }

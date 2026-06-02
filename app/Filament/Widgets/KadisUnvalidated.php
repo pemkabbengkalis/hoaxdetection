@@ -37,9 +37,9 @@ class KadisUnvalidated extends BaseWidget
                 TextColumn::make('url')
                     ->label('URL Didapatkan')
                     ->limit(50)
-                    ->tooltip(fn (Result $record) => $record->url)
+                    ->tooltip(fn(Result $record) => $record->url)
                     ->description(
-                        fn (Result $record) =>
+                        fn(Result $record) =>
                         $record->published_at
                             ? 'Publikasi: ' . $record->published_at->format('d F Y')
                             : null
@@ -48,14 +48,14 @@ class KadisUnvalidated extends BaseWidget
                 TextColumn::make('keterangan')
                     ->label('Keterangan')
                     ->limit(100)
-                    ->tooltip(fn (Result $record) => $record->keterangan)
+                    ->tooltip(fn(Result $record) => $record->keterangan)
                     ->wrap(),
 
                 TextColumn::make('category')
                     ->label('Status')
                     ->badge()
-                    ->formatStateUsing(fn (?string $state) => strtoupper($state ?? '-'))
-                    ->color(fn (?string $state) => match ($state) {
+                    ->formatStateUsing(fn(?string $state) => strtoupper($state ?? '-'))
+                    ->color(fn(?string $state) => match ($state) {
                         'fakta' => 'success',
                         'hoax' => 'danger',
                         default => 'gray',
@@ -67,7 +67,11 @@ class KadisUnvalidated extends BaseWidget
                     ->label('Edit Keterangan')
                     ->icon('heroicon-o-pencil-square')
                     ->color('warning')
-                    ->fillForm(fn (Result $record): array => [
+                    ->visible(fn(): bool => in_array(
+                        auth()->user()?->role,
+                        ['admin', 'kadis']
+                    ))
+                    ->fillForm(fn(Result $record): array => [
                         'keterangan' => $record->keterangan,
                     ])
                     ->form([
@@ -114,7 +118,7 @@ class KadisUnvalidated extends BaseWidget
                 Action::make('lihat_berita')
                     ->label('Lihat Berita')
                     ->icon('heroicon-o-eye')
-                    ->url(fn (Result $record) => $record->url)
+                    ->url(fn(Result $record) => $record->url)
                     ->openUrlInNewTab()
                     ->button()
                     ->outlined()
