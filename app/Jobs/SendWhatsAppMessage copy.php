@@ -31,17 +31,14 @@ class SendWhatsAppMessage implements ShouldQueue
     public int $timeout = 60;
 
     /**
-     * Property harus public agar serialisasi/deserialisasi Queue berfungsi.
-     * Menggunakan format non-promoted agar kompatibel dengan job lama di database.
+     * Jumlah detik unik lock agar job yang sama tidak di-dispatch berulang.
      */
-    public string $phone;
-    public string $message;
+    public int $uniqueFor = 300; // 5 menit
 
-    public function __construct(string $phone, string $message)
-    {
-        $this->phone = $phone;
-        $this->message = $message;
-    }
+    public function __construct(
+        public string $phone,
+        public string $message
+    ) {}
 
     /**
      * Execute the job.
@@ -74,9 +71,13 @@ class SendWhatsAppMessage implements ShouldQueue
     public function failed(?\Throwable $exception): void
     {
         Log::error('SendWhatsAppMessage: GAGAL setelah semua retry', [
-            'phone'   => $this->phone ?? 'unknown',
-            'message' => $this->message ?? 'unknown',
+            'phone'   => $this->phone,
+            'message' => $this->message,
             'error'   => $exception?->getMessage(),
         ]);
+
+        // Bisa tambahkan notifikasi ke admin di sini jika perlu
+        // Notification::route('mail', 'admin@example.com')
+        //     ->notify(new WhatsAppFailedNotification($this->phone, $this->message));
     }
 }
