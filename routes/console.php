@@ -2,32 +2,31 @@
 
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Schedule;
 use Illuminate\Support\Facades\Storage;
 
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote');
 
-
 Artisan::command('livewire:cleanup-temp', function () {
-    $disk = Storage::disk('local');
+    $directory = storage_path('app/private/livewire-tmp');
 
-    $directory = 'livewire-tmp';
-
-    if (! $disk->exists($directory)) {
+    if (! is_dir($directory)) {
         $this->info('Folder livewire-tmp tidak ditemukan.');
-        return;
+        return self::SUCCESS;
     }
 
-    foreach ($disk->allFiles($directory) as $file) {
-        $disk->delete($file);
+    $files = glob($directory . '/*');
+    $deleted = 0;
+
+    foreach ($files as $file) {
+        if (is_file($file)) {
+            unlink($file);
+            $deleted++;
+        }
     }
 
-    $this->info('Temporary Livewire files berhasil dibersihkan.');
+    $this->info("Berhasil menghapus {$deleted} file temporary.");
+
+    return self::SUCCESS;
 })->purpose('Clean Livewire temporary upload files');
-
-
-Schedule::command('livewire:cleanup-temp')
-    ->everyMinute()
-    ->withoutOverlapping();
