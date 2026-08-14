@@ -3,6 +3,7 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Console\Scheduling\Schedule;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -15,5 +16,15 @@ return Application::configure(basePath: dirname(__DIR__))
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
-    })->create()
-    ->usePublicPath(is_dir(__DIR__ . '/../../../public_html') ?  __DIR__ . '/../../../public_html'  : null);
+    })
+    ->withSchedule(function (Schedule $schedule): void {
+        $schedule->command('livewire:cleanup-temp')
+            ->everyMinute()
+            ->withoutOverlapping();
+    })
+    ->create()
+    ->usePublicPath(
+        is_dir(__DIR__ . '/../../../public_html')
+            ? __DIR__ . '/../../../public_html'
+            : null
+    );
