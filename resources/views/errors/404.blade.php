@@ -128,7 +128,7 @@
     
     <div class="container">
         <h1 class="error-code">404</h1>
-        <img src="/img/monkey.jpg" alt="Monyet Judging" class="monkey-img">
+        <img src="{{ asset('img/monkey.jpg') }}" alt="Monyet Judging" class="monkey-img">
         <p class="message">"woy monyet kurang kerjaan ya kalian"</p>
         <a href="{{ url('/') }}" class="btn">Kembali ke Habitat</a>
     </div>
