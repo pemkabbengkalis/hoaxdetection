@@ -58,11 +58,11 @@ class FetchNews extends Command
                         $source = $this->extractSource($descriptionHtml) ?? $platform;
 
                         News::create([
-                            'keyword_id'   => $keyword->id,
-                            'title'        => Str::limit($title, 255),
-                            'description'  => Str::limit($description, 500),
-                            'url'          => $url,
-                            'source'       => $source,
+                            'keyword_id' => $keyword->id,
+                            'title' => Str::limit($title, 255),
+                            'description' => Str::limit($description, 500),
+                            'url' => $url,
+                            'source' => $source,
                             'published_at' => Carbon::parse((string) $item->pubDate),
                         ]);
 
@@ -74,11 +74,11 @@ class FetchNews extends Command
                     // TikTok / Instagram / Facebook → simpan URL agar tampil di tabel
                     if (!News::where('url', $rssUrl)->exists()) {
                         News::create([
-                            'keyword_id'   => $keyword->id,
-                            'title'        => ucfirst($platform) . " posts untuk '{$keyword->term}'",
-                            'description'  => "Link ke {$platform} untuk keyword '{$keyword->term}'",
-                            'url'          => $rssUrl,
-                            'source'       => $platform,
+                            'keyword_id' => $keyword->id,
+                            'title' => ucfirst($platform) . " posts untuk '{$keyword->term}'",
+                            'description' => "Link ke {$platform} untuk keyword '{$keyword->term}'",
+                            'url' => $rssUrl,
+                            'source' => $platform,
                             'published_at' => Carbon::now(),
                         ]);
                         $this->info("✅ URL {$platform} disimpan untuk '{$keyword->term}'");
@@ -95,15 +95,37 @@ class FetchNews extends Command
     /**
      * Build RSS / URL per platform
      */
+    // private function buildRssUrl(string $term): array
+    // {
+    //     $searchTerm = urlencode($term);
+
+    //     return [
+    //         'google_news' => "https://news.google.com/rss/search?q={$searchTerm}&hl=id&gl=ID&ceid=ID:id",
+    //         'youtube'     => "https://www.youtube.com/feeds/videos.xml?search_query={$searchTerm}",
+    //         'tiktok'      => "https://www.tiktok.com/tag/{$searchTerm}",
+    //         'instagram'   => "https://www.instagram.com/explore/tags/{$searchTerm}/",
+    //         'facebook'    => "https://www.facebook.com/search/posts/?q={$searchTerm}",
+    //     ];
+    // }
+
+    /**
+     * Build RSS / URL per platform (versi baru dengan hashtag)
+     */
     private function buildRssUrl(string $term): array
     {
+        // Untuk mesin pencari / query
         $searchTerm = urlencode($term);
+
+        // Untuk hashtag: buang tanda kutip, spasi, dan karakter khusus
+        $hashtag = strtolower(
+            preg_replace('/[^a-zA-Z0-9]/', '', $term)
+        );
 
         return [
             'google_news' => "https://news.google.com/rss/search?q={$searchTerm}&hl=id&gl=ID&ceid=ID:id",
             'youtube'     => "https://www.youtube.com/feeds/videos.xml?search_query={$searchTerm}",
-            'tiktok'      => "https://www.tiktok.com/tag/{$searchTerm}",
-            'instagram'   => "https://www.instagram.com/explore/tags/{$searchTerm}/",
+            'tiktok'      => "https://www.tiktok.com/tag/{$hashtag}",
+            'instagram'   => "https://www.instagram.com/explore/tags/{$hashtag}/",
             'facebook'    => "https://www.facebook.com/search/posts/?q={$searchTerm}",
         ];
     }
