@@ -13,11 +13,33 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
+use Illuminate\Database\Eloquent\Model;
+
 class ManualBookResource extends Resource
 {
     protected static ?string $model = ManualBook::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+
+    public static function canCreate(): bool
+    {
+        return auth()->user()?->role === \App\Models\User::ROLE_ADMIN;
+    }
+
+    public static function canEdit(Model $record): bool
+    {
+        return auth()->user()?->role === \App\Models\User::ROLE_ADMIN;
+    }
+
+    public static function canDelete(Model $record): bool
+    {
+        return auth()->user()?->role === \App\Models\User::ROLE_ADMIN;
+    }
+
+    public static function canDeleteAny(): bool
+    {
+        return auth()->user()?->role === \App\Models\User::ROLE_ADMIN;
+    }
 
     public static function form(Form $form): Form
     {
@@ -61,11 +83,20 @@ class ManualBookResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\Action::make('download')
+                    ->label('Download PDF')
+                    ->icon('heroicon-o-arrow-down-tray')
+                    ->url(fn (ManualBook $record) => asset('storage/' . $record->file_path))
+                    ->openUrlInNewTab(),
+                Tables\Actions\EditAction::make()
+                    ->visible(fn () => auth()->user()?->role === \App\Models\User::ROLE_ADMIN),
+                Tables\Actions\DeleteAction::make()
+                    ->visible(fn () => auth()->user()?->role === \App\Models\User::ROLE_ADMIN),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\DeleteBulkAction::make()
+                        ->visible(fn () => auth()->user()?->role === \App\Models\User::ROLE_ADMIN),
                 ]),
             ]);
     }

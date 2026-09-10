@@ -9,4 +9,10 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateManualBook extends CreateRecord
 {
     protected static string $resource = ManualBookResource::class;
+
+    protected function getCreateFormAction(): Actions\Action
+    {
+        return parent::getCreateFormAction()
+            ->label('Tambah Data');
+    }
 }
