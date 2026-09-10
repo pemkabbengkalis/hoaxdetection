@@ -10,11 +10,13 @@ use Filament\Tables;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\KeyValue;
-use Spatie\Activitylog\Models\Activity;
+use App\Models\ActivityLog;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Schema;
 
 class ActivityResource extends Resource
 {
-    protected static ?string $model = Activity::class;
+    protected static ?string $model = ActivityLog::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-clock';
     protected static ?string $navigationGroup = 'Settings';
@@ -42,6 +44,7 @@ class ActivityResource extends Resource
                     ->disabled(),
                 KeyValue::make('properties')
                     ->label('Properties')
+                    ->formatStateUsing(fn ($state) => is_iterable($state) ? (is_array($state) ? $state : $state->toArray()) : [])
                     ->disabled()
                     ->columnSpanFull(),
                 DateTimePicker::make('created_at')
@@ -62,12 +65,23 @@ class ActivityResource extends Resource
                 Tables\Columns\TextColumn::make('description')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('event')
-                    ->searchable(),
+                    ->searchable(Schema::hasColumn((new ActivityLog)->getTable(), 'event'))
+                    ->sortable(Schema::hasColumn((new ActivityLog)->getTable(), 'event'))
+                    ->toggleable(),
                 Tables\Columns\TextColumn::make('subject_type')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('causer.name')
                     ->label('User')
-                    ->searchable(),
+                    ->getStateUsing(fn ($record) => $record->causer_name ?? '-')
+                    ->searchable(query: function (Builder $query, string $search): Builder {
+                        return $query->where(function (Builder $query) use ($search) {
+                            if (class_exists(\App\Models\User::class)) {
+                                $query->whereHasMorph('causer', [\App\Models\User::class], function (Builder $q) use ($search) {
+                                    $q->where('name', 'like', "%{$search}%");
+                                });
+                            }
+                        });
+                    }),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Waktu')
                     ->dateTime()
