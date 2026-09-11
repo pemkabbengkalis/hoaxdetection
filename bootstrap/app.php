@@ -21,6 +21,10 @@ return Application::configure(basePath: dirname(__DIR__))
         $schedule->command('livewire:cleanup-temp')
             ->everyMinute()
             ->withoutOverlapping();
+
+        $schedule->command('app:fetch-news')
+            ->everyThreeHours()
+            ->withoutOverlapping();
     })
     ->create()
     ->usePublicPath(
