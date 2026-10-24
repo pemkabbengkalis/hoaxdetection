@@ -1,0 +1,13 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # 1. Blokir akses langsung ke file sensitif sistem
+    RewriteRule ^(\.env|\.git|\.svn|composer\.(json|lock)|package\.json|phpunit\.xml) - [F,L,NC]
+
+    # 2. Blokir akses langsung ke direktori kode & database internal
+    RewriteRule ^(app|bootstrap|config|database|resources|routes|storage|tests)/ - [F,L,NC]
+
+    # 3. Teruskan request ke folder public/ jika DocumentRoot server belum mengarah ke public/
+    RewriteCond %{REQUEST_URI} !^/public/
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>
